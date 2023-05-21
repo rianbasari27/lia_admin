@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\LaporanMasukController;
 use App\Http\Controllers\ReparasiController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\SparepartController;
@@ -35,4 +36,5 @@ Route::resource('/pembelian_sparepart', PembelianController::class)->middleware(
 Route::resource('/list_sparepart', SparepartController::class)->middleware('auth');
 Route::resource('/transaksi_keluar', TransaksiKeluarController::class)->middleware('auth');
 Route::resource('/transaksi_masuk', TransaksiMasukController::class)->middleware('auth');
+Route::resource('/laporan_pemasukan', LaporanMasukController::class)->middleware('auth');
 

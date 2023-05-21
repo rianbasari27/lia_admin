@@ -31,7 +31,7 @@
                     @foreach ($detail as $item)
                         <div class="flex">
                             <div class="mr-1 w-56">{{ $item->tujuan_transaksi }}</div>
-                            <div class="mr-1 w-52">Rp {{ $item->nominal }}</div>
+                            <div class="mr-1 w-52">Rp {{ number_format($item->nominal, 0, ',', '.') }}</div>
                             <div class="mr-1">
                                 @if ($item->keterangan === null)
                                     -
@@ -45,7 +45,7 @@
             </tr>
             <tr class="border-b border-slate-300">
                 <td class="font-semibold text-slate-600 py-3 w-[400px]">Total Pembayaran</td>
-                <td class="font-semibold text-slate-600 py-3">Rp {{ $data->total }}</td>
+                <td class="font-semibold text-slate-600 py-3">Rp {{ number_format($data->total, 0, ',', '.') }}</td>
             </tr>
         </table>
 

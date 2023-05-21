@@ -10,6 +10,8 @@ use App\Models\ReparasiDetail;
 use App\Models\ReparasiHeader;
 use App\Models\TransaksiMasuk;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Validator;
 
 class ReparasiController extends Controller
 {
@@ -21,78 +23,116 @@ class ReparasiController extends Controller
         
         $title = "Reparasi";
         $jenis_barang = JenisBarang::all();
+
         if( $request->has('kode_reparasi') || 
             $request->has('nama_customer') || 
-            $request->has('status_pembayaran')) {
-            $data = ReparasiHeader::select(
-                'reparasi_header.kode_reparasi',
-                'nama_customer_id',
-                'nama_customer',
-                'nama_barang_id',
-                'nama_barang',
-                'tanggal',
-                'status_pembayaran',
-                'total',
+            $request->has('status_pembayaran') ||
+            $request->has('tanggal_mulai') || 
+            $request->has('tanggal_sampai') ||
+            $request->has('nama_barang_id') 
+            ) {
+                $data = DB::table('reparasi_header as a')
+                ->join('customer as b', 'a.nama_customer_id', '=', 'b.id')
+                ->join('reparasi_detail as c', 'a.kode_reparasi', '=', 'c.kode_reparasi')
+                ->join('jenis_barang as d', 'c.nama_barang_id','=','d.id')
+                ->select(
+                'a.kode_reparasi'
+                ,'a.tanggal'
+                ,'a.total'
+                ,'a.status_pembayaran'
+                ,'b.nama_customer'
+                ,DB::raw("GROUP_CONCAT(d.nama_barang) as nama_barang")
                 )
-                ->join('reparasi_detail', 'reparasi_header.kode_reparasi', '=', 'reparasi_detail.kode_reparasi')
-                ->join('jenis_barang', 'reparasi_detail.nama_barang_id', '=', 'jenis_barang.id')
-                ->join('customer', 'reparasi_header.nama_customer_id', '=', 'customer.id')
-                ->where('reparasi_header.kode_reparasi', 'like', '%' . $request->kode_reparasi. '%')
-                ->where('nama_customer', 'like', '%' . $request->nama_customer .'%')
-                ->where('status_pembayaran', 'like', $request->status_pembayaran. '%')
-                ->groupBy('reparasi_header.kode_reparasi')
-                ->orderBy('reparasi_detail.updated_at', 'desc')
+                ->where('a.kode_reparasi', 'like', '%' . $request->kode_reparasi. '%')
+                ->where('b.nama_customer', 'like', '%' . $request->nama_customer .'%')
+                ->where('a.status_pembayaran', 'like', $request->status_pembayaran. '%')
+                // ->where('a.tanggal', '>=', $request->tanggal_mulai)
+                // ->where('a.tanggal', '<=', $request->tanggal_sampai)
+                // ->whereBetween('tanggal', [$request->tanggal_mulai, $request->tanggal_sampai])
+                // ->whereIn('c.nama_barang_id', $request->nama_barang_id)
+                ->groupBy('a.kode_reparasi'
+                ,'a.tanggal'
+                ,'a.total'
+                ,'a.status_pembayaran'
+                ,'b.nama_customer')
+                ->orderByDesc('a.updated_at')
+                // ->get()
                 ->paginate(10);
+                // dd($request->all());
+
+            // $data = ReparasiHeader::select(
+            //     'reparasi_header.kode_reparasi',
+            //     'nama_customer_id',
+            //     'nama_customer',
+            //     'nama_barang_id',
+            //     'nama_barang',
+            //     'tanggal',
+            //     'status_pembayaran',
+            //     'total',
+            //     )
+            //     ->join('reparasi_detail', 'reparasi_header.kode_reparasi', '=', 'reparasi_detail.kode_reparasi')
+            //     ->join('jenis_barang', 'reparasi_detail.nama_barang_id', '=', 'jenis_barang.id')
+            //     ->join('customer', 'reparasi_header.nama_customer_id', '=', 'customer.id')
+            //     ->where('reparasi_header.kode_reparasi', 'like', '%' . $request->kode_reparasi. '%')
+            //     ->where('nama_customer', 'like', '%' . $request->nama_customer .'%')
+            //     ->where('status_pembayaran', 'like', $request->status_pembayaran. '%')
+            //     ->groupBy('reparasi_header.kode_reparasi')
+            //     ->orderBy('reparasi_detail.updated_at', 'desc')
+            //     ->paginate(10);
         }
-
-        // else if ($request->has('tanggal_mulai') && $request->has('tanggal_sampai')) {
-
-        
 
         else {
-            $data = ReparasiHeader::select(
-            'reparasi_header.kode_reparasi',
-            'reparasi_header.nama_customer_id',
-            'customer.nama_customer',
-            'reparasi_detail.nama_barang_id',
-            'jenis_barang.nama_barang',
-            'reparasi_header.tanggal',
-            'reparasi_header.status_pembayaran',
-            'reparasi_header.total',
-            )
-            ->join('reparasi_detail', 'reparasi_header.kode_reparasi', '=', 'reparasi_detail.kode_reparasi')
-            ->join('jenis_barang', 'reparasi_detail.nama_barang_id', '=', 'jenis_barang.id')
-            ->join('customer', 'reparasi_header.nama_customer_id', '=', 'customer.id')
-            ->groupBy('reparasi_header.kode_reparasi')
-            ->orderBy('reparasi_detail.updated_at', 'desc')
-            ->paginate(10);
-        }
+            $data = DB::table('reparasi_header as a')
+                ->join('customer as b', 'a.nama_customer_id', '=', 'b.id')
+                ->join('reparasi_detail as c', 'a.kode_reparasi', '=', 'c.kode_reparasi')
+                ->join('jenis_barang as d', 'c.nama_barang_id','=','d.id')
+                ->select(
+                'a.kode_reparasi'
+                ,'a.tanggal'
+                ,'a.total'
+                ,'a.status_pembayaran'
+                ,'b.nama_customer'
+                ,DB::raw("GROUP_CONCAT(d.nama_barang) as nama_barang")
+                )
+                ->groupBy('a.kode_reparasi'
+                ,'a.tanggal'
+                ,'a.total'
+                ,'a.status_pembayaran'
+                ,'b.nama_customer')
+                ->orderByDesc('a.updated_at')
+                // ->get()
+                ->paginate(10);
 
+            // $data = ReparasiHeader::select(
+            // 'reparasi_header.kode_reparasi',
+            // 'reparasi_header.nama_customer_id',
+            // 'customer.nama_customer',
+            // 'reparasi_detail.nama_barang_id',
+            // 'jenis_barang.nama_barang',
+            // 'reparasi_header.tanggal',
+            // 'reparasi_header.status_pembayaran',
+            // 'reparasi_header.total',
+            // )
+            // ->join('reparasi_detail', 'reparasi_header.kode_reparasi', '=', 'reparasi_detail.kode_reparasi')
+            // ->join('jenis_barang', 'reparasi_detail.nama_barang_id', '=', 'jenis_barang.id')
+            // ->join('customer', 'reparasi_header.nama_customer_id', '=', 'customer.id')
+            // ->groupBy('reparasi_header.kode_reparasi')
+            // ->orderBy('reparasi_detail.updated_at', 'desc')
+            // ->paginate(10);
+        }
+        
+        // foreach ($data as $item) {
+        //     $barang = ReparasiHeader::select(
+        //         'reparasi_header.kode_reparasi',
+        //         'nama_barang_id',
+        //         'nama_barang',
+        //         )->join('reparasi_detail', 'reparasi_header.kode_reparasi', '=', 'reparasi_detail.kode_reparasi')
+        //         ->join('jenis_barang', 'reparasi_detail.nama_barang_id', '=', 'jenis_barang.id')
+        //         ->where('reparasi_header.kode_reparasi', '=', $item->kode_reparasi)
+        //         ->get();
+        // }
 
         
-        
-        foreach ($data as $item) {
-            $barang = ReparasiHeader::select(
-                'reparasi_header.kode_reparasi',
-                'nama_barang_id',
-                'nama_barang',
-                )->join('reparasi_detail', 'reparasi_header.kode_reparasi', '=', 'reparasi_detail.kode_reparasi')
-                ->join('jenis_barang', 'reparasi_detail.nama_barang_id', '=', 'jenis_barang.id')
-                ->where('reparasi_header.kode_reparasi', '=', $item->kode_reparasi)
-                ->get();
-        }
-
-        $data = DB::table('reparasi_header as a')
-        ->join('customer as b', 'a.nama_customer_id', '=', 'b.id')
-        ->select('*', DB::raw(
-            "(CASE WHEN (SELECT SUM(nominal) FROM transaksi_masuk trmsk 
-            WHERE trmsk.kode_reparasi = a.kode_reparasi GROUP BY trmsk.kode_reparasi) >= a.total 
-            THEN 'Lunas' 
-            ELSE 'Belum lunas' 
-            END) 
-            as status_lunas"
-            ))
-        ->get();
 
         // dd($data);
 
@@ -106,10 +146,11 @@ class ReparasiController extends Controller
         //     'jenis_barang.nama_barang',
         // )->join('jenis_barang', 'reparasi.nama_barang_id', '=', 'jenis_barang.id')
         // ->where('no_reparasi', '=', '');
+        // $data = $query->paginate(10);
         return view('reparasi.index')->with([
             'title' => $title,
             'jenis_barang' => $jenis_barang,
-            'barang' => $barang,
+            // 'barang' => $barang,
             'data' => $data,
             // 'jenis_barang' => $jenis_barang,
         ]);
@@ -139,17 +180,36 @@ class ReparasiController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
+        // dd($request->validate(['nama_barang_id' => ['not_in:-']]));
+
+        // $validator = Validator::make($request->all(), [
+        //     'kode_reparasi' => 'required',
+        //     'nama_customer_id' => ['not_in:-'],
+        //     'tanggal' => 'required',
+        //     'nama_barang_id.*' => ['not_in:-'],
+        // ]);
+        
+        // if ($validator->fails()) {
+        //     return back()->withErrors($validator)->withInput();
+        // }
+
         $request->validate([
             'kode_reparasi' => 'required',
             'nama_customer_id' => ['not_in:-'],
             'tanggal' => 'required',
-            'nama_barang_id' => ['not_in:-'],
+            'nama_barang_id.*' => ['not_in:-'],
+            'jumlah.*' => 'required',
+            'kerusakan.*' => 'required',
+            'biaya.*' => 'required',
         ],[
             'kode_reparasi.required' => 'Masukkan kode reparasi!',
             'nama_customer_id.not_in' => 'Pilih customer atau tambah baru customer!',
             'tanggal.required' => 'Masukkan tanggal reparasi!',
+            'nama_barang_id.*.not_in' => 'Pilih barang atau tambah baru barang!',
         ]);
-
+        // dd($request->validated(), $request->errors());
+            
         $status = "";
         $tujuan = "";
         if ($request->input('uang_muka') < $request->input('total')) {

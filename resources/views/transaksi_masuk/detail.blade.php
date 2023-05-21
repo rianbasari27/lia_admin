@@ -39,7 +39,7 @@
             </tr>
             <tr class="border-b border-slate-300">
                 <td class="font-semibold text-slate-600 py-3 w-[400px]">Nominal</td>
-                <td class="font-semibold text-slate-600 py-3">Rp {{ $data->nominal }}</td>
+                <td class="font-semibold text-slate-600 py-3">Rp {{ number_format($data->nominal, 0, ',', '.') }}</td>
             </tr>
             <tr class="border-b border-slate-300">
                 <td class="font-semibold text-slate-600 py-3 w-[400px]">Keterangan</td>

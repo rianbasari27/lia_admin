@@ -105,7 +105,7 @@
                                                 <option value='{{ $item->id }}' {{ old('nama_barang_id') == $item->id ? 'selected' : '' }}>{{ $item->nama_barang }}</option>
                                             @endforeach
                                         </select>
-                                        @error('nama_barang_id')
+                                        @error('nama_barang_id.*')
                                             <div class="text-red-700 text-start">
                                                 {{ $message }}
                                             </div>
@@ -113,7 +113,7 @@
                                     </div>
                                     <div>
                                         <span class='mr-2'>x</span><input type='number' name='jumlah[]' id='jumlah' class="w-[50px] p-1 rounded-md border @error('jumlah') border-red-400 @enderror focus:border-red-400 focus:ring-red-400">
-                                        @error('jumlah')
+                                        @error('jumlah.*')
                                             <div class="text-red-700 text-start">
                                                 {{ $message }}
                                             </div>
@@ -121,7 +121,7 @@
                                     </div>
                                     <div class="col-span-4">
                                         <input type='text' name='kerusakan[]' id='kerusakan' class='w-[300px] p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400'>
-                                        @error('kerusakan')
+                                        @error('kerusakan.*')
                                             <div class="text-red-700 text-start">
                                                 {{ $message }}
                                             </div>
@@ -129,7 +129,7 @@
                                     </div>
                                     <div class="col-span-3">
                                         <span class='mr-2'>Rp</span><input type='number' name='biaya[]' id='biaya' class='biaya w-52 p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400'>
-                                        @error('biaya')
+                                        @error('biaya.*')
                                             <div class="text-red-700 text-start">
                                                 {{ $message }}
                                             </div>

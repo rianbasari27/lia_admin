@@ -137,7 +137,7 @@ class TransaksiMasukController extends Controller
         $data = [
             'nama_customer_id' => $kode_reparasi[1],
             'kode_reparasi' => $kode_reparasi[0],
-            'tanggal_lahir' => $request->input('tanggal_lahir'),
+            'tanggal' => $request->input('tanggal'),
             'tanggal' => $request->input('tanggal'),
             'tujuan_pembayaran' => $request->input('tujuan_pembayaran'),
             'nominal' => $request->input('nominal'),

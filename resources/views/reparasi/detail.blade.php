@@ -69,14 +69,14 @@
             <tr class="border-b border-slate-300">
                 <td class="font-semibold text-slate-600 py-3 w-[400px]">Total biaya</td>
                 <td class="font-light text-slate-600 py-3">
-                    <span class="mb-1 w-[400px] font-semibold">Rp {{ $data->total }}</span><br>
+                    <span class="mb-1 w-[400px] font-semibold">Rp {{ number_format($data->total, 0, ',', '.') }}</span><br>
                 </td>
             </tr>
             <tr class="border-b border-slate-300">
                 <td class="font-semibold text-slate-600 py-3 w-[400px]">Uang muka</td>
                 <td class="font-light text-slate-600 py-3">
                     @foreach ($uang_muka as $item)
-                        <div class="mb-1 w-[400px]">Rp {{ $item->nominal }}</div>
+                        <div class="mb-1 w-[400px]">Rp {{ number_format($item->nominal, 0, ',', '.') }}</div>
                     @endforeach
                 </td>
             </tr>

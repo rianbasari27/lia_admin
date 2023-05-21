@@ -57,77 +57,52 @@
         <div id="accordion-collapse-body-3" class="hidden" aria-labelledby="accordion-collapse-heading-3">
             <div class="p-5 border border-t-0 border-slate-200">
                 <div class="font-light">
-                    <div class="flex">
+
+                    <form action="/transaksi_masuk" method="get">
+                        <div class="grid grid-cols-12 gap-1 mb-3">
+                            <div class="col-span-2 my-auto">
+                                <label for="kode_transaksi" class="text-slate-600">Kode Transaksi</label>
+                            </div>
+                            <div class="col-span-3 ">
+                                <input type="text" name="kode_transaksi" id="kode_transaksi" class="w-full p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400" value="{{ old('kode_transaksi') }}">
+                            </div>
+                            <div></div>
+                            <div class="col-span-1 my-auto">
+                                <label for="tanggal" class="text-slate-600">Tanggal</label>
+                            </div>
+                            <div class="col-span-4 ">
+                                <input type="date" name="tanggal_mulai" id="tanggal" class="w-[150px] p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400">
+                                -
+                                <input type="date" name="tanggal_sampai" id="tanggal" class="w-[150px] p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-12 gap-1 mb-3">
+                            <div class="col-span-2 my-auto">
+                                <label for="nama_customer" class="text-slate-600">Nama Customer</label>
+                            </div>
+                            <div class="col-span-3">
+                                <input type="text" name="nama_customer" id="nama_customer" class="w-full p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400">
+                            </div>
+                            <div></div>
+                            <div class="col-span-2">
+                                <p class="text-slate-600">Tujuan Pembayaran</p>
+                            </div>
+                            <div class="col-span-3 ">
+                                <div class="w-full">
+                                    <select name="tujuan_pembayaran" id="tujuan_pembayaran" class="w-5/6 p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400">
+                                        <option value="Uang muka">Uang muka</option>
+                                        <option value="Cicilan">Cicilan</option>
+                                        <option value="Pelunasan">Pelunasan</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
                         <div>
-                            <div class="flex mb-3">
-                                <div class="w-[140px] my-auto">
-                                    <label for="no_reparasi" class="text-slate-600">No. Reparasi</label>
-                                </div>
-                                <div>
-                                    <input type="text" name="no_reparasi" id="no_reparasi" class="w-[330px] p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400">
-                                </div>
-                            </div>
-                            <div class="flex mb-3">
-                                <div class="w-[140px] my-auto">
-                                    <label for="nama_customer" class="text-slate-600">Nama Customer</label>
-                                </div>
-                                <div>
-                                    <input type="text" name="nama_customer" id="nama_customer" class="w-[330px] p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400">
-                                </div>
-                            </div>
-                            <div class="flex mb-3">
-                                <div class="w-[140px] my-auto">
-                                    <p class="text-slate-600">Jenis Barang</p>
-                                </div>
-                                <div class="w-[320px]">
-                                    <input type="checkbox" name="tas" id="tas" class="rounded border border-slate-400 text-red-700 focus:ring-red-700">
-                                    <label for="tas" class="mr-3">Tas</label>
-        
-                                    <input type="checkbox" name="sepatu" id="sepatu" class="rounded border border-slate-400 text-red-700 focus:ring-red-700">
-                                    <label for="sepatu" class="mr-3">Sepatu</label>
-        
-                                    <input type="checkbox" name="koper" id="koper" class="rounded border border-slate-400 text-red-700 focus:ring-red-700">
-                                    <label for="koper" class="mr-3">Koper</label>
-        
-                                    <input type="checkbox" name="aksesoris" id="aksesoris" class="rounded border border-slate-400 text-red-700 focus:ring-red-700">
-                                    <label for="aksesoris" class="mr-3">Aksesoris</label>
-        
-                                    <input type="checkbox" name="vermak" id="vermak" class="rounded border border-slate-400 text-red-700 focus:ring-red-700">
-                                    <label for="vermak" class="mr-3">Vermak</label>
-        
-                                    <input type="checkbox" name="lainnya" id="lainnya" class="rounded border border-slate-400 text-red-700 focus:ring-red-700">
-                                    <label for="lainnya" class="mr-3">Lainnya</label>
-                                </div>
-                            </div>
+                            <button type="submit" name="search" class="px-3 py-2 rounded-lg bg-red-700 text-white hover:bg-red-800 focus:ring focus:ring-red-200"><i class="fa-solid fa-magnifying-glass mr-2"></i>Cari data</button>
                         </div>
-                        <div class="ml-10">
-                            <div class="flex mb-3">
-                                <div class="w-[170px] my-auto">
-                                    <label for="tanggal" class="text-slate-600">Tanggal Reparasi</label>
-                                </div>
-                                <div>
-                                    <input type="date" name="tanggalMulai" id="tanggal" class="w-[200px] p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400">
-                                    -
-                                    <input type="date" name="tanggalMulai" id="tanggal" class="w-[200px] p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400">
-                                </div>
-                            </div>
-                            <div class="flex mb-3">
-                                <div class="w-[170px] my-auto">
-                                    <p class="text-slate-600">Status Pembayaran</p>
-                                </div>
-                                <div class="w-[350px]">
-                                    <input type="radio" name="statusBayar" id="lunas" class="rounded-full border border-slate-400 text-red-700 focus:ring-red-700" value="Lunas">
-                                    <label for="lunas" class="mr-3">Lunas</label>
-        
-                                    <input type="radio" name="statusBayar" id="belumLunas" class="rounded-full border border-slate-400 text-red-700 focus:ring-red-700" value="Belum Lunas">
-                                    <label for="belumLunas" class="mr-3">Belum Lunas</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <button type="submit" name="search" class="px-3 py-2 rounded-lg bg-red-700 text-white hover:bg-red-800 focus:ring focus:ring-red-200"><i class="fa-solid fa-magnifying-glass mr-2"></i>Cari data</button>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -180,7 +155,7 @@
                         <td>{{ $item->nama_customer }}</td>
                         <td>{{ $item->tanggal }}</td>
                         <td>{{ $item->tujuan_pembayaran }}</td>
-                        <td>Rp {{ $item->nominal }}</td>
+                        <td>Rp {{ number_format($item->nominal, 0, ',', '.') }}</td>
                         <td class="text-center">
                             <a href="{{ url('/transaksi_masuk/'.$item->kode_transaksi) }}/" class="underline underline-offset-1 text-red-700">Lihat detail</a>
                         </td>

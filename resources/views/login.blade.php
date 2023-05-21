@@ -37,7 +37,7 @@
                 <label class="text-xs block text-gray-700 font-semibold mb-2" for="Username">
                 Username
                 </label>
-                <input type="text" name="username" id="username" placeholder="Username" autofocus class="appearance-none border @error('username') border-red-400 @enderror rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
+                <input type="text" name="username" id="username" placeholder="Username" value="{{ old('username') }}" autofocus class="appearance-none border @error('username') border-red-400 @enderror rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
                 @error('username')
                 <div class="text-red-700 text-start text-sm">
                     {{ $message }}
@@ -48,7 +48,7 @@
                 <label class="text-xs block text-gray-700 font-semibold mb-2" for="password">
                 Password
                 </label>
-                <input name="password" id="password" type="password" placeholder="Password" class="appearance-none border rounded w-full py-2 px-3 @error('password') border-red-400 @enderror text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <input name="password" id="password" type="password" placeholder="Password" value="{{ old('password') }}" class="appearance-none border rounded w-full py-2 px-3 @error('password') border-red-400 @enderror text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 @error('password')
                 <div class="text-red-700 text-start text-sm">
                     {{ $message }}

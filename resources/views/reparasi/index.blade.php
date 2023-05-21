@@ -107,7 +107,7 @@
                                     
                                     @foreach ($jenis_barang as $item)
                                         <div class="col-span-3">
-                                            <input type="checkbox" name="{{ $item->nama_barang }}" id="{{ $item->nama_barang }}" value="{{ $item->id }}" class="rounded border border-slate-400 text-red-700 focus:ring-red-700">
+                                            <input type="checkbox" name="nama_barang_id[]" id="{{ $item->nama_barang }}" value="{{ $item->id }}" class="rounded border border-slate-400 text-red-700 focus:ring-red-700">
                                             <label for="{{ $item->nama_barang }}" class="mr-3">{{ $item->nama_barang }}</label>
                                         </div>
                                     @endforeach
@@ -140,57 +140,61 @@
                         <th class="p-5 rounded-tl-lg"></th>
                         <th>No. Reparasi</th>
                         <th>Nama Customer</th>
-                        {{-- <th>Jenis Barang</th> --}}
                         <th>Tanggal Reparasi</th>
                         <th>Barang</th>
                         <th class="text-center">Total Biaya</th>
                         <th class=" text-center">Status Pembayaran</th>
-                        <th class="rounded-tr-lg"></th>
+                        <th class="p-5 rounded-tr-lg"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data as $item)
-                    <tr class="border-b border-x border-slate-300 hover:bg-slate-100 text-slate-500">
-                        <td class="p-4">
-                            <div class="flex">
-                                <div class="mr-2">
-                                    <a href="{{ url('/reparasi/'.$item->kode_reparasi.'/edit') }}" class="block px-2 py-2 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-emerald-500 hover:border-emerald-500">
-                                        <span class=""><i class="fa-solid fa-pen-to-square"></i></span>
-                                    </a>
+                    @if ($data->count())
+                        
+                        @foreach ($data as $item)
+                        <tr class="border-b border-x border-slate-300 hover:bg-slate-100 text-slate-500">
+                            <td class="p-4">
+                                <div class="flex">
+                                    <div class="mr-2">
+                                        <a href="{{ url('/reparasi/'.$item->kode_reparasi.'/edit') }}" class="block px-2 py-2 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-emerald-500 hover:border-emerald-500">
+                                            <span class=""><i class="fa-solid fa-pen-to-square"></i></span>
+                                        </a>
+                                    </div>
+                                    <div class="mr-2">
+                                        <form action="{{ '/reparasi/'.$item->kode_reparasi }}" method="post" onsubmit="return confirm('Ini akan menghapus detail reparasi. Apakah Anda yakin ingin menghapus?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="px-2.5 py-2 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-red-500 hover:border-red-500">
+                                                <span class=""><i class="fa-solid fa-trash"></i></span>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
-                                <div class="mr-2">
-                                    <form action="{{ '/reparasi/'.$item->kode_reparasi }}" method="post" onsubmit="return confirm('Ini akan menghapus detail reparasi. Apakah Anda yakin ingin menghapus?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="px-2.5 py-2 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-red-500 hover:border-red-500">
-                                            <span class=""><i class="fa-solid fa-trash"></i></span>
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </td>
-                        <td>{{ $item->kode_reparasi }}</td>
-                        <td>{{ $item->nama_customer }}</td>
-                        <td>{{ $item->tanggal }}</td>
-                        <td>
-                            @foreach ($barang as $brg)
-                                {{ $brg->nama_barang }}, 
-                            @endforeach
-                        </td>
-                        <td class="text-end">Rp {{ $item->total }}</td>
-                        <td class="text-center">
-                            <span class="p-2 {{ $item->status_pembayaran == 'Lunas' ? 'bg-emerald-600' : 'bg-amber-600' }} text-white rounded-md font-normal"><i class="fa-solid {{ $item->status_pembayaran == 'Lunas' ? 'fa-circle-check' : 'fa-circle-exclamation' }} mr-2"></i>{{ $item->status_pembayaran }}</span>
-                            {{-- <span class="p-2 {{ $item->status_lunas == 'Lunas' ? 'bg-emerald-600' : 'bg-amber-600' }} text-white rounded-md font-normal"><i class="fa-solid {{ $item->status_lunas == 'Lunas' ? 'fa-circle-check' : 'fa-circle-exclamation' }} mr-2"></i>{{ $item->status_lunas }}</span> --}}
-                        </td>
-                        <td>
-                            <a href="{{ url('/reparasi/'.$item->kode_reparasi) }}/" class="underline underline-offset-1 text-red-700">Lihat detail</a>
-                        </td>
-                    </tr>
-                    @endforeach
-                    @if (empty($data)) 
+                            </td>
+                            <td>{{ $item->kode_reparasi }}</td>
+                            <td>{{ $item->nama_customer }}</td>
+                            <td>{{ $item->tanggal }}</td>
+                            <td>{{ $item->nama_barang }}</td>
+                            <td class="text-end">Rp {{ number_format($item->total, 0, ',', '.') }}</td>
+                            <td class="text-center">
+                                <span class="p-2 {{ $item->status_pembayaran == 'Lunas' ? 'bg-emerald-600' : 'bg-amber-600' }} text-white rounded-md font-normal"><i class="fa-solid {{ $item->status_pembayaran == 'Lunas' ? 'fa-circle-check' : 'fa-circle-exclamation' }} mr-2"></i>{{ $item->status_pembayaran }}</span>
+                                {{-- <span class="p-2 {{ $item->status_lunas == 'Lunas' ? 'bg-emerald-600' : 'bg-amber-600' }} text-white rounded-md font-normal"><i class="fa-solid {{ $item->status_lunas == 'Lunas' ? 'fa-circle-check' : 'fa-circle-exclamation' }} mr-2"></i>{{ $item->status_lunas }}</span> --}}
+                            </td>
+                            <td>
+                                <a href="{{ url('/reparasi/'.$item->kode_reparasi) }}/" class="underline underline-offset-1 text-red-700">Lihat detail</a>
+                            </td>
+                        </tr>
+                        @endforeach
+
+                    @else
                     <tr class="border-b border-x border-slate-300 text-slate-500">
                         <td colspan="7" class="text-center py-3">Tidak ada data untuk ditampilkan.</td>
                     </tr>
+                    {{-- @if (empty($data)) 
+                    <tr class="border-b border-x border-slate-300 text-slate-500">
+                        <td colspan="7" class="text-center py-3">Tidak ada data untuk ditampilkan.</td>
+                    </tr>
+                    @endif --}}
+                    
                     @endif
                 </tbody>
             </table>
