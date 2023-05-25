@@ -26,17 +26,14 @@
             <li>
                 <div class="flex items-center">
                 <svg aria-hidden="true" class="w-6 h-6 text-slate-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                <a href="/reparasi" class="ml-1 text-sm font-medium text-slate-700 hover:text-red-700 md:ml-2 dark:text-slate-400 dark:hover:text-white">{{ $title }}</a>
+                <a href="/laporan_pemasukan" class="ml-1 text-sm font-medium text-slate-700 hover:text-red-700 md:ml-2 dark:text-slate-400 dark:hover:text-white">{{ $title }}</a>
                 </div>
             </li>
         </ol>
     </nav>
 
-    <div class="flex justify-between">
+    <div>
         <h1 class="text-3xl text-slate-600 font-semibold">{{ $title }}</h1>
-        <a href="/reparasi/create" class="px-3 py-2 bg-red-700 rounded-lg shadow-md text-white hover:bg-red-800 focus:ring focus:ring-red-200">
-            <i class="fa-solid fa-plus mr-2"></i>Tambah
-        </a>
     </div>
 
     {{-- Filter --}}
@@ -95,38 +92,44 @@
                     @php
                         $no = 1;
                     @endphp
-                    @foreach ($data as $item)
-                        <tr>
-                            <td class="border border-slate-300 p-2 text-end"><?= $no; ?></td>
-                            <td class="border border-slate-300 p-2">
-                                @foreach ($bulan as $key => $month)
-                                    {{ ($item->bulan == $key) ? $month : '' }}
-                                @endforeach    
-                            </td>
-                            <td class="border border-slate-300 p-2 text-end">{{ $item->tanggal }}</td>
-                            <td class="border border-slate-300 p-2 text-end">
-                                {{ $item->jumlah_customer }}
-                                {{-- @foreach ($jumlah_customer as $customer)
-                                    {{ $customer->jumlah_customer }}
-                                @endforeach --}}
-                            </td>
-                            <td class="border border-slate-300 p-2 text-end">
-                                {{ $item->jumlah_barang }}
-                                {{-- @foreach ($jumlah_barang as $barang)
-                                    {{ $barang->jumlah_barang }}
-                                @endforeach --}}
-                            </td>
-                            <td class="border border-slate-300 p-2 text-end">Rp {{ number_format($item->uang_masuk, 0, ',', '.') }}</td>
-                        </tr>
-                        @php
-                            $no++;
-                        @endphp
-                    @endforeach
+                    @if ($query->count())
+                        @foreach ($query as $item)
+                            <tr>
+                                <td class="border border-slate-300 p-2 text-end"><?= $no; ?></td>
+                                <td class="border border-slate-300 p-2">
+                                    @foreach ($bulan as $key => $month)
+                                        {{ ($item->bulan == $key) ? $month : '' }}
+                                    @endforeach    
+                                </td>
+                                <td class="border border-slate-300 p-2 text-end">{{ $item->tanggal }}</td>
+                                <td class="border border-slate-300 p-2 text-end">
+                                    {{ $item->jumlah_customer }}
+                                    {{-- @foreach ($jumlah_customer as $customer)
+                                        {{ $customer->jumlah_customer }}
+                                    @endforeach --}}
+                                </td>
+                                <td class="border border-slate-300 p-2 text-end">
+                                    {{ $item->jumlah_barang }}
+                                    {{-- @foreach ($jumlah_barang as $barang)
+                                        {{ $barang->jumlah_barang }} --}}
+                                    {{-- @endforeach --}}
+                                </td>
+                                <td class="border border-slate-300 p-2 text-end">Rp {{ number_format($item->uang_masuk, 0, ',', '.') }}</td>
+                            </tr>
+                            @php
+                                $no++;
+                            @endphp
+                        @endforeach
+                    @else 
+                    <tr class="border-b border-x border-slate-300 text-slate-500">
+                        <td colspan="6" class="text-center py-3">Laporan belum tersedia.</td>
+                    </tr>
+                    @endif
                 </tbody>
                 <tfoot>
                     <tr>
                         <th class="border border-slate-300 p-2 text-end" colspan="5">Total pemasukan</th>
-                        <th class="border border-slate-300 p-2 text-end"></th>
+                        <th class="border border-slate-300 p-2 text-end">Rp {{ number_format($item->total, 0, ',', '.') }}</th>
                     </tr>
                 </tfoot>
             </table>

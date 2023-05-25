@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transaksi_keluar_header', function (Blueprint $table) {
-            $table->string('kode_transaksi')->primary();
-            $table->date('tanggal');
-            $table->string('transaksi_tujuan');
-            $table->string('total');
+        Schema::create('supplier', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama_supplier');
+            $table->text('alamat');
+            $table->string('no_telepon');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transaksi_keluar_headers');
+        Schema::dropIfExists('supplier');
     }
 };

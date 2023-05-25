@@ -19,7 +19,7 @@ class TransaksiKeluarHeaderFactory extends Factory
         return [
             'kode_transaksi' => 'TK-1',
             'tanggal' => date('Y/m/d'),
-            'transaksi_tujuan' => 'Toko Indah Lestari',
+            'nama_supplier_id' => 1,
             'total' => rand(10, 500) . '000',
             'created_at' => date('Y/m/d H:i:s'),
             'updated_at' => date('Y/m/d H:i:s')

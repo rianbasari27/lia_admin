@@ -2,6 +2,30 @@
 
 @section('main-content')
     <div>
+
+        <nav class="flex" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center my-4 space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="/" class="inline-flex items-center text-sm font-medium text-slate-700 hover:text-red-700 dark:text-slate-400 dark:hover:text-white">
+                        <i class="fa-solid fa-house mr-2"></i>
+                    Home
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                    <svg aria-hidden="true" class="w-6 h-6 text-slate-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                    <a href="/reparasi" class="ml-1 text-sm font-medium text-slate-700 hover:text-red-700 md:ml-2 dark:text-slate-400 dark:hover:text-white">{{ $title }}</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                    <svg aria-hidden="true" class="w-6 h-6 text-slate-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                    <a href="{{ url('/reparasi/'.$data->kode_reparasi.'/edit') }}" class="ml-1 text-sm font-medium text-slate-700 hover:text-red-700 md:ml-2 dark:text-slate-400 dark:hover:text-white">{{ $subtitle }}</a>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
         <div class='flex justify-between'>
             <h1 class='text-3xl text-slate-600 font-semibold'>{{ $title }}</h1>
             <a href='/reparasi' class='px-3 py-2 bg-slate-500 rounded-lg shadow-md text-white hover:bg-slate-600 focus:ring focus:ring-slate-300'>
@@ -33,7 +57,12 @@
                                 <label for='tanggal' class='text-slate-600'>Tanggal Reparasi</label>
                             </div>
                             <div class="col-span-3">
-                                <input type='date' value="{{ $data->tanggal }}" name='tanggal' id='tanggal' class='w-full p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400'>
+                                <input type='date' value="{{ $data->tanggal }}" name='tanggal' id='tanggal' class='w-full p-1 rounded-md border @error('tanggal') border-red-400 @enderror border-slate-400 focus:border-red-400 focus:ring-red-400'>
+                                @error('tanggal')
+                                    <div class="text-red-700 text-start">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="grid grid-cols-12 gap-4 mb-1">
@@ -41,12 +70,17 @@
                                 <label for='nama_customer_id' class='text-slate-600'>Nama Customer</label>
                             </div>
                             <div class="col-span-3">
-                                <select name='nama_customer_id' id='nama_customer_id' class='w-full p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400'>
+                                <select name='nama_customer_id' id='nama_customer_id' class='w-full p-1 rounded-md border @error('nama_customer_id') border-red-400 @enderror border-slate-400 focus:border-red-400 focus:ring-red-400'>
                                     <option selected>-</option>
                                     @foreach ($customer as $item)
                                         <option value='{{ $item->id }}' {{ $data->nama_customer_id == $item->id ? 'selected' : '' }}>{{ $item->nama_customer }}</option>
                                     @endforeach
                                 </select>
+                                @error('nama_customer_id')
+                                    <div class="text-red-700 text-start">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                         {{-- <div class='w-1/2'>
@@ -93,8 +127,8 @@
 
                             <div class="grid grid-cols-12 gap-4 mb-1">
                                 <div></div>
-                                <div class="col-span-3">Jenis Barang</div>
-                                <div>Jumlah</div>
+                                <div class="col-span-2">Jenis Barang</div>
+                                <div class="col-span-2">Jumlah</div>
                                 <div class="col-span-4">Kerusakan</div>
                                 <div class="col-span-3">Biaya</div>
                             </div>
@@ -106,86 +140,61 @@
                                             <button type='button' id='remove' class='remove-row px-3 py-2 rounded text-slate-600 bg-slate-200 hover:bg-red-700 hover:text-white duration-150'><i class='fa-solid fa-trash-can'></i></button>
                                         </div>
 
-                                        {{-- <div class="text-end">
-                                            <button type='submit' id='remove' class='remove-row px-3 py-2 rounded text-slate-600 bg-slate-200 hover:bg-red-700 hover:text-white duration-150'>
-                                                <i class='fa-solid fa-trash-can'></i>
-                                            </button>
-                                            <form action="{{ '/reparasi/'.$item->kode_reparasi.'/edit/'.$item->id }}" method="post" onsubmit="return confirm('Apakah Anda yakin ingin menghapus item ini?')">
-                                                @csrf
-                                                @method("DELETE")
-                                            </form>
-                                        </div> --}}
-
                                         <input type="text" name="id" id="id" value="{{ $item->id }}" class="hidden">
 
-                                        <div class="col-span-3">
-                                            <select name='nama_barang_id[]' id='nama_barang_id' class='w-full p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400'>
+                                        <div class="col-span-2">
+                                            <select name='nama_barang_id[]' id='nama_barang_id' class='w-full p-1.5 rounded-md border @error('nama_barang_id.*') border-red-400 @enderror focus:border-red-400 focus:ring-red-400'>
                                                 <option selected>-</option>
                                                 @foreach ($jenis_barang as $barang)
                                                     <option class="option" value="{{ $barang->id }}" {{ $item->nama_barang_id == $barang->id ? 'selected' : ''}}>{{ $barang->nama_barang }}</option>
                                                 @endforeach
                                             </select>
-                                            @error('nama_barang_id')
+                                            @error('nama_barang_id.*')
                                                 <div class="text-red-700 text-start">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
 
-                                        <div class="flex">
+                                        <div class="col-span-2 flex">
                                             <div class='mr-2 my-auto'>x</div>
                                             <div>
-                                                <input type='number' value="{{ $item->jumlah }}" name='jumlah[]' id='jumlah' class='w-full p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400'>
+                                                <input type='number' value="{{ $item->jumlah }}" name='jumlah[]' id='jumlah' class='w-full p-1 rounded-md border @error('jumlah.*') border-red-400 @enderror border-slate-400 focus:border-red-400 focus:ring-red-400'>
+                                                @error('jumlah.*')
+                                                    <div class="text-red-700 text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
 
                                         <div class="col-span-4">
-                                            <input type='text' value="{{ $item->kerusakan }}" name='kerusakan[]' id='kerusakan' class='w-full p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400'>
+                                            <input type='text' value="{{ $item->kerusakan }}" name='kerusakan[]' id='kerusakan' class='w-full p-1 rounded-md border @error('kerusakan.*') border-red-400 @enderror border-slate-400 focus:border-red-400 focus:ring-red-400'>
+                                            @error('kerusakan.*')
+                                                <div class="text-red-700 text-start">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
+
 
                                         <div class="flex col-span-3">
                                             <div class='mr-2 my-auto'>Rp</div>
                                             <div>
-                                                <input type='number' value="{{ $item->biaya }}" name='biaya[]' id='biaya' class='biaya full p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400'>
+                                                <input type='number' value="{{ $item->biaya }}" name='biaya[]' id='biaya' class='biaya w-full p-1 rounded-md border @error('biaya.*') border-red-400 @enderror border-slate-400 focus:border-red-400 focus:ring-red-400'>
+                                                @error('biaya.*')
+                                                    <div class="text-red-700 text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
+
 
                                     </div>
                                 @endforeach
 
-                                <div class="duplicate-row grid grid-cols-12 gap-4 mb-2">
-                                    <div class="text-end">
-                                        <button type='button' id='remove' class='remove-row px-3 py-2 rounded text-slate-600 bg-slate-200 hover:bg-red-700 hover:text-white duration-150'><i class='fa-solid fa-trash-can'></i></button>
-                                    </div>
-                                    <div class="col-span-3">
-                                        <select name='nama_barang_id[]' id='nama_barang_id' class='w-full p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400'>
-                                            <option selected>-</option>
-                                            @foreach ($jenis_barang as $barang)
-                                                <option class="option" value="{{ $barang->id }}" {{  old('nama_barang_id') == $item->id ? 'selected' : ''  }}>{{ $barang->nama_barang }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('nama_barang_id')
-                                            <div class="text-red-700 text-start">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                    <div class="flex">
-                                        <div class='mr-2 my-auto'>x</div>
-                                        <div>
-                                            <input type='number' value="{{ old('jumlah') }}" name='jumlah[]' id='jumlah' class='w-full p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400'>
-                                        </div>
-                                    </div>
-                                    <div class="col-span-4">
-                                        <input type='text' value="{{ old('kerusakan') }}" name='kerusakan[]' id='kerusakan' class='w-full p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400'>
-                                    </div>
-                                    <div class="flex col-span-3">
-                                        <div class='mr-2 my-auto'>Rp</div>
-                                        <div>
-                                            <input type='number' value="{{ old('biaya') }}" name='biaya[]' id='biaya' class='biaya full p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400'>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                             </div>
 
                             <div class="grid grid-cols-12 gap-4 mb-1 mt-4">
@@ -201,65 +210,6 @@
                                 </div>
                             </div>
 
-                            {{-- <table>
-                                <thead>
-                                    <tr>
-                                        <td class='px-3 text-xs'></td>
-                                        <td class='px-3 text-xs'>Jenis Barang</td>
-                                        <td class='px-3 text-xs'>Jumlah</td>
-                                        <td class='px-3 text-xs'>Kerusakan</td>
-                                        <td class='px-3 text-xs'>Biaya</td>
-                                    </tr>
-                                </thead>
-                                
-                                <tbody class="multiple-records">
-                                    @foreach ($detail as $item)
-                                    <tr class="duplicate-row">
-                                        <td class="px-3">
-                                            <button type='button' id='remove' class='remove-row px-3 py-2 rounded text-slate-600 bg-slate-200 hover:bg-red-700 hover:text-white duration-150'><i class='fa-solid fa-trash-can'></i></button>
-                                        </td>
-                                        <td class='px-3'>
-                                            <select name='nama_barang_id[]' id='nama_barang_id' class='w-72 p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400'>
-                                                <option selected>-</option>
-                                                @foreach ($jenis_barang as $barang)
-                                                    <option class="option" value="{{ $barang->id }}" {{ $item->nama_barang_id == $barang->id ? 'selected' : ''}}>{{ $barang->nama_barang }}</option>
-                                                @endforeach
-                                            </select>
-                                        </td>
-                                        <td class='px-3'>
-                                            <span class='mr-2'>x</span><input type='number' value="{{ $item->jumlah }}" name='jumlah[]' id='jumlah' class='w-[50px] p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400'>
-                                        </td>
-                                        <td class='px-3'>
-                                            <input type='text' value="{{ $item->kerusakan }}" name='kerusakan[]' id='kerusakan' class='w-96 p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400'>
-                                        </td>
-                                        <td class='px-3'>
-                                            <span class='mr-2'>Rp</span><input type='number' value="{{ $item->biaya }}" name='biaya[]' id='biaya' class='biaya w-52 p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400'>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-
-                                <tfoot>
-                                    <tr>
-                                        <td class="px-3 pt-7"></td>
-                                        <td class="px-3 pt-7"></td>
-                                        <td class="px-3 pt-7"></td>
-                                        <td class="px-3 pt-7 text-end">Total biaya</td>
-                                        <td class="px-3 pt-7">
-                                            <span class='mr-2'>Rp</span><input type='number' value="{{ $item->total }}" name='total' id='total' class='w-52 p-1 rounded-md border border-slate-400 bg-slate-200 focus:ring-0 focus:border-slate-400' readonly>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="px-3"></td>
-                                        <td class="px-3"></td>
-                                        <td class="px-3"></td>
-                                        <td class="px-3 text-end">Uang muka</td>
-                                        <td class="px-3">
-                                            <span class='mr-2'>Rp</span><input type='number' name='uang_muka' id='uang_muka' class='w-52 p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400'>
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table> --}}
                         </div>
                     </div>
 

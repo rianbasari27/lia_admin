@@ -26,6 +26,26 @@
                 <td class="font-light text-slate-600 py-3">{{ $data->tanggal }}</td>
             </tr>
             <tr class="border-b border-slate-300">
+                <td class="font-semibold text-slate-600 py-3 w-[400px]">Transaksi Tujuan</td>
+                <td class="font-light text-slate-600 py-3">
+                    @if ($data->nama_supplier_id == null)
+                        -
+                    @else
+                        {{ $data->supplier->nama_supplier }}
+                    @endif  
+                </td>
+            </tr>
+            <tr class="border-b border-slate-300">
+                <td class="font-semibold text-slate-600 py-3 w-[400px]">Pembayaran Lain</td>
+                <td class="font-light text-slate-600 py-3">
+                    @if ($data->pembayaran_lain == null)
+                        -
+                    @else
+                        {{ $data->pembayaran_lain }}
+                    @endif    
+                </td>
+            </tr>
+            <tr class="border-b border-slate-300">
                 <td class="font-semibold text-slate-600 py-3 w-[400px]">Tujuan Transaksi</td>
                 <td class="font-light text-slate-600 py-3">
                     @foreach ($detail as $item)

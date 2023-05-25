@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('biaya');
             $table->timestamps();
 
-            // $table->foreign('kode_reparasi')->references('kode_reparasi')->on('reparasi_header')->onDelete('cascade');
+            $table->foreign('kode_reparasi')->references('kode_reparasi')->on('reparasi_header')->onDelete('cascade');
             $table->foreign('nama_barang_id')->references('id')->on('jenis_barang')->onDelete('cascade');
         });
     }

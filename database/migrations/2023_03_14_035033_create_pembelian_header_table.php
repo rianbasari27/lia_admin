@@ -12,10 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pembelian_header', function (Blueprint $table) {
-            $table->string('kode_pembelian');
+            $table->string('kode_pembelian')->primary();
+            $table->unsignedBigInteger('nama_supplier_id');
             $table->date('tanggal');
-            $table->string('tempat_pembelian');
+            $table->integer('total');
             $table->timestamps();
+
+            $table->foreign('nama_supplier_id')->references('id')->on('supplier')->onDelete('cascade');
         });
     }
 

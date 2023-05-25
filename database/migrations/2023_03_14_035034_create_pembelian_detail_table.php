@@ -14,15 +14,13 @@ return new class extends Migration
         Schema::create('pembelian_detail', function (Blueprint $table) {
             $table->id();
             $table->string('kode_pembelian');
-            $table->unsignedBigInteger('nama_sparepart_id');
+            $table->string('nama_barang');
             $table->integer('jumlah');
             $table->string('satuan');
             $table->integer('biaya');
-            $table->integer('total');
             $table->timestamps();
 
-            // $table->foreign('pembelian_header_id')->references('id')->on('pembelian_header')->onDelete('cascade');
-            $table->foreign('nama_sparepart_id')->references('id')->on('sparepart')->onDelete('cascade');
+            $table->foreign('kode_pembelian')->references('kode_pembelian')->on('pembelian_header')->onDelete('cascade');
         });
     }
 

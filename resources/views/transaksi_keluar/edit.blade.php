@@ -29,7 +29,7 @@
                                         <label for='kode_transaksi' class='text-slate-600'>Kode Transaksi</label>
                                     </div>
                                     <div>
-                                        <input type='text' name='kode_transaksi' id='kode_transaksi' value="{{ $data->kode_transaksi }}" class="w-[300px] p-1 rounded-md border @error('kode_transaksi') border-red-400 @enderror focus:border-red-400 focus:ring-red-400">
+                                        <input type='text' name='kode_transaksi' id='kode_transaksi' value="{{ $data->kode_transaksi }}" readonly class="w-[300px] p-1 bg-slate-200 rounded-md border @error('kode_transaksi') border-red-400 @enderror focus:border-red-400 focus:ring-red-400">
                                         @error('kode_transaksi')
                                             <div class="text-red-700 text-start">
                                                 {{ $message }}
@@ -54,13 +54,32 @@
 
                             </div>
 
-                            <div class='flex mb-5'>
+                            <div class='flex {{ ($data->nama_supplier_id == null) ? 'hidden' : '' }}  mb-7'>
                                 <div class='w-[140px] my-auto'>
-                                    <label for='transaksi_tujuan' class='text-slate-600'>Transaksi Tujuan</label>
+                                    <label for='nama_supplier_id' class='text-slate-600'>Transaksi Tujuan</label>
                                 </div>
                                 <div>
-                                    <input type='text' name='transaksi_tujuan' id='transaksi_tujuan' value="{{ $data->transaksi_tujuan }}" class="w-[300px] p-1 rounded-md border @error('transaksi_tujuan') border-red-400 @enderror focus:border-red-400 focus:ring-red-400">
-                                    @error('transaksi_tujuan')
+                                    <select name='nama_supplier_id' id='nama_supplier_id' class="w-[300px] p-1.5 rounded-md border @error('nama_supplier_id') border-red-400 @enderror focus:border-red-400 focus:ring-red-400">
+                                        <option selected>-</option>
+                                        @foreach ($supplier as $sp)
+                                            <option value='{{ $sp->id }}' {{ $data->nama_supplier_id == $sp->id ? 'selected' : '' }}>{{ $sp->nama_supplier }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('nama_supplier_id')
+                                        <div class="text-red-700 text-start">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class='flex {{ ($data->pembayaran_lain == null) ? 'hidden' : '' }} mb-7'>
+                                <div class='w-[140px] my-auto'>
+                                    <label for='pembayaran_lain' class='text-slate-600'>Pembayaran lain</label>
+                                </div>
+                                <div>
+                                    <input type='text' name='pembayaran_lain' id='pembayaran_lain' value="{{ $data->pembayaran_lain }}" class="w-[300px] p-1 rounded-md border @error('pembayaran_lain') border-red-400 @enderror focus:border-red-400 focus:ring-red-400">
+                                    @error('pembayaran_lain')
                                         <div class="text-red-700 text-start">
                                             {{ $message }}
                                         </div>

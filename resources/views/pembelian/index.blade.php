@@ -26,7 +26,7 @@
             <li>
                 <div class="flex items-center">
                 <svg aria-hidden="true" class="w-6 h-6 text-slate-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                <a href="/reparasi" class="ml-1 text-sm font-medium text-slate-700 hover:text-red-700 md:ml-2 dark:text-slate-400 dark:hover:text-white">{{ $title }}</a>
+                <a href="/pembelian" class="ml-1 text-sm font-medium text-slate-700 hover:text-red-700 md:ml-2 dark:text-slate-400 dark:hover:text-white">{{ $title }}</a>
                 </div>
             </li>
         </ol>
@@ -34,7 +34,7 @@
 
     <div class="flex justify-between">
         <h1 class="text-3xl text-slate-600 font-semibold">{{ $title }}</h1>
-        <a href="/reparasi/create" class="px-3 py-2 bg-red-700 rounded-lg shadow-md text-white hover:bg-red-800 focus:ring focus:ring-red-200">
+        <a href="/pembelian/create" class="px-3 py-2 bg-red-700 rounded-lg shadow-md text-white hover:bg-red-800 focus:ring focus:ring-red-200">
             <i class="fa-solid fa-plus mr-2"></i>Tambah
         </a>
     </div>
@@ -52,7 +52,7 @@
             <div class="p-5 border border-t-0 border-slate-200">
                 <div class="font-light">
 
-                    <form action="/reparasi" method="get">
+                    <form action="/pembelian" method="get">
                         <div class="grid grid-cols-12 gap-1 mb-3">
                             <div class="col-span-2 my-auto">
                                 <label for="kode_reparasi" class="text-slate-600">Kode Reparasi</label>
@@ -105,12 +105,12 @@
                             <div class="col-span-5">
                                 <div class="grid grid-cols-12 gap-1">
                                     
-                                    @foreach ($jenis_barang as $item)
+                                    {{-- @foreach ($jenis_barang as $item)
                                         <div class="col-span-3">
                                             <input type="checkbox" name="nama_barang_id[]" id="{{ $item->nama_barang }}" value="{{ $item->id }}" class="rounded border border-slate-400 text-red-700 focus:ring-red-700">
                                             <label for="{{ $item->nama_barang }}" class="mr-3">{{ $item->nama_barang }}</label>
                                         </div>
-                                    @endforeach
+                                    @endforeach --}}
                                     
                                 </div>
                             </div>
@@ -131,21 +131,19 @@
 
     <div class="bg-white mt-7 rounded-lg shadow-md">
         <div class="bg-slate-300 px-5 py-3 rounded-t-md">
-            <span class="font-semibold text-slate-600">Reparasi terbaru</span>
+            <span class="font-semibold text-slate-600">Pembelian terbaru</span>
         </div>
         <div class="p-5">
             <table class="w-full rounded-lg">
                 <thead class="text-left">
                     <tr class="bg-slate-300">
-                        <th class="p-3 text-center">No</th>
-                        <th>Kode Reparasi</th>
-                        <th>Nama Customer</th>
-                        <th>Tanggal Reparasi</th>
+                        <th class="p-3 text-center">No.</th>
+                        <th>Kode Pembelian</th>
+                        <th>Nama Supplier</th>
+                        <th>Tanggal Pembelian</th>
                         <th>Barang</th>
                         <th class="text-center">Total Biaya</th>
-                        <th class="text-center">Status Pembayaran</th>
                         <th class="p-5"></th>
-                        {{-- <th class="p-5 rounded-tr-lg"></th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -154,29 +152,25 @@
                         @foreach ($data as $key => $item)
                         <tr class="border-b border-x border-slate-300 hover:bg-slate-100 text-slate-500">
                             <td class="text-center font-semibold">{{ $key + $data->firstItem() }}</td>
-                            <td>{{ $item->kode_reparasi }}</td>
-                            <td>{{ $item->nama_customer }}</td>
+                            <td>{{ $item->kode_pembelian }}</td>
+                            <td>{{ $item->nama_supplier }}</td>
                             <td>{{ $item->tanggal }}</td>
                             <td>{{ $item->nama_barang }}</td>
                             <td class="text-end">Rp {{ number_format($item->total, 0, ',', '.') }}</td>
-                            <td class="text-center">
-                                <span class="p-2 {{ $item->status_pembayaran == 'Lunas' ? 'bg-emerald-600' : 'bg-amber-600' }} text-white rounded-md font-normal"><i class="fa-solid {{ $item->status_pembayaran == 'Lunas' ? 'fa-circle-check' : 'fa-circle-exclamation' }} mr-2"></i>{{ $item->status_pembayaran }}</span>
-                                {{-- <span class="p-2 {{ $item->status_lunas == 'Lunas' ? 'bg-emerald-600' : 'bg-amber-600' }} text-white rounded-md font-normal"><i class="fa-solid {{ $item->status_lunas == 'Lunas' ? 'fa-circle-check' : 'fa-circle-exclamation' }} mr-2"></i>{{ $item->status_lunas }}</span> --}}
-                            </td>
                             <td class="p-3">
                                 <div class="flex justify-end">
                                     <div class="mr-2">
-                                        <a href="{{ url('/reparasi/'.$item->kode_reparasi.'/edit') }}" class="block text-xs px-1.5 py-1.5 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-emerald-500 hover:border-emerald-500">
+                                        <a href="{{ url('/pembelian/'.$item->kode_pembelian.'/edit') }}" class="block text-xs px-1.5 py-1.5 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-emerald-500 hover:border-emerald-500">
                                             <span class=""><i class="fa-solid fa-pen-to-square"></i></span>
                                         </a>
                                     </div>
                                     <div class="mr-2">
-                                        <a href="{{ url('/reparasi/'.$item->kode_reparasi) }}" class="block text-xs px-2.5 py-1.5 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-amber-500 hover:border-amber-500">
+                                        <a href="{{ url('/pembelian/'.$item->kode_pembelian) }}" class="block text-xs px-2.5 py-1.5 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-amber-500 hover:border-amber-500">
                                             <span class=""><i class="fa-solid fa-info"></i></span>
                                         </a>
                                     </div>
                                     <div class="mr-2">
-                                        <form action="{{ '/reparasi/'.$item->kode_reparasi }}" method="post" onsubmit="return confirm('Ini akan menghapus detail reparasi. Apakah Anda yakin ingin menghapus?')">
+                                        <form action="{{ '/pembelian/'.$item->kode_pembelian }}" method="post" onsubmit="return confirm('Ini akan menghapus detail pembelian. Apakah Anda yakin ingin menghapus?')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="px-2 text-xs py-1.5 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-red-500 hover:border-red-500">
@@ -186,9 +180,6 @@
                                     </div>
                                 </div>
                             </td>
-                            {{-- <td>
-                                <a href="{{ url('/reparasi/'.$item->kode_reparasi) }}/" class="underline underline-offset-1 text-red-700">Lihat detail</a>
-                            </td> --}}
                         </tr>
                         @endforeach
 
@@ -196,12 +187,6 @@
                     <tr class="border-b border-x border-slate-300 text-slate-500">
                         <td colspan="7" class="text-center py-3">Tidak ada data untuk ditampilkan.</td>
                     </tr>
-                    {{-- @if (empty($data)) 
-                    <tr class="border-b border-x border-slate-300 text-slate-500">
-                        <td colspan="7" class="text-center py-3">Tidak ada data untuk ditampilkan.</td>
-                    </tr>
-                    @endif --}}
-                    
                     @endif
                 </tbody>
             </table>

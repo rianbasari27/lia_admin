@@ -11,6 +11,7 @@ use App\Models\JenisBarang;
 use Illuminate\Support\Arr;
 use Illuminate\Database\Seeder;
 use App\Models\PembelianSparepart;
+use App\Models\Supplier;
 use App\Models\TransaksiKeluarDetail;
 use App\Models\TransaksiKeluarHeader;
 use App\Models\TransaksiMasuk;
@@ -39,21 +40,7 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => date('Y/m/d H:i:s')
             ]);
         }
-        
-        $sparepart = ['Resleting', 'Perekat', 'Bahan imitasi', 'Roda koper', 'Gagang koper', 'Sol sepatu', 'Benang jahit', 'Kain katun'];
-        foreach ($sparepart as $item) {
-            DB::table('sparepart')->insert([
-                'nama_sparepart' => $item,
-                'stok' => rand(1,100),
-                'satuan' => Arr::random(['Pcs', 'Dus', 'Lusin', 'Kg', 'Meter']),
-                'created_at' => date('Y/m/d H:i:s'),
-                'updated_at' => date('Y/m/d H:i:s')
-            ]);
-        }
-        
-        TransaksiMasuk::factory()->count(1)->create();
-        TransaksiKeluarHeader::factory()->count(1)->create();
-        TransaksiKeluarDetail::factory()->count(1)->create();
+        Supplier::factory()->count(5)->create();
         // PembelianHeader::factory()->count(20)->create();
     }
 }

@@ -21,7 +21,4 @@ class Customer extends Model
         return $this->hasMany(ReparasiHeader::class);
     }
 
-    public function transaksi_masuk() {
-        return $this->hasMany(TransaksiMasuk::class);
-    }
 }

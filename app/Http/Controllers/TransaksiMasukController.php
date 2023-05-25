@@ -21,10 +21,12 @@ class TransaksiMasukController extends Controller
         $data = TransaksiMasuk::select(
             'kode_transaksi',
             'nama_customer',
-            'tanggal',
+            'transaksi_masuk.tanggal',
             'tujuan_pembayaran',
-            'nominal',
-        )->join('customer', 'transaksi_masuk.nama_customer_id', '=', 'customer.id')
+            'nominal',)
+        // )->join('customer', 'transaksi_masuk.nama_customer_id', '=', 'customer.id')
+        ->join('reparasi_header', 'transaksi_masuk.kode_reparasi', '=', 'reparasi_header.kode_reparasi')
+        ->join('customer', 'reparasi_header.nama_customer_id', '=', 'customer.id')
         ->orderBy('transaksi_masuk.updated_at', 'desc')
         ->paginate(10);
         return view('transaksi_masuk.index')->with([

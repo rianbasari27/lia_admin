@@ -12,12 +12,17 @@ class PembelianHeader extends Model
     protected $table = 'pembelian_header';
     protected $fillable = [
         'kode_pembelian',
+        'nama_supplier_id',
         'tanggal',
-        'tempat_pembelian',
+        'total',
     ];
 
     public function pembelian_detail() {
         return $this->hasMany(PembelianDetail::class);
+    }
+
+    public function supplier() {
+        return $this->belongsTo(Supplier::class);
     }
 
 }

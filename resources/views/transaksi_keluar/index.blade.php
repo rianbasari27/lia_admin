@@ -79,10 +79,19 @@
 
                         <div class="grid grid-cols-12 gap-1 mb-3">
                             <div class="col-span-2 my-auto">
-                                <label for="transaksi_tujuan" class="text-slate-600">Transaksi_tujuan</label>
+                                <label for="transaksi_tujuan" class="text-slate-600">Transaksi Tujuan</label>
                             </div>
                             <div class="col-span-3">
                                 <input type="text" name="transaksi_tujuan" id="transaksi_tujuan" class="w-full p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-12 gap-1 mb-3">
+                            <div class="col-span-2 my-auto">
+                                <label for="pembayaran_lain" class="text-slate-600">Pembayaran lain</label>
+                            </div>
+                            <div class="col-span-3">
+                                <input type="text" name="pembayaran_lain" id="pembayaran_lain" class="w-full p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400">
                             </div>
                         </div>
 
@@ -112,6 +121,7 @@
                         <th>Kode Transaksi</th>
                         <th>Tanggal</th>
                         <th>Transaksi Tujuan</th>
+                        <th>Pembayaran Lain</th>
                         <th>Total</th>
                         <th class="rounded-tr-lg"></th>
                     </tr>
@@ -137,7 +147,20 @@
                         </td>
                         <td>{{ $item->kode_transaksi }}</td>
                         <td>{{ $item->tanggal }}</td>
-                        <td >{{ $item->transaksi_tujuan }}</td>
+                        <td>
+                            @if ($item->nama_supplier_id == null)
+                                -
+                            @else
+                                {{ $item->supplier->nama_supplier }}
+                            @endif    
+                        </td>
+                        <td>
+                            @if ($item->pembayaran_lain == null)
+                                -
+                            @else
+                                {{ $item->pembayaran_lain }}
+                            @endif
+                        </td>
                         <td>Rp {{ number_format($item->total, 0, ',', '.') }}</td>
                         <td class="text-center">
                             <a href="{{ url('/transaksi_keluar/'.$item->kode_transaksi) }}/" class="underline underline-offset-1 text-red-700">Lihat detail</a>

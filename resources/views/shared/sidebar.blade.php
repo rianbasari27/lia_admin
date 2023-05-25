@@ -1,4 +1,4 @@
-<nav class="fixed top-0 z-50 w-full shadow bg-white border-b border-slate-200 dark:bg-slate-800 dark:border-slate-700">
+<nav class="fixed top-0 z-50 w-full shadow bg-white border-b border-slate-200">
     <div class="px-3 py-3 lg:px-5 lg:pl-3">
         <div class="flex items-center justify-between">
             <div class="flex items-center justify-start">
@@ -52,6 +52,12 @@
                     <a href="/reparasi" class="flex {{ $title == 'Reparasi' ? 'bg-red-700 text-white font-semibold' : 'hover:bg-slate-100' }} text-slate-500 items-center p-2 rounded-lg dark:text-white dark:hover:bg-slate-700">
                         <i class="fa-solid fa-screwdriver-wrench text-lg"></i>
                         <span class="flex-1 ml-3 whitespace-nowrap">Reparasi</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/pembelian" class="flex {{ $title == 'Pembelian' ? 'bg-red-700 text-white font-semibold' : 'hover:bg-slate-100' }} text-slate-500 items-center p-2 rounded-lg dark:text-white dark:hover:bg-slate-700">
+                        <i class="fa-solid fa-cart-shopping text-lg"></i>
+                        <span class="flex-1 ml-3 whitespace-nowrap">Pembelian</span>
                     </a>
                 </li>
                 <li>

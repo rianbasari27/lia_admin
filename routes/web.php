@@ -31,9 +31,10 @@ Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::get('/reparasi/create/customer', [CustomerController::class, 'create'])->middleware('auth');
 Route::post('/reparasi/create/customer', [CustomerController::class, 'store'])->middleware('auth');
+Route::get('/pembelian/create/supplier', [PembelianController::class, 'create'])->middleware('auth');
+Route::post('/pembelian/create/supplier', [PembelianController::class, 'store'])->middleware('auth');
 Route::resource('/reparasi', ReparasiController::class)->middleware('auth');
-Route::resource('/pembelian_sparepart', PembelianController::class)->middleware('auth');
-Route::resource('/list_sparepart', SparepartController::class)->middleware('auth');
+Route::resource('/pembelian', PembelianController::class)->middleware('auth');
 Route::resource('/transaksi_keluar', TransaksiKeluarController::class)->middleware('auth');
 Route::resource('/transaksi_masuk', TransaksiMasukController::class)->middleware('auth');
 Route::resource('/laporan_pemasukan', LaporanMasukController::class)->middleware('auth');

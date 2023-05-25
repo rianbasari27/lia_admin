@@ -33,7 +33,7 @@
                                                 $id = explode('-', $item->kode_transaksi);
                                             }
                                         @endphp
-                                        <input type='text' name='kode_transaksi' id='kode_transaksi' value="TK-{{ $id[1] + 1 }}" class="w-[300px] p-1 rounded-md border @error('kode_transaksi') border-red-400 @enderror focus:border-red-400 focus:ring-red-400">
+                                        <input type='text' name='kode_transaksi' id='kode_transaksi' value="{{ $data->isEmpty() ? 'TK-1' : 'TK-'.$id[1] + 1 }}" class="w-[300px] p-1 rounded-md border @error('kode_transaksi') border-red-400 @enderror focus:border-red-400 focus:ring-red-400">
                                         @error('kode_transaksi')
                                             <div class="text-red-700 text-start">
                                                 {{ $message }}
@@ -58,13 +58,37 @@
 
                             </div>
 
-                            <div class='flex mb-5'>
+                            <div class='flex mb-7'>
                                 <div class='w-[140px] my-auto'>
-                                    <label for='transaksi_tujuan' class='text-slate-600'>Transaksi Tujuan</label>
+                                    <label for='nama_supplier_id' class='text-slate-600'>Transaksi Tujuan</label>
                                 </div>
                                 <div>
-                                    <input type='text' name='transaksi_tujuan' id='transaksi_tujuan' value="{{ old('transaksi_tujuan') }}" class="w-[300px] p-1 rounded-md border @error('transaksi_tujuan') border-red-400 @enderror focus:border-red-400 focus:ring-red-400">
-                                    @error('transaksi_tujuan')
+                                    <select name='nama_supplier_id' id='nama_supplier_id' class="w-[300px] p-1.5 rounded-md border @error('nama_supplier_id') border-red-400 @enderror focus:border-red-400 focus:ring-red-400">
+                                        <option selected>-</option>
+                                        @foreach ($supplier as $sp)
+                                            <option value='{{ $sp->id }}' {{ old('nama_supplier_id') == $sp->id ? 'selected' : '' }}>{{ $sp->nama_supplier }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('nama_supplier_id')
+                                        <div class="text-red-700 text-start">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="flex mb-3">
+                                <input type="checkbox" name="check" id="check" class="rounded border border-slate-400 text-red-700 focus:ring-red-700">
+                                <label for="check" class="ml-2 text-slate-600">Pembayaran lain</label>
+                            </div>
+
+                            <div class='flex mb-5'>
+                                <div class='w-[140px] my-auto'>
+                                    <label for='pembayaran_lain' class='text-slate-600'>Pembayaran lain</label>
+                                </div>
+                                <div>
+                                    <input type='text' name='pembayaran_lain' id='pembayaran_lain' disabled class="w-[300px] p-1 bg-slate-200 rounded-md border @error('pembayaran_lain') border-red-400 @enderror focus:border-red-400 focus:ring-red-400">
+                                    @error('pembayaran_lain')
                                         <div class="text-red-700 text-start">
                                             {{ $message }}
                                         </div>
@@ -124,69 +148,6 @@
                                 <div class="col-span-4"></div>
                             </div>
                             
-                            {{-- <table>
-                                <thead>
-                                    <tr>
-                                        <td class='px-3 text-xs'></td>
-                                        <td class='px-3 text-xs'>Tujuan transaksi</td>
-                                        <td class='px-3 text-xs'>Jumlah</td>
-                                        <td class='px-3 text-xs'>Nominal</td>
-                                        <td class='px-3 text-xs'>Keterangan</td>
-                                    </tr>
-                                </thead>
-                                
-                                <tbody class="multiple-records">
-                                    <tr class="duplicate-row">
-                                        <td class="px-3">
-                                            <button type='button' id='remove' class='remove-row px-3 py-2 rounded text-slate-600 bg-slate-200 hover:bg-red-700 hover:text-white duration-150'><i class='fa-solid fa-trash-can'></i></button>
-                                        </td>
-                                        <td class='px-3'>
-                                            <input type='text' name='tujuan_transaksi[]' id='tujuan_transaksi' class='tujuan_transaksi w-[300px] p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400'>
-                                            @error('tujuan_transaksi')
-                                                <div class="text-red-700 text-start">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </td>
-                                        <td class='px-3'>
-                                            <input type='number' name='jumlah[]' id='jumlah' class="w-[50px] p-1 rounded-md border @error('jumlah') border-red-400 @enderror focus:border-red-400 focus:ring-red-400">
-                                            @error('jumlah')
-                                                <div class="text-red-700 text-start">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </td>
-                                        <td class='px-3'>
-                                            <span class='mr-2'>Rp</span><input type='number' name='nominal[]' id='nominal' class='nominal w-52 p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400'>
-                                            @error('nominal')
-                                                <div class="text-red-700 text-start">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </td>
-                                        <td class='px-3'>
-                                            <input type='text' name='keterangan[]' id='keterangan' class='keterangan w-[250] p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400'>
-                                            @error('keterangan')
-                                                <div class="text-red-700 text-start">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </td>
-                                    </tr>
-                                </tbody>
-
-                                <tfoot>
-                                    <tr>
-                                        <td class="px-3 pt-7"></td>
-                                        <td class="px-3 pt-7"></td>
-                                        <td class="px-3 pt-7 text-end">Total biaya</td>
-                                        <td class="px-3 pt-7">
-                                            <span class='mr-2'>Rp</span><input type='number' name='total' id='total' class='w-52 p-1 rounded-md border border-slate-400 bg-slate-200 focus:ring-0 focus:border-slate-400' readonly>
-                                        </td>
-                                        <td class="px-3 pt-7"></td>
-                                    </tr>
-                                </tfoot>
-                            </table> --}}
                             
                         </div>
                     </div>
@@ -245,6 +206,20 @@
                                 totalIt();
                             });
                         });
+
+                        $('#check').on('change', function() {
+                            $('#pembayaran_lain').prop('disabled', !this.checked);
+                            $('#nama_supplier_id').prop('disabled', this.checked);
+                            if ($('#check').is(':checked')) {
+                                $('#nama_supplier_id').addClass("bg-slate-200");
+                                $('#pembayaran_lain').removeClass("bg-slate-200");
+                            }
+                            if (!$('#check').is(':checked')) {
+                                $('#nama_supplier_id').removeClass("bg-slate-200");
+                                $('#pembayaran_lain').addClass("bg-slate-200");
+                            }
+                        });
+
                     </script>
                     
                 </form>
