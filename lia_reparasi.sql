@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 22, 2023 at 03:54 AM
+-- Generation Time: May 27, 2023 at 07:34 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -41,16 +41,16 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`id`, `nama_customer`, `no_telepon`, `alamat`, `created_at`, `updated_at`) VALUES
-(1, 'Hari Waluyo Marbun S.IP', '+6286979998481', 'Psr. Samanhudi No. 510, Batu 59983, Babel', '2023-05-15 04:09:04', '2023-05-15 04:09:04'),
-(2, 'Kayla Maida Uyainah', '+6287559044659', 'Jln. Katamso No. 887, Kendari 89174, Jabar', '2023-05-15 04:09:04', '2023-05-15 04:09:04'),
-(3, 'Eja Muni Gunarto', '+6284966736036', 'Gg. Gedebage Selatan No. 672, Sibolga 82432, Sulut', '2023-05-15 04:09:04', '2023-05-15 04:09:04'),
-(4, 'Farhunnisa Lili Purwanti', '+6282093049740', 'Jln. Jend. Sudirman No. 227, Jambi 67406, NTT', '2023-05-15 04:09:04', '2023-05-15 04:09:04'),
-(5, 'Rudi Iswahyudi', '+6285015297019', 'Ki. Ekonomi No. 592, Administrasi Jakarta Timur 27275, Kaltara', '2023-05-15 04:09:04', '2023-05-15 04:09:04'),
-(6, 'Mustika Siregar', '+6284562335744', 'Ds. Sugiyopranoto No. 545, Bitung 99008, NTB', '2023-05-15 04:09:04', '2023-05-15 04:09:04'),
-(7, 'Ade Puspita', '+6289303806494', 'Jln. Merdeka No. 21, Mojokerto 65116, DKI', '2023-05-15 04:09:04', '2023-05-15 04:09:04'),
-(8, 'Oni Yuniar', '+6280166512522', 'Ki. Muwardi No. 337, Tarakan 96189, Lampung', '2023-05-15 04:09:04', '2023-05-15 04:09:04'),
-(9, 'Melinda Utami', '+6283990924091', 'Psr. Untung Suropati No. 937, Surakarta 51707, Jatim', '2023-05-15 04:09:04', '2023-05-15 04:09:04'),
-(10, 'Anggabaya Opung Maheswara', '+6285683105838', 'Jln. Jamika No. 918, Madiun 63622, Sulbar', '2023-05-15 04:09:04', '2023-05-15 04:09:04');
+(1, 'Bahuraksa Dabukke M.Pd', '+6286449953935', 'Ki. Reksoninten No. 892, Samarinda 32754, NTT', '2023-05-24 19:02:32', '2023-05-24 19:02:32'),
+(2, 'Zizi Gabriella Nasyiah', '+6283245524376', 'Ds. Bak Air No. 734, Tangerang 59474, Jateng', '2023-05-24 19:02:32', '2023-05-24 19:02:32'),
+(3, 'Gamani Najmudin', '+6286264215905', 'Ds. Abdul Muis No. 954, Yogyakarta 90342, Lampung', '2023-05-24 19:02:32', '2023-05-24 19:02:32'),
+(4, 'Ibrani Napitupulu', '+6280168953765', 'Jln. Baing No. 222, Palu 93504, Sumbar', '2023-05-24 19:02:32', '2023-05-24 19:02:32'),
+(5, 'Legawa Tugiman Sihombing M.Kom.', '+6284961929516', 'Ki. Cikapayang No. 955, Serang 24652, Lampung', '2023-05-24 19:02:32', '2023-05-24 19:02:32'),
+(6, 'Samiah Astuti', '+6284774299409', 'Ds. Reksoninten No. 169, Pasuruan 94522, Sulteng', '2023-05-24 19:02:32', '2023-05-24 19:02:32'),
+(7, 'Eli Hartati', '+6288971532546', 'Ds. Honggowongso No. 417, Payakumbuh 67697, Jambi', '2023-05-24 19:02:32', '2023-05-24 19:02:32'),
+(8, 'Ratna Yuniar', '+6288717791052', 'Ds. Jamika No. 655, Tangerang 90729, Sumsel', '2023-05-24 19:02:32', '2023-05-24 19:02:32'),
+(9, 'Arsipatra Hutapea S.Ked', '+6283732866708', 'Jln. Sampangan No. 310, Pontianak 81487, Kaltim', '2023-05-24 19:02:32', '2023-05-24 19:02:32'),
+(10, 'Najam Halim S.E.', '+6286358171677', 'Ds. Gajah No. 435, Semarang 73507, NTT', '2023-05-24 19:02:32', '2023-05-24 19:02:32');
 
 -- --------------------------------------------------------
 
@@ -70,13 +70,13 @@ CREATE TABLE `jenis_barang` (
 --
 
 INSERT INTO `jenis_barang` (`id`, `nama_barang`, `created_at`, `updated_at`) VALUES
-(1, 'Tas', '2023-05-15 04:09:04', '2023-05-15 04:09:04'),
-(2, 'Koper', '2023-05-15 04:09:04', '2023-05-15 04:09:04'),
-(3, 'Sepatu', '2023-05-15 04:09:04', '2023-05-15 04:09:04'),
-(4, 'Sandal', '2023-05-15 04:09:04', '2023-05-15 04:09:04'),
-(5, 'Dompet', '2023-05-15 04:09:04', '2023-05-15 04:09:04'),
-(6, 'Vermak', '2023-05-15 04:09:04', '2023-05-15 04:09:04'),
-(7, 'Aksesoris', '2023-05-15 04:09:04', '2023-05-15 04:09:04');
+(1, 'Tas', '2023-05-24 19:02:32', '2023-05-24 19:02:32'),
+(2, 'Koper', '2023-05-24 19:02:32', '2023-05-24 19:02:32'),
+(3, 'Sepatu', '2023-05-24 19:02:32', '2023-05-24 19:02:32'),
+(4, 'Sandal', '2023-05-24 19:02:32', '2023-05-24 19:02:32'),
+(5, 'Dompet', '2023-05-24 19:02:32', '2023-05-24 19:02:32'),
+(6, 'Vermak', '2023-05-24 19:02:32', '2023-05-24 19:02:32'),
+(7, 'Aksesoris', '2023-05-24 19:02:32', '2023-05-24 19:02:32');
 
 -- --------------------------------------------------------
 
@@ -100,13 +100,14 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (3, '2023_03_14_014546_create_jenis_barang_table', 1),
 (4, '2023_03_14_024209_create_sparepart_table', 1),
 (5, '2023_03_14_024402_create_customer_table', 1),
-(6, '2023_03_14_024504_create_reparasi_header_table', 1),
-(7, '2023_03_14_024505_create_reparasi_detail_table', 1),
-(8, '2023_03_14_031308_create_transaksi_masuk_table', 1),
-(9, '2023_03_14_035033_create_pembelian_header_table', 1),
-(10, '2023_03_14_035034_create_pembelian_detail_table', 1),
-(11, '2023_05_13_030643_create_transaksi_keluar_header_table', 1),
-(12, '2023_05_13_031115_create_transaksi_keluar_detail_table', 1);
+(6, '2023_03_14_024410_create_supplier_table', 1),
+(7, '2023_03_14_024504_create_reparasi_header_table', 1),
+(8, '2023_03_14_024505_create_reparasi_detail_table', 1),
+(9, '2023_03_14_031308_create_transaksi_masuk_table', 1),
+(10, '2023_03_14_035033_create_pembelian_header_table', 1),
+(11, '2023_03_14_035034_create_pembelian_detail_table', 1),
+(12, '2023_05_13_030643_create_transaksi_keluar_table', 1),
+(13, '2023_05_13_031115_create_transaksi_keluar_detail_table', 1);
 
 -- --------------------------------------------------------
 
@@ -117,14 +118,26 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 CREATE TABLE `pembelian_detail` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `kode_pembelian` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama_sparepart_id` bigint(20) UNSIGNED NOT NULL,
+  `nama_barang` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jumlah` int(11) NOT NULL,
   `satuan` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `biaya` int(11) NOT NULL,
-  `total` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `pembelian_detail`
+--
+
+INSERT INTO `pembelian_detail` (`id`, `kode_pembelian`, `nama_barang`, `jumlah`, `satuan`, `biaya`, `created_at`, `updated_at`) VALUES
+(15, 'PB-2', 'Resleting', 1, 'PCS', 1111, '2023-05-25 00:24:40', '2023-05-25 00:24:40'),
+(17, 'PB-4', 'Bahan imitasi', 2, 'Meter', 55000, '2023-05-25 02:12:51', '2023-05-25 02:12:51'),
+(18, 'PB-4', 'Bahan katun', 3, 'Meter', 65000, '2023-05-25 02:12:51', '2023-05-25 02:12:51'),
+(20, 'PB-5', 'Tali Tas', 4, 'PCS', 75000, '2023-05-25 07:22:29', '2023-05-25 07:22:29'),
+(23, 'PB-3', 'Resleting', 1, 'Dus', 120000, '2023-05-26 21:06:00', '2023-05-26 21:06:00'),
+(24, 'PB-1', 'Resleting', 5, 'Meter', 50000, '2023-05-26 21:06:33', '2023-05-26 21:06:33'),
+(25, 'PB-1', 'Benang', 5, 'PCS', 30000, '2023-05-26 21:06:33', '2023-05-26 21:06:33');
 
 -- --------------------------------------------------------
 
@@ -134,11 +147,23 @@ CREATE TABLE `pembelian_detail` (
 
 CREATE TABLE `pembelian_header` (
   `kode_pembelian` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama_supplier_id` bigint(20) UNSIGNED NOT NULL,
   `tanggal` date NOT NULL,
-  `tempat_pembelian` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `total` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `pembelian_header`
+--
+
+INSERT INTO `pembelian_header` (`kode_pembelian`, `nama_supplier_id`, `tanggal`, `total`, `created_at`, `updated_at`) VALUES
+('PB-1', 1, '2023-05-27', 80000, '2023-05-24 22:46:07', '2023-05-26 21:06:33'),
+('PB-2', 1, '2023-05-25', 1111, '2023-05-25 00:24:40', '2023-05-25 00:24:40'),
+('PB-3', 2, '2023-05-26', 120000, '2023-05-25 00:26:29', '2023-05-26 21:06:00'),
+('PB-4', 2, '2023-05-25', 120000, '2023-05-25 02:12:51', '2023-05-25 02:12:51'),
+('PB-5', 3, '2023-05-24', 75000, '2023-05-25 02:13:47', '2023-05-25 07:22:29');
 
 -- --------------------------------------------------------
 
@@ -181,17 +206,12 @@ CREATE TABLE `reparasi_detail` (
 --
 
 INSERT INTO `reparasi_detail` (`id`, `kode_reparasi`, `nama_barang_id`, `kerusakan`, `jumlah`, `biaya`, `created_at`, `updated_at`) VALUES
-(29, 'LIA-1', 2, 'sfesfesf', 1, 120000, '2023-05-19 02:40:16', '2023-05-19 02:40:16'),
-(30, 'LIA-1', 3, 'aqdwdawd', 1, 50000, '2023-05-19 02:40:16', '2023-05-19 02:40:16'),
-(31, 'LIA-2', 3, 'DWDadwad', 1, 100000, '2023-05-19 04:10:43', '2023-05-19 04:10:43'),
-(32, 'LIA-2', 2, 'aaaaa', 1, 200000, '2023-05-19 04:10:43', '2023-05-19 04:10:43'),
-(33, 'LIA-3', 1, 'adadwadaw', 1, 50000, '2023-05-19 04:29:42', '2023-05-19 04:29:42'),
-(34, 'LIA-3', 5, 'adadddd', 1, 20000, '2023-05-19 04:29:42', '2023-05-19 04:29:42'),
-(35, 'LIA-4', 5, 'kkkk', 1, 20000, '2023-05-19 08:54:28', '2023-05-19 08:54:28'),
-(36, 'LIA-5', 1, 'asdadwwd', 1, 120000, '2023-05-19 23:36:53', '2023-05-19 23:36:53'),
-(37, 'LIA-6', 2, 'adawdwd', 1, 200000, '2023-05-19 23:39:14', '2023-05-19 23:39:14'),
-(38, 'LIA-7', 3, 'adadwadaw', 1, 100000, '2023-05-21 08:22:17', '2023-05-21 08:22:17'),
-(39, 'LIA-8', 1, 'aaaaaa', 1, 200000, '2023-05-21 08:23:26', '2023-05-21 08:23:26');
+(1, 'LIA-1', 1, 'aaaaaaaaaa', 1, 50000, '2023-05-24 19:02:52', '2023-05-24 19:02:52'),
+(4, 'LIA-2', 1, 'aaaaaa', 1, 100000, '2023-05-25 21:03:51', '2023-05-25 21:03:51'),
+(5, 'LIA-2', 3, 'awddwd', 1, 50000, '2023-05-25 21:03:51', '2023-05-25 21:03:51'),
+(6, 'LIA-4', 3, 'asdadwd', 1, 120000, '2023-05-26 20:05:00', '2023-05-26 20:05:00'),
+(7, 'LIA-3', 2, 'awddwd', 1, 50000, '2023-05-26 20:08:03', '2023-05-26 20:08:03'),
+(8, 'LIA-5', 2, 'aaaaaaaaaaaaaaa', 1, 100000, '2023-05-26 21:38:40', '2023-05-26 21:38:40');
 
 -- --------------------------------------------------------
 
@@ -214,14 +234,11 @@ CREATE TABLE `reparasi_header` (
 --
 
 INSERT INTO `reparasi_header` (`kode_reparasi`, `nama_customer_id`, `tanggal`, `total`, `status_pembayaran`, `created_at`, `updated_at`) VALUES
-('LIA-1', 3, '2023-05-19', 170000, 'Belum lunas', '2023-05-19 02:40:16', '2023-05-19 02:40:16'),
-('LIA-2', 7, '2023-05-19', 300000, 'Lunas', '2023-05-19 04:10:43', '2023-05-21 08:20:16'),
-('LIA-3', 8, '2023-05-19', 70000, 'Belum lunas', '2023-05-19 04:29:42', '2023-05-19 04:56:57'),
-('LIA-4', 8, '2023-05-19', 20000, 'Lunas', '2023-05-19 08:54:28', '2023-05-19 08:54:28'),
-('LIA-5', 10, '2023-05-20', 120000, 'Lunas', '2023-05-19 23:36:53', '2023-05-20 22:11:04'),
-('LIA-6', 6, '2023-05-21', 200000, 'Lunas', '2023-05-19 23:39:14', '2023-05-20 06:36:03'),
-('LIA-7', 2, '2023-05-21', 100000, 'Lunas', '2023-05-21 08:22:17', '2023-05-21 08:22:17'),
-('LIA-8', 2, '2023-05-22', 200000, 'Belum lunas', '2023-05-21 08:23:26', '2023-05-21 08:23:26');
+('LIA-1', 1, '2023-05-25', 50000, 'Lunas', '2023-05-24 19:02:52', '2023-05-26 20:09:05'),
+('LIA-2', 3, '2023-05-25', 150000, 'Belum lunas', '2023-05-24 19:05:30', '2023-05-25 21:03:51'),
+('LIA-3', 4, '2023-05-26', 50000, 'Lunas', '2023-05-24 19:07:14', '2023-05-26 20:09:20'),
+('LIA-4', 5, '2023-05-27', 120000, 'Lunas', '2023-05-26 20:05:00', '2023-05-26 20:05:00'),
+('LIA-5', 10, '2023-05-28', 100000, 'Belum lunas', '2023-05-26 21:38:40', '2023-05-26 21:38:40');
 
 -- --------------------------------------------------------
 
@@ -238,19 +255,58 @@ CREATE TABLE `sparepart` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `sparepart`
+-- Table structure for table `supplier`
 --
 
-INSERT INTO `sparepart` (`id`, `nama_sparepart`, `stok`, `satuan`, `created_at`, `updated_at`) VALUES
-(1, 'Resleting', 11, 'Pcs', '2023-05-15 04:09:04', '2023-05-15 04:09:04'),
-(2, 'Perekat', 68, 'Meter', '2023-05-15 04:09:04', '2023-05-15 04:09:04'),
-(3, 'Bahan imitasi', 94, 'Dus', '2023-05-15 04:09:04', '2023-05-15 04:09:04'),
-(4, 'Roda koper', 59, 'Kg', '2023-05-15 04:09:04', '2023-05-15 04:09:04'),
-(5, 'Gagang koper', 39, 'Lusin', '2023-05-15 04:09:04', '2023-05-15 04:09:04'),
-(6, 'Sol sepatu', 32, 'Meter', '2023-05-15 04:09:04', '2023-05-15 04:09:04'),
-(7, 'Benang jahit', 28, 'Meter', '2023-05-15 04:09:04', '2023-05-15 04:09:04'),
-(8, 'Kain katun', 29, 'Pcs', '2023-05-15 04:09:04', '2023-05-15 04:09:04');
+CREATE TABLE `supplier` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `nama_supplier` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `alamat` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `no_telepon` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `supplier`
+--
+
+INSERT INTO `supplier` (`id`, `nama_supplier`, `alamat`, `no_telepon`, `created_at`, `updated_at`) VALUES
+(1, 'Toko Hana Tania Laksita S.Sos', 'Ki. B.Agam Dlm No. 755, Pagar Alam 49227, Gorontalo', '0205 6862 3078', '2023-05-24 19:02:32', '2023-05-24 19:02:32'),
+(2, 'PT Elma Astuti', 'Psr. Pasirkoja No. 610, Pagar Alam 73912, Gorontalo', '(+62) 819 6259 7402', '2023-05-24 19:02:32', '2023-05-24 19:02:32'),
+(3, 'Toko Limar Slamet Mandala S.Kom', 'Jln. Sampangan No. 226, Tomohon 61842, Sumbar', '(+62) 676 7660 3500', '2023-05-24 19:02:32', '2023-05-24 19:02:32'),
+(4, 'PT Candra Manullang M.Farm', 'Psr. Rajawali Barat No. 960, Mojokerto 52100, Sultra', '0485 8220 277', '2023-05-24 19:02:32', '2023-05-24 19:02:32'),
+(5, 'PT Elvin Waluyo Najmudin', 'Ki. Ters. Pasir Koja No. 492, Pariaman 83181, Jateng', '0534 4469 4650', '2023-05-24 19:02:32', '2023-05-24 19:02:32');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transaksi_keluar`
+--
+
+CREATE TABLE `transaksi_keluar` (
+  `kode_transaksi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kode_pembelian` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pembayaran_lain` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tanggal` date NOT NULL,
+  `tujuan_transaksi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nominal` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `keterangan` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `transaksi_keluar`
+--
+
+INSERT INTO `transaksi_keluar` (`kode_transaksi`, `kode_pembelian`, `pembayaran_lain`, `tanggal`, `tujuan_transaksi`, `nominal`, `keterangan`, `created_at`, `updated_at`) VALUES
+('TK-1', 'PB-2', NULL, '2023-05-25', 'Pembaaaaaaaa', '20000', NULL, '2023-05-25 09:11:15', '2023-05-25 09:11:15'),
+('TK-3', 'PB-4', NULL, '2023-05-26', 'aaaaaaaa', '100000', NULL, '2023-05-25 18:24:22', '2023-05-25 18:24:22'),
+('TK-4', '', 'Pembayaran listrik', '2023-05-27', 'Pembayaran tagihan listrik toko', '100000', NULL, '2023-05-26 22:20:53', '2023-05-26 22:20:53');
 
 -- --------------------------------------------------------
 
@@ -268,38 +324,6 @@ CREATE TABLE `transaksi_keluar_detail` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `transaksi_keluar_detail`
---
-
-INSERT INTO `transaksi_keluar_detail` (`id`, `kode_transaksi`, `tujuan_transaksi`, `nominal`, `keterangan`, `created_at`, `updated_at`) VALUES
-(1, 'TK-1', 'Pelunasan', 375000, NULL, '2023-05-15 04:09:04', '2023-05-15 04:09:04'),
-(4, 'TK-2', 'Pembelian haaaaaa', 120000, NULL, '2023-05-15 08:08:20', '2023-05-15 08:08:20'),
-(5, 'TK-2', 'Pembelian hiiiiiiiii', 450000, NULL, '2023-05-15 08:08:20', '2023-05-15 08:08:20');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `transaksi_keluar_header`
---
-
-CREATE TABLE `transaksi_keluar_header` (
-  `kode_transaksi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tanggal` date NOT NULL,
-  `transaksi_tujuan` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `total` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `transaksi_keluar_header`
---
-
-INSERT INTO `transaksi_keluar_header` (`kode_transaksi`, `tanggal`, `transaksi_tujuan`, `total`, `created_at`, `updated_at`) VALUES
-('TK-1', '2023-05-15', 'Toko Indah Lestari', '353000', '2023-05-15 04:09:04', '2023-05-15 04:09:04'),
-('TK-2', '2023-05-15', 'PT AAAH', '570000', '2023-05-15 08:08:20', '2023-05-15 08:08:20');
-
 -- --------------------------------------------------------
 
 --
@@ -308,7 +332,6 @@ INSERT INTO `transaksi_keluar_header` (`kode_transaksi`, `tanggal`, `transaksi_t
 
 CREATE TABLE `transaksi_masuk` (
   `kode_transaksi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama_customer_id` bigint(20) UNSIGNED NOT NULL,
   `kode_reparasi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tanggal` date NOT NULL,
   `tujuan_pembayaran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -322,15 +345,12 @@ CREATE TABLE `transaksi_masuk` (
 -- Dumping data for table `transaksi_masuk`
 --
 
-INSERT INTO `transaksi_masuk` (`kode_transaksi`, `nama_customer_id`, `kode_reparasi`, `tanggal`, `tujuan_pembayaran`, `nominal`, `keterangan`, `created_at`, `updated_at`) VALUES
-('TM-1', 3, 'LIA-1', '2023-05-19', 'Uang muka', 100000, NULL, '2023-05-19 02:40:16', '2023-05-19 02:40:16'),
-('TM-2', 7, 'LIA-2', '2023-05-19', 'Uang muka', 100000, NULL, '2023-05-19 04:10:43', '2023-05-19 04:10:43'),
-('TM-3', 8, 'LIA-4', '2023-05-19', 'Pelunasan', 20000, NULL, '2023-05-19 08:54:28', '2023-05-19 08:54:28'),
-('TM-4', 6, 'LIA-6', '2023-05-21', 'Pelunasan', 200000, NULL, '2023-05-20 06:36:03', '2023-05-20 22:10:02'),
-('TM-5', 10, 'LIA-5', '2023-05-20', 'Pelunasan', 120000, NULL, '2023-05-20 22:11:04', '2023-05-20 22:11:04'),
-('TM-6', 7, 'LIA-2', '2023-05-21', 'Pelunasan', 200000, NULL, '2023-05-21 08:20:16', '2023-05-21 08:20:16'),
-('TM-7', 2, 'LIA-7', '2023-05-21', 'Pelunasan', 100000, NULL, '2023-05-21 08:22:17', '2023-05-21 08:22:17'),
-('TM-8', 2, 'LIA-8', '2023-05-22', 'Uang muka', 100000, NULL, '2023-05-21 08:23:26', '2023-05-21 08:23:26');
+INSERT INTO `transaksi_masuk` (`kode_transaksi`, `kode_reparasi`, `tanggal`, `tujuan_pembayaran`, `nominal`, `keterangan`, `created_at`, `updated_at`) VALUES
+('TM-2', 'LIA-2', '2023-05-25', 'Pelunasan', 100000, NULL, '2023-05-25 07:39:54', '2023-05-25 07:47:34'),
+('TM-3', 'LIA-4', '2023-05-27', 'Pelunasan', 120000, NULL, '2023-05-26 20:05:00', '2023-05-26 20:05:00'),
+('TM-4', 'LIA-1', '2023-05-27', 'Pelunasan', 50000, NULL, '2023-05-26 20:09:05', '2023-05-26 20:09:05'),
+('TM-5', 'LIA-3', '2023-05-27', 'Pelunasan', 50000, NULL, '2023-05-26 20:09:20', '2023-05-26 20:09:20'),
+('TM-6', 'LIA-5', '2023-05-28', 'Uang muka', 50000, NULL, '2023-05-26 21:38:40', '2023-05-26 21:38:40');
 
 -- --------------------------------------------------------
 
@@ -353,8 +373,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `nama`, `jabatan`, `username`, `password`, `created_at`, `updated_at`) VALUES
-(1, 'Estelle Sawayn', 'Admin', 'admin', '$2y$10$toN2vlFZANdkHe4VyxpY1eOdVxvmYx3nQd8Ov7/gzgHXD5u76HMXq', '2023-05-15 04:09:04', '2023-05-15 04:09:04'),
-(2, 'Hugh Bartoletti', 'Pimpinan', 'pimpinan', '$2y$10$Bos3MMrB4N.w.TaOODKeN.ZrpBtwF.XE9vSISkdF3kYdL1.dfweaC', '2023-05-15 04:09:04', '2023-05-15 04:09:04');
+(1, 'Prof. Jennie Osinski II', 'Admin', 'admin', '$2y$10$mK.2hYPUecPQieCJbUYL4u6jJneHCB.LviYAoTd9G6pSLW6dsgidy', '2023-05-24 19:02:31', '2023-05-24 19:02:31'),
+(2, 'Jacinto O\'Kon', 'Pimpinan', 'admin', '$2y$10$Yc4CPnc1GDsC959xLL3Lf.k9LQpj2crXtI.P2PmS0.UdASTCB2b3e', '2023-05-24 19:02:31', '2023-05-24 19:02:31');
 
 --
 -- Indexes for dumped tables
@@ -383,7 +403,14 @@ ALTER TABLE `migrations`
 --
 ALTER TABLE `pembelian_detail`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `pembelian_detail_nama_sparepart_id_foreign` (`nama_sparepart_id`);
+  ADD KEY `pembelian_detail_kode_pembelian_foreign` (`kode_pembelian`);
+
+--
+-- Indexes for table `pembelian_header`
+--
+ALTER TABLE `pembelian_header`
+  ADD PRIMARY KEY (`kode_pembelian`),
+  ADD KEY `pembelian_header_nama_supplier_id_foreign` (`nama_supplier_id`);
 
 --
 -- Indexes for table `personal_access_tokens`
@@ -398,6 +425,7 @@ ALTER TABLE `personal_access_tokens`
 --
 ALTER TABLE `reparasi_detail`
   ADD PRIMARY KEY (`id`),
+  ADD KEY `reparasi_detail_kode_reparasi_foreign` (`kode_reparasi`),
   ADD KEY `reparasi_detail_nama_barang_id_foreign` (`nama_barang_id`);
 
 --
@@ -414,23 +442,29 @@ ALTER TABLE `sparepart`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `supplier`
+--
+ALTER TABLE `supplier`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `transaksi_keluar`
+--
+ALTER TABLE `transaksi_keluar`
+  ADD PRIMARY KEY (`kode_transaksi`);
+
+--
 -- Indexes for table `transaksi_keluar_detail`
 --
 ALTER TABLE `transaksi_keluar_detail`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `transaksi_keluar_header`
---
-ALTER TABLE `transaksi_keluar_header`
-  ADD PRIMARY KEY (`kode_transaksi`);
-
---
 -- Indexes for table `transaksi_masuk`
 --
 ALTER TABLE `transaksi_masuk`
   ADD PRIMARY KEY (`kode_transaksi`),
-  ADD KEY `transaksi_masuk_nama_customer_id_foreign` (`nama_customer_id`);
+  ADD KEY `transaksi_masuk_kode_reparasi_foreign` (`kode_reparasi`);
 
 --
 -- Indexes for table `users`
@@ -458,13 +492,13 @@ ALTER TABLE `jenis_barang`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `pembelian_detail`
 --
 ALTER TABLE `pembelian_detail`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -476,19 +510,25 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `reparasi_detail`
 --
 ALTER TABLE `reparasi_detail`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `sparepart`
 --
 ALTER TABLE `sparepart`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `supplier`
+--
+ALTER TABLE `supplier`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `transaksi_keluar_detail`
 --
 ALTER TABLE `transaksi_keluar_detail`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -504,12 +544,19 @@ ALTER TABLE `users`
 -- Constraints for table `pembelian_detail`
 --
 ALTER TABLE `pembelian_detail`
-  ADD CONSTRAINT `pembelian_detail_nama_sparepart_id_foreign` FOREIGN KEY (`nama_sparepart_id`) REFERENCES `sparepart` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `pembelian_detail_kode_pembelian_foreign` FOREIGN KEY (`kode_pembelian`) REFERENCES `pembelian_header` (`kode_pembelian`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `pembelian_header`
+--
+ALTER TABLE `pembelian_header`
+  ADD CONSTRAINT `pembelian_header_nama_supplier_id_foreign` FOREIGN KEY (`nama_supplier_id`) REFERENCES `supplier` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `reparasi_detail`
 --
 ALTER TABLE `reparasi_detail`
+  ADD CONSTRAINT `reparasi_detail_kode_reparasi_foreign` FOREIGN KEY (`kode_reparasi`) REFERENCES `reparasi_header` (`kode_reparasi`) ON DELETE CASCADE,
   ADD CONSTRAINT `reparasi_detail_nama_barang_id_foreign` FOREIGN KEY (`nama_barang_id`) REFERENCES `jenis_barang` (`id`) ON DELETE CASCADE;
 
 --
@@ -522,7 +569,7 @@ ALTER TABLE `reparasi_header`
 -- Constraints for table `transaksi_masuk`
 --
 ALTER TABLE `transaksi_masuk`
-  ADD CONSTRAINT `transaksi_masuk_nama_customer_id_foreign` FOREIGN KEY (`nama_customer_id`) REFERENCES `customer` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `transaksi_masuk_kode_reparasi_foreign` FOREIGN KEY (`kode_reparasi`) REFERENCES `reparasi_header` (`kode_reparasi`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
