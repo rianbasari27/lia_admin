@@ -68,10 +68,10 @@
                     </button>
                     <ul id="dropdown-transaksi" class="{{ $title == 'Transaksi Masuk' || $title == 'Transaksi Keluar' ? '' : 'hidden' }} py-2 space-y-2">
                         <li>
-                            <a href="/transaksi_masuk" class="flex {{ $title == 'Transaksi Masuk' ? 'bg-red-300 text-white font-semibold' : 'hover:bg-slate-100' }} items-center w-full p-2 text-slate-500 transition duration-75 rounded-lg pl-11 group dark:text-white dark:hover:bg-slate-700">Transaksi masuk</a>
+                            <a href="/transaksi_masuk" class="flex {{ $title == 'Transaksi Masuk' ? 'bg-red-400 text-white font-semibold' : 'hover:bg-slate-100' }} items-center w-full p-2 text-slate-500 transition duration-75 rounded-lg pl-11 group dark:text-white dark:hover:bg-slate-700">Transaksi masuk</a>
                         </li>
                         <li>
-                            <a href="/transaksi_keluar" class="flex {{ $title == 'Transaksi Keluar' ? 'bg-red-300 text-white font-semibold' : 'hover:bg-slate-100' }} items-center w-full p-2 text-slate-500 transition duration-75 rounded-lg pl-11 group dark:text-white dark:hover:bg-slate-700">Transaksi keluar</a>
+                            <a href="/transaksi_keluar" class="flex {{ $title == 'Transaksi Keluar' ? 'bg-red-400 text-white font-semibold' : 'hover:bg-slate-100' }} items-center w-full p-2 text-slate-500 transition duration-75 rounded-lg pl-11 group dark:text-white dark:hover:bg-slate-700">Transaksi keluar</a>
                         </li>
                     </ul>
                 </li>

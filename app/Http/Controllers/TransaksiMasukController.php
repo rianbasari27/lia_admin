@@ -15,10 +15,11 @@ class TransaksiMasukController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = "Transaksi Masuk";
-        $data = TransaksiMasuk::select(
+        $query = TransaksiMasuk::query();
+        $query->select(
             'kode_transaksi',
             'nama_customer',
             'transaksi_masuk.tanggal',
@@ -26,8 +27,25 @@ class TransaksiMasukController extends Controller
             'nominal',)
         // )->join('customer', 'transaksi_masuk.nama_customer_id', '=', 'customer.id')
         ->join('reparasi_header', 'transaksi_masuk.kode_reparasi', '=', 'reparasi_header.kode_reparasi')
-        ->join('customer', 'reparasi_header.nama_customer_id', '=', 'customer.id')
-        ->orderBy('transaksi_masuk.updated_at', 'desc')
+        ->join('customer', 'reparasi_header.nama_customer_id', '=', 'customer.id');
+
+        if ( $request->kode_transaksi ) {
+            $query->where('kode_transaksi', 'like', '%' . $request->kode_transaksi . '%');
+        }
+
+        if ( $request->nama_customer ) {
+            $query->where('nama_customer', 'like', '%' . $request->nama_customer . '%');
+        }
+        
+        if ( $request->tanggal_mulai && $request->tanggal_sampai ) {
+            $query->whereBetween('transaksi_masuk.tanggal', [$request->tanggal_mulai, $request->tanggal_sampai]);
+        }
+        
+        if ( $request->tujuan_pembayaran ) {
+            $query->where('tujuan_pembayaran', 'like', '%' . $request->tujuan_pembayaran . '%');
+        }
+
+        $data = $query->orderBy('transaksi_masuk.tanggal', 'desc')
         ->paginate(10);
         return view('transaksi_masuk.index')->with([
             'title' => $title,
@@ -99,7 +117,11 @@ class TransaksiMasukController extends Controller
     public function show(string $kode_transaksi)
     {
         $title = "Transaksi Masuk";
-        $data = TransaksiMasuk::where('kode_transaksi', $kode_transaksi)->first();
+        $data = TransaksiMasuk::join('reparasi_header', 'transaksi_masuk.kode_reparasi', '=', 'reparasi_header.kode_reparasi')
+        ->join('customer', 'reparasi_header.nama_customer_id', '=', 'customer.id')
+        ->where('kode_transaksi', $kode_transaksi)
+        ->first();
+        
         return view('transaksi_masuk.detail')->with([
             'data' => $data,
             'title' => $title,
@@ -137,9 +159,7 @@ class TransaksiMasukController extends Controller
     {
         $kode_reparasi = explode(' ', $request->input('kode_reparasi'));
         $data = [
-            'nama_customer_id' => $kode_reparasi[1],
             'kode_reparasi' => $kode_reparasi[0],
-            'tanggal' => $request->input('tanggal'),
             'tanggal' => $request->input('tanggal'),
             'tujuan_pembayaran' => $request->input('tujuan_pembayaran'),
             'nominal' => $request->input('nominal'),

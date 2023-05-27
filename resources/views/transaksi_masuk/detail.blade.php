@@ -23,7 +23,7 @@
             </tr>
             <tr class="border-b border-slate-300">
                 <td class="font-semibold text-slate-600 py-3 w-[400px]">Nama Customer</td>
-                <td class="font-light text-slate-600 py-3">{{ $data->customer->nama_customer }}</td>
+                <td class="font-light text-slate-600 py-3">{{ $data->nama_customer }}</td>
             </tr>
             <tr class="border-b border-slate-300">
                 <td class="font-semibold text-slate-600 py-3 w-[400px]">Kode Reparasi</td>

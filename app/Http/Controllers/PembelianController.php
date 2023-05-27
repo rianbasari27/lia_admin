@@ -15,24 +15,43 @@ class PembelianController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = "Pembelian";
-        $data = PembelianHeader::join('supplier as s', 'pembelian_header.nama_supplier_id', '=', 's.id')
-        ->join('pembelian_detail as pd', 'pembelian_header.kode_pembelian', '=', 'pd.kode_pembelian')
-        ->select(
-        'pembelian_header.kode_pembelian'
-        ,'s.nama_supplier'
-        ,'pembelian_header.tanggal'
-        ,DB::raw("GROUP_CONCAT(pd.nama_barang) as nama_barang")
-        ,'pembelian_header.total'
-        )
-        ->groupBy('pembelian_header.kode_pembelian'
+        $query = PembelianHeader::query();
+        $query->select(
+            'pembelian_header.kode_pembelian'
+            ,'s.nama_supplier'
+            ,'pembelian_header.tanggal'
+            ,DB::raw("GROUP_CONCAT(pd.nama_barang) as nama_barang")
+            ,'pembelian_header.total'
+            )
+            ->join('supplier as s', 'pembelian_header.nama_supplier_id', '=', 's.id')
+            ->join('pembelian_detail as pd', 'pembelian_header.kode_pembelian', '=', 'pd.kode_pembelian');
+        
+        if ( $request->kode_pembelian ) {
+            $query->where('pembelian_header.kode_pembelian', 'like', '%' . $request->kode_pembelian . '%');
+        }
+        
+        if ( $request->tanggal_mulai && $request->tanggal_sampai ) {
+            $query->whereBetween('pembelian_header.tanggal', [$request->tanggal_mulai, $request->tanggal_sampai]);
+        }
+        
+        if ( $request->nama_supplier ) {
+            $query->where('s.nama_supplier', 'like', '%' . $request->nama_supplier . '%');
+        }
+        
+        if ( $request->nama_barang ) {
+            $query->where('pd.nama_barang', 'like', '%' . $request->nama_barang . '%');
+        }
+        
+        
+        $data = $query->groupBy('pembelian_header.kode_pembelian'
         ,'pembelian_header.tanggal'
         ,'pembelian_header.total'
         ,'s.nama_supplier')
-        ->orderByDesc('pembelian_header.updated_at')
-        ->paginate(2);
+        ->orderByDesc('pembelian_header.tanggal')
+        ->paginate(10);
         return view('pembelian.index')->with([
             'title' => $title,
             'data' => $data,

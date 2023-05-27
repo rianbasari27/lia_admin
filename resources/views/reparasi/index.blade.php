@@ -107,7 +107,7 @@
                                     
                                     @foreach ($jenis_barang as $item)
                                         <div class="col-span-3">
-                                            <input type="checkbox" name="nama_barang_id[]" id="{{ $item->nama_barang }}" value="{{ $item->id }}" class="rounded border border-slate-400 text-red-700 focus:ring-red-700">
+                                            <input type="checkbox" name="nama_barang[]" id="{{ $item->nama_barang }}" value="{{ $item->id }}" class="rounded border border-slate-400 text-red-700 focus:ring-red-700">
                                             <label for="{{ $item->nama_barang }}" class="mr-3">{{ $item->nama_barang }}</label>
                                         </div>
                                     @endforeach

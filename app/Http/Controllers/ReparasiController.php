@@ -26,57 +26,98 @@ class ReparasiController extends Controller
         $title = "Reparasi";
         $jenis_barang = JenisBarang::all();
 
-        if( $request->has('kode_reparasi') || 
-            $request->has('nama_customer') || 
-            $request->has('status_pembayaran')
-            // $request->has('tanggal_mulai') || 
-            // $request->has('tanggal_sampai') ||
-            // $request->has('nama_barang_id') 
-            ) {
+        $query = ReparasiHeader::query();
+        $query->select(
+                'reparasi_header.kode_reparasi'
+                ,'reparasi_header.tanggal'
+                ,'reparasi_header.total'
+                ,'reparasi_header.status_pembayaran'
+                ,'c.nama_customer'
+                ,DB::raw("GROUP_CONCAT(jb.nama_barang) as nama_barang")
+                )
+        ->join('customer as c', 'reparasi_header.nama_customer_id', '=', 'c.id')
+        ->join('reparasi_detail as rd', 'reparasi_header.kode_reparasi', '=', 'rd.kode_reparasi')
+        ->join('jenis_barang as jb', 'rd.nama_barang_id','=','jb.id');
 
-                $data = ReparasiHeader::join('customer as b', 'reparasi_header.nama_customer_id', '=', 'b.id')
-                    ->join('reparasi_detail as c', 'reparasi_header.kode_reparasi', '=', 'c.kode_reparasi')
-                    ->join('jenis_barang as d', 'c.nama_barang_id','=','d.id')
-                    ->select(
-                    'reparasi_header.kode_reparasi'
-                    ,'reparasi_header.tanggal'
-                    ,'reparasi_header.total'
-                    ,'reparasi_header.status_pembayaran'
-                    ,'b.nama_customer'
-                    ,DB::raw("GROUP_CONCAT(d.nama_barang) as nama_barang")
-                    )
-                    ->where('reparasi_header.kode_reparasi', 'like', '%' . $request->kode_reparasi. '%')
-                    ->where('b.nama_customer', 'like', '%' . $request->nama_customer .'%')
-                    ->where('reparasi_header.status_pembayaran', 'like', $request->status_pembayaran. '%')
-                    ->groupBy('reparasi_header.kode_reparasi'
-                    ,'reparasi_header.tanggal'
-                    ,'reparasi_header.total'
-                    ,'reparasi_header.status_pembayaran'
-                    ,'b.nama_customer')
-                    ->orderByDesc('reparasi_header.tanggal')
-                    ->paginate(10);
+        if( $request->kode_reparasi ) {
+            $query->where('reparasi_header.kode_reparasi', 'like', '%' . $request->kode_reparasi. '%');
+        }
+        
+        if( $request->tanggal_mulai && $request->tanggal_sampai ) {
+            $query->whereBetween('reparasi_header.tanggal', [$request->tanggal_mulai, $request->tanggal_sampai]);
         }
 
-        else {
-            $data = ReparasiHeader::join('customer as b', 'reparasi_header.nama_customer_id', '=', 'b.id')
-            ->join('reparasi_detail as c', 'reparasi_header.kode_reparasi', '=', 'c.kode_reparasi')
-            ->join('jenis_barang as d', 'c.nama_barang_id','=','d.id')
-            ->select(
-            'reparasi_header.kode_reparasi'
-            ,'reparasi_header.tanggal'
-            ,'reparasi_header.total'
-            ,'reparasi_header.status_pembayaran'
-            ,'b.nama_customer'
-            ,DB::raw("GROUP_CONCAT(d.nama_barang) as nama_barang")
-            )
-            ->groupBy('reparasi_header.kode_reparasi'
-            ,'reparasi_header.tanggal'
-            ,'reparasi_header.total'
-            ,'reparasi_header.status_pembayaran'
-            ,'b.nama_customer')
-            ->orderByDesc('c.updated_at')
-            ->paginate(2);
+        if( $request->nama_customer ) {
+            $query->where('c.nama_customer', 'like', '%' . $request->nama_customer. '%');
         }
+
+        if( $request->status_pembayaran ) {
+            $query->where('reparasi_header.status_pembayaran', 'like', $request->status_pembayaran);
+        }
+
+        if( $request->nama_barang ) {
+            $query->whereIn('nama_barang_id', $request->nama_barang);
+        }
+
+        $data = $query->groupBy('reparasi_header.kode_reparasi'
+        ,'reparasi_header.tanggal'
+        ,'reparasi_header.total'
+        ,'reparasi_header.status_pembayaran'
+        ,'c.nama_customer')
+        ->orderByDesc('reparasi_header.tanggal', 'reparasi_header.created_at')
+        ->paginate(10);
+
+        // if( $request->has('kode_reparasi') || 
+        //     $request->has('nama_customer') || 
+        //     $request->has('status_pembayaran')
+        //     // $request->has('tanggal_mulai') || 
+        //     // $request->has('tanggal_sampai') ||
+        //     // $request->has('nama_barang_id') 
+        //     ) {
+
+        //         $data = ReparasiHeader::join('customer as b', 'reparasi_header.nama_customer_id', '=', 'b.id')
+        //             ->join('reparasi_detail as c', 'reparasi_header.kode_reparasi', '=', 'c.kode_reparasi')
+        //             ->join('jenis_barang as d', 'c.nama_barang_id','=','d.id')
+        //             ->select(
+        //             'reparasi_header.kode_reparasi'
+        //             ,'reparasi_header.tanggal'
+        //             ,'reparasi_header.total'
+        //             ,'reparasi_header.status_pembayaran'
+        //             ,'b.nama_customer'
+        //             ,DB::raw("GROUP_CONCAT(d.nama_barang) as nama_barang")
+        //             )
+        //             ->where('reparasi_header.kode_reparasi', 'like', '%' . $request->kode_reparasi. '%')
+        //             ->where('b.nama_customer', 'like', '%' . $request->nama_customer .'%')
+        //             ->where('reparasi_header.status_pembayaran', 'like', $request->status_pembayaran. '%')
+        //             ->groupBy('reparasi_header.kode_reparasi'
+        //             ,'reparasi_header.tanggal'
+        //             ,'reparasi_header.total'
+        //             ,'reparasi_header.status_pembayaran'
+        //             ,'b.nama_customer')
+        //             ->orderByDesc('reparasi_header.tanggal')
+        //             ->paginate(10);
+        // }
+
+        // else {
+        //     $data = ReparasiHeader::join('customer as b', 'reparasi_header.nama_customer_id', '=', 'b.id')
+        //     ->join('reparasi_detail as c', 'reparasi_header.kode_reparasi', '=', 'c.kode_reparasi')
+        //     ->join('jenis_barang as d', 'c.nama_barang_id','=','d.id')
+        //     ->select(
+        //     'reparasi_header.kode_reparasi'
+        //     ,'reparasi_header.tanggal'
+        //     ,'reparasi_header.total'
+        //     ,'reparasi_header.status_pembayaran'
+        //     ,'b.nama_customer'
+        //     ,DB::raw("GROUP_CONCAT(d.nama_barang) as nama_barang")
+        //     )
+        //     ->groupBy('reparasi_header.kode_reparasi'
+        //     ,'reparasi_header.tanggal'
+        //     ,'reparasi_header.total'
+        //     ,'reparasi_header.status_pembayaran'
+        //     ,'b.nama_customer')
+        //     ->orderByDesc('c.updated_at')
+        //     ->paginate(2);
+        // }
 
         return view('reparasi.index')->with([
             'title' => $title,

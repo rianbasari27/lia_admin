@@ -104,7 +104,6 @@
         </div>
     </div>
 
-    
 
     {{-- End Filter --}}
 
@@ -117,53 +116,58 @@
             <table class="w-full rounded-lg">
                 <thead class="text-left">
                     <tr class="bg-slate-300">
-                        <th class="p-5 rounded-tl-lg"></th>
+                        <th class="p-3 text-center">No.</th>
                         <th>Kode Transaksi</th>
                         <th>Tanggal</th>
                         <th>Transaksi Tujuan</th>
                         <th>Pembayaran Lain</th>
                         <th>Total</th>
-                        <th class="rounded-tr-lg"></th>
+                        <th class="p-5"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data as $item)
+                    @foreach ($data as $key => $item)
                     <tr class="border-b border-x border-slate-300 hover:bg-slate-100 text-slate-500">
-                        <td class="p-2">
-                            <div class="flex">
-                                <div class="mr-2">
-                                    <a href="{{ url('/transaksi_keluar/'.$item->kode_transaksi.'/edit') }}" class="block px-2 py-2 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-emerald-500 hover:border-emerald-500">
-                                        <span class=""><i class="fa-solid fa-pen-to-square"></i></span>
-                                    </a>
-                                </div>
-                                <form action="{{ '/transaksi_keluar/'.$item->kode_transaksi }}" method="post" onsubmit="return confirm('Ini akan menghapus detail transaksi keluar. Apakah Anda yakin ingin menghapus?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="px-2.5 py-2 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-red-500 hover:border-red-500">
-                                        <span class=""><i class="fa-solid fa-trash"></i></span>
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
+                        <td class="text-center font-semibold">{{ $key + $data->firstItem() }}</td>
                         <td>{{ $item->kode_transaksi }}</td>
                         <td>{{ $item->tanggal }}</td>
                         <td>
-                            @if ($item->nama_supplier_id == null)
-                                -
+                            @if ($item->kode_pembelian == null)
+                                {{'-'}}
                             @else
-                                {{ $item->supplier->nama_supplier }}
+                                {{ $item->nama_supplier }}
                             @endif    
                         </td>
                         <td>
                             @if ($item->pembayaran_lain == null)
-                                -
+                                {{'-'}}
                             @else
                                 {{ $item->pembayaran_lain }}
                             @endif
                         </td>
-                        <td>Rp {{ number_format($item->total, 0, ',', '.') }}</td>
-                        <td class="text-center">
-                            <a href="{{ url('/transaksi_keluar/'.$item->kode_transaksi) }}/" class="underline underline-offset-1 text-red-700">Lihat detail</a>
+                        <td>Rp {{ number_format($item->nominal, 0, ',', '.') }}</td>
+                        <td class="p-3">
+                            <div class="flex justify-end">
+                                <div class="mr-2">
+                                    <a href="{{ url('/transaksi_masuk/'.$item->kode_transaksi.'/edit') }}" class="block text-xs px-1.5 py-1.5 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-emerald-500 hover:border-emerald-500">
+                                        <span class=""><i class="fa-solid fa-pen-to-square"></i></span>
+                                    </a>
+                                </div>
+                                <div class="mr-2">
+                                    <a href="{{ url('/transaksi_masuk/'.$item->kode_transaksi) }}" class="block text-xs px-2.5 py-1.5 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-amber-500 hover:border-amber-500">
+                                        <span class=""><i class="fa-solid fa-info"></i></span>
+                                    </a>
+                                </div>
+                                <div class="mr-2">
+                                    <form action="{{ '/transaksi_masuk/'.$item->kode_transaksi }}" method="post" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="px-2 text-xs py-1.5 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-red-500 hover:border-red-500">
+                                            <span class=""><i class="fa-solid fa-trash"></i></span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                     @endforeach
@@ -174,6 +178,11 @@
                     @endif
                 </tbody>
             </table>
+            <div class="mt-5">
+                <nav role="navigation">
+                    {{ $data->links('pagination::default') }}
+                </nav>
+            </div>
         </div>
     </div>
 </div>

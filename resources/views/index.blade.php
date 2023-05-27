@@ -15,7 +15,6 @@
     <title>{{ $title }} - LIA Reparasi</title>
 </head>
 <body class="bg-slate-100 text-sm">
-    
     <header class="fixed top-0 left-0 right-0">
         {{-- @include('shared.header')
         @include('shared.navbar') --}}

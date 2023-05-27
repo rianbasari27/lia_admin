@@ -55,17 +55,14 @@
                     <form action="/pembelian" method="get">
                         <div class="grid grid-cols-12 gap-1 mb-3">
                             <div class="col-span-2 my-auto">
-                                <label for="kode_reparasi" class="text-slate-600">Kode Reparasi</label>
+                                <label for="kode_pembelian" class="text-slate-600">Kode Pembelian</label>
                             </div>
                             <div class="col-span-3 ">
-                                <input type="text" name="kode_reparasi" id="kode_reparasi" class="w-full p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400" value="{{ old('kode_reparasi') }}">
-                                {{-- @php
-                                    dd(old('kode_reparasi'));
-                                @endphp --}}
+                                <input type="text" name="kode_pembelian" id="kode_pembelian" class="w-full p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400" value="{{ old('kode_reparasi') }}">
                             </div>
                             <div></div>
-                            <div class="col-span-1 my-auto">
-                                <label for="tanggal" class="text-slate-600">Tanggal</label>
+                            <div class="col-span-2 my-auto">
+                                <label for="tanggal" class="text-slate-600">Tanggal Pembelian</label>
                             </div>
                             <div class="col-span-4 ">
                                 <input type="date" name="tanggal_mulai" id="tanggal" class="w-[150px] p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400">
@@ -76,45 +73,22 @@
 
                         <div class="grid grid-cols-12 gap-1 mb-3">
                             <div class="col-span-2 my-auto">
-                                <label for="nama_customer" class="text-slate-600">Nama Customer</label>
+                                <label for="nama_supplier" class="text-slate-600">Nama Supplier</label>
                             </div>
                             <div class="col-span-3">
-                                <input type="text" name="nama_customer" id="nama_customer" class="w-full p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400">
+                                <input type="text" name="nama_supplier" id="nama_supplier" class="w-full p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400">
                             </div>
                             <div></div>
-                            <div class="col-span-2">
-                                <p class="text-slate-600">Status Pembayaran</p>
+                            <div class="col-span-2 my-auto">
+                                <label for="nama_barang" class="text-slate-600">Nama Barang</label>
                             </div>
                             <div class="col-span-3 ">
                                 <div class="w-full">
-                                    <input type="radio" name="status_pembayaran" id="lunas" value="Lunas" class="rounded-full border border-slate-400 text-red-700 focus:ring-red-700">
-                                    <label for="lunas" class="mr-3">Lunas</label>
-        
-                                    <input type="radio" name="status_pembayaran" id="belum_lunas" value="Belum lunas" class="rounded-full border border-slate-400 text-red-700 focus:ring-red-700">
-                                    <label for="belum_lunas" class="mr-3">Belum Lunas</label>
+                                    <input type="text" name="nama_barang" id="nama_barang" class="w-full p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400">
                                 </div>
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-12 mb-3">
-
-                            <div class="col-span-2 my-auto">
-                                <p class="text-slate-600">Jenis Barang</p>
-                            </div>
-                            
-                            <div class="col-span-5">
-                                <div class="grid grid-cols-12 gap-1">
-                                    
-                                    {{-- @foreach ($jenis_barang as $item)
-                                        <div class="col-span-3">
-                                            <input type="checkbox" name="nama_barang_id[]" id="{{ $item->nama_barang }}" value="{{ $item->id }}" class="rounded border border-slate-400 text-red-700 focus:ring-red-700">
-                                            <label for="{{ $item->nama_barang }}" class="mr-3">{{ $item->nama_barang }}</label>
-                                        </div>
-                                    @endforeach --}}
-                                    
-                                </div>
-                            </div>
-                        </div>
                         <div>
                             <button type="submit" name="search" class="px-3 py-2 rounded-lg bg-red-700 text-white hover:bg-red-800 focus:ring focus:ring-red-200"><i class="fa-solid fa-magnifying-glass mr-2"></i>Cari data</button>
                         </div>

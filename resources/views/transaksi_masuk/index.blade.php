@@ -90,11 +90,11 @@
                             </div>
                             <div class="col-span-3 ">
                                 <div class="w-full">
-                                    <select name="tujuan_pembayaran" id="tujuan_pembayaran" class="w-5/6 p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400">
-                                        <option value="Uang muka">Uang muka</option>
-                                        <option value="Cicilan">Cicilan</option>
-                                        <option value="Pelunasan">Pelunasan</option>
-                                    </select>
+                                    <input type="radio" name="tujuan_pembayaran" id="uang_muka" value="Uang muka" class="rounded-full border border-slate-400 text-red-700 focus:ring-red-700">
+                                    <label for="uang_muka" class="mr-3">Uang muka</label>
+        
+                                    <input type="radio" name="tujuan_pembayaran" id="pelunasan" value="Pelunasan" class="rounded-full border border-slate-400 text-red-700 focus:ring-red-700">
+                                    <label for="pelunasan" class="mr-3">Pelunasan</label>
                                 </div>
                             </div>
                         </div>
@@ -108,8 +108,6 @@
         </div>
     </div>
 
-    
-
     {{-- End Filter --}}
 
 
@@ -121,43 +119,46 @@
             <table class="w-full rounded-lg">
                 <thead class="text-left">
                     <tr class="bg-slate-300">
-                        <th class="p-5 rounded-tl-lg"></th>
+                        <th class="p-3 text-center">No</th>
                         <th>Kode Transaksi</th>
                         <th>Nama Customer</th>
                         <th>Tanggal</th>
                         <th>tujuan Pembayaran</th>
                         <th>Nominal</th>
-                        <th class="rounded-tr-lg"></th>
+                        <th class="p-5"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data as $item)
+                    @foreach ($data as $key => $item)
                     <tr class="border-b border-x border-slate-300 hover:bg-slate-100 text-slate-500">
-                        <td class="p-2">
-                            <div class="flex">
+                        <td class="text-center font-semibold">{{ $key + $data->firstItem() }}</td>
+                        <td>{{ $item->kode_transaksi }}</td>
+                        <td>{{ $item->nama_customer }}</td>
+                        <td>{{ $item->tanggal }}</td>
+                        <td>{{ $item->tujuan_pembayaran }}</td>
+                        <td>Rp {{ number_format($item->nominal, 0, ',', '.') }}</td>
+                        <td class="p-3">
+                            <div class="flex justify-end">
                                 <div class="mr-2">
-                                    <a href="{{ url('/transaksi_masuk/'.$item->kode_transaksi.'/edit') }}" class="block px-2.5 py-2 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-emerald-500 hover:border-emerald-500">
+                                    <a href="{{ url('/transaksi_masuk/'.$item->kode_transaksi.'/edit') }}" class="block text-xs px-1.5 py-1.5 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-emerald-500 hover:border-emerald-500">
                                         <span class=""><i class="fa-solid fa-pen-to-square"></i></span>
+                                    </a>
+                                </div>
+                                <div class="mr-2">
+                                    <a href="{{ url('/transaksi_masuk/'.$item->kode_transaksi) }}" class="block text-xs px-2.5 py-1.5 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-amber-500 hover:border-amber-500">
+                                        <span class=""><i class="fa-solid fa-info"></i></span>
                                     </a>
                                 </div>
                                 <div class="mr-2">
                                     <form action="{{ '/transaksi_masuk/'.$item->kode_transaksi }}" method="post" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="px-2.5 py-2 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-red-500 hover:border-red-500">
+                                        <button type="submit" class="px-2 text-xs py-1.5 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-red-500 hover:border-red-500">
                                             <span class=""><i class="fa-solid fa-trash"></i></span>
                                         </button>
                                     </form>
                                 </div>
                             </div>
-                        </td>
-                        <td>{{ $item->kode_transaksi }}</td>
-                        <td>{{ $item->nama_customer }}</td>
-                        <td>{{ $item->tanggal }}</td>
-                        <td>{{ $item->tujuan_pembayaran }}</td>
-                        <td>Rp {{ number_format($item->nominal, 0, ',', '.') }}</td>
-                        <td class="text-center">
-                            <a href="{{ url('/transaksi_masuk/'.$item->kode_transaksi) }}/" class="underline underline-offset-1 text-red-700">Lihat detail</a>
                         </td>
                     </tr>
                     @endforeach
@@ -168,6 +169,11 @@
                     @endif
                 </tbody>
             </table>
+            <div class="mt-5">
+                <nav role="navigation">
+                    {{ $data->links('pagination::default') }}
+                </nav>
+            </div>
         </div>
     </div>
 </div>

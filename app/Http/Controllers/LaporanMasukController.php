@@ -13,7 +13,7 @@ class LaporanMasukController extends Controller
      */
     public function index(Request $request)
     {
-        $title = "Laporan Pemasukan";
+        $title = "Laporan Kas Masuk";
         $bulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember",];
         array_unshift($bulan,"");
         unset($bulan[0]);

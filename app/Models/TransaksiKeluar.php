@@ -20,7 +20,7 @@ class TransaksiKeluar extends Model
     ];
 
     public function pembelian_header() {
-        return $this->hasMany(PembelianHeader::class, 'kode_pembelian');
+        return $this->belongsTo(PembelianHeader::class, 'kode_pembelian');
     }
 
 }
