@@ -37,5 +37,7 @@ Route::resource('/reparasi', ReparasiController::class)->middleware('auth');
 Route::resource('/pembelian', PembelianController::class)->middleware('auth');
 Route::resource('/transaksi_keluar', TransaksiKeluarController::class)->middleware('auth');
 Route::resource('/transaksi_masuk', TransaksiMasukController::class)->middleware('auth');
-Route::resource('/laporan_pemasukan', LaporanMasukController::class)->middleware('auth');
+Route::get('/laporan_kas_masuk', [LaporanMasukController::class, 'index'])->middleware('auth');
+Route::get('/laporan_kas_masuk/cetak', [LaporanMasukController::class, 'cetak'])->middleware('auth');
+// Route::resource('/laporan_kas_keluar', LaporanKeluarController::class)->middleware('auth');
 

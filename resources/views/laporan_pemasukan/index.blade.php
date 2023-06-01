@@ -39,12 +39,14 @@
     {{-- Filter --}}
 
     <div class="mt-5">
-        <form action="/laporan_pemasukan" method="get">
+        <form action="/laporan_kas_masuk" method="get">
             <div class="grid grid-cols-12 gap-1">
                 <div class="col-span-2">
                     <select name='bulan' id='bulan' class="w-full p-1.5 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400">
-                        @foreach ($bulan as $key => $item)
-                            <option value="{{ $key }}" {{ (date('m') == $key) ? 'selected' : '' }}>{{ $item }}</option>
+                        @foreach ($data as $item)
+                            @foreach ($bulan as $key => $bln)
+                            <option value="{{ $key }}" {{ ($item->bulan == $key) ? 'selected' : '' }}>{{ $bln }}</option>
+                            @endforeach
                         @endforeach
                     </select>
                 </div>
@@ -69,7 +71,7 @@
 
     <div class="bg-white mt-7 rounded-lg shadow-md">
         <div class="bg-slate-300 px-5 py-3 rounded-t-md">
-            <span class="font-semibold text-slate-600">Laporan pemasukan</span>
+            <span class="font-semibold text-slate-600">Laporan Kas Masuk</span>
         </div>
         {{-- <div class="mx-5 mt-3">
             @foreach ($bulan as $key => $month)
@@ -77,6 +79,14 @@
             @endforeach  
         </div> --}}
         <div class="p-5">
+
+            <div class="mb-4">
+                <a href="{{ url('/laporan_kas_masuk/cetak') }}" name="cetak" id="cetak" target="blank" class="py-2 px-2 mr-2 bg-red-700 text-white rounded-md mb-3 hover:bg-red-800">
+                    <i class="fa-solid fa-print text-lg mr-1"></i>
+                    Cetak 
+                </a>
+            </div>
+
             <table class="w-full">
                 <thead class="text-left">
                     <tr class="text-center bg-slate-200">
@@ -84,7 +94,7 @@
                         <th class="border border-slate-300 p-2 w-70">Bulan</th>
                         <th class="border border-slate-300 p-2">Tanggal</th>
                         <th class="border border-slate-300 p-2 w-40">Jumlah Customer</th>
-                        <th class="border border-slate-300 p-2 w-40">Jumlah Barang</th>
+                        <th class="border border-slate-300 p-2 w-40">Jumlah Transaksi</th>
                         <th class="border border-slate-300 p-2">Uang Masuk</th>
                     </tr>
                 </thead>
@@ -92,8 +102,8 @@
                     @php
                         $no = 1;
                     @endphp
-                    @if ($query->count())
-                        @foreach ($query as $item)
+                    @if ($data->count())
+                        @foreach ($data as $item)
                             <tr>
                                 <td class="border border-slate-300 p-2 text-end"><?= $no; ?></td>
                                 <td class="border border-slate-300 p-2">
@@ -104,15 +114,9 @@
                                 <td class="border border-slate-300 p-2 text-end">{{ $item->tanggal }}</td>
                                 <td class="border border-slate-300 p-2 text-end">
                                     {{ $item->jumlah_customer }}
-                                    {{-- @foreach ($jumlah_customer as $customer)
-                                        {{ $customer->jumlah_customer }}
-                                    @endforeach --}}
                                 </td>
                                 <td class="border border-slate-300 p-2 text-end">
-                                    {{ $item->jumlah_barang }}
-                                    {{-- @foreach ($jumlah_barang as $barang)
-                                        {{ $barang->jumlah_barang }} --}}
-                                    {{-- @endforeach --}}
+                                    {{ $item->jumlah_transaksi }}
                                 </td>
                                 <td class="border border-slate-300 p-2 text-end">Rp {{ number_format($item->uang_masuk, 0, ',', '.') }}</td>
                             </tr>

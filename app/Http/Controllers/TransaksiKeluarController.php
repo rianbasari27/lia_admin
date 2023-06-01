@@ -25,8 +25,8 @@ class TransaksiKeluarController extends Controller
             'tujuan_transaksi',
             'nominal',)
         // )->join('supplier', 'transaksi_keluar.nama_supplier_id', '=', 'supplier.id')
-        ->join('pembelian_header', 'transaksi_keluar.kode_pembelian', '=', 'pembelian_header.kode_pembelian')
-        ->join('supplier', 'pembelian_header.nama_supplier_id', '=', 'supplier.id');
+        ->leftJoin('pembelian_header', 'transaksi_keluar.kode_pembelian', '=', 'pembelian_header.kode_pembelian')
+        ->leftJoin('supplier', 'pembelian_header.nama_supplier_id', '=', 'supplier.id');
 
         if ($request->kode_transaksi) {
             $query->where('kode_transaksi', 'like', '%' . $request->kode_transaksi . '%');
@@ -89,7 +89,7 @@ class TransaksiKeluarController extends Controller
         //     'tanggal.required' => 'Masukkan tanggal reparasi!',
         // ]);
 
-        // dd($request->all());
+        dd($request->all());
 
         $kode_pembelian = explode(' ', $request->input('kode_pembelian'));
 
