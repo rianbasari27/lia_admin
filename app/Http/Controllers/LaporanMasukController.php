@@ -15,6 +15,7 @@ class LaporanMasukController extends Controller
     public function index(Request $request)
     {
         $title = "Laporan Kas Masuk";
+        $subtitle = "Laporan";
         $bulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember",];
         array_unshift($bulan,"");
         unset($bulan[0]);
@@ -56,62 +57,10 @@ class LaporanMasukController extends Controller
         }
 
         $data = $query->groupBy('reparasi_header.tanggal')->get();
-        // if ($request->tahun) {
-        //     $query->where(DB::raw('YEAR(reparasi_header.tanggal)', $request->tahun));
-        // }
-        
-        // SELECT 
-        //     MONTH(rh.tanggal) AS bulan,
-        //     DAY(rh.tanggal) AS tanggal,
-        //     COUNT(DISTINCT rh.nama_customer_id) AS jumlah_customer,
-        //     COUNT(DISTINCT rd.nama_barang_id) AS jumlah_barang,
-        //     SUM(tm.nominal) AS uang_masuk
-        // FROM reparasi_header rh
-        // JOIN reparasi_detail rd ON rh.kode_reparasi = rd.kode_reparasi
-        // JOIN customer c ON rh.nama_customer_id = c.id
-        // JOIN jenis_barang jb ON rd.nama_barang_id = jb.id
-        // JOIN transaksi_masuk tm ON rh.kode_reparasi = tm.kode_reparasi
-        // GROUP BY bulan, tanggal
-        // ORDER BY tanggal;
-
-
-        // else {
-
-        //     $query = ReparasiHeader::select(
-        //         DB::raw('MONTH(reparasi_header.tanggal) as bulan'), 
-        //         'tanggal',
-        //         )
-        //         ->selectSub(function ($query) {
-        //             $query->from('reparasi_header as rh')
-        //                 ->selectRaw('COUNT(rh.nama_customer_id)')
-        //                 ->whereRaw('rh.tanggal = reparasi_header.tanggal');
-        //         }, 'jumlah_customer')
-        //         ->selectSub(function ($query) {
-        //             $query->from('transaksi_masuk as tm')
-        //                 ->selectRaw('COUNT(tm.kode_transaksi)')
-        //                 ->whereRaw('reparasi_header.tanggal = tm.tanggal');
-        //         }, 'jumlah_transaksi')
-        //         ->selectSub(function ($query) {
-        //             $query->from('transaksi_masuk as tm')
-        //                 ->selectRaw('SUM(tm.nominal)')
-        //                 ->whereRaw('tm.tanggal = reparasi_header.tanggal');
-        //         }, 'uang_masuk')
-        //         ->selectSub(function ($query) {
-        //             $query->from('transaksi_masuk as tm')
-        //                 ->selectRaw('SUM(tm.nominal)')
-        //                 ->whereRaw('MONTH(tm.tanggal) = MONTH(reparasi_header.tanggal)');
-        //         }, 'total')
-        //         ->where(DB::raw('MONTH(reparasi_header.tanggal)'), date('m'))
-        //         ->where(DB::raw('YEAR(reparasi_header.tanggal)'), date('Y'))
-        //         ->groupBy('reparasi_header.tanggal')
-        //         ->get();
-
-        // }
-
-        // dd($data);
         
         return view('laporan_pemasukan.index')->with([
             'title' => $title,
+            'subtitle' => $subtitle,
             'data' => $data,
             'bulan' => $bulan,
             'tahun' => $tahun,

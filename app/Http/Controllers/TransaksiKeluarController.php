@@ -89,7 +89,7 @@ class TransaksiKeluarController extends Controller
         //     'tanggal.required' => 'Masukkan tanggal reparasi!',
         // ]);
 
-        dd($request->all());
+        // dd($request->all());
 
         $kode_pembelian = explode(' ', $request->input('kode_pembelian'));
 

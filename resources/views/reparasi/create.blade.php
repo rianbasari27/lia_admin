@@ -99,7 +99,7 @@
 
                             <div class="mb-3">
                                 <button type="button" id='add' class='add-row bg-slate-200 font-semibold p-2 rounded-md hover:bg-red-700 hover:text-white text-slate-600 duration-150'><i class='fa-solid fa-plus mr-2'></i>Tambah</button>
-                                <a href="#"  class='ml-3 bg-slate-200 font-semibold p-2.5 rounded-md hover:bg-red-700 hover:text-white text-slate-600 duration-150'><i class='fa-solid fa-suitcase mr-2'></i>Tambah jenis barang</a>
+                                <a href="/reparasi/create/barang"  class='ml-3 bg-slate-200 font-semibold p-2.5 rounded-md hover:bg-red-700 hover:text-white text-slate-600 duration-150'><i class='fa-solid fa-suitcase mr-2'></i>Tambah jenis barang</a>
                             </div>
 
                             <div class="grid grid-cols-12 gap-2">

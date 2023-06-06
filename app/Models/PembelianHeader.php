@@ -25,4 +25,8 @@ class PembelianHeader extends Model
         return $this->belongsTo(Supplier::class, 'nama_supplier_id');
     }
 
+    public function transaksi_keluar() {
+        return $this->hasMany(TransaksiKeluar::class);
+    }
+
 }
