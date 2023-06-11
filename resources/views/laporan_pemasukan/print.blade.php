@@ -60,8 +60,8 @@
                     <tr>
                         <td class="px-2 border border-slate-700 text-center">{{ $loop->iteration }}</td>
                         <td class="px-2 border border-slate-700 ">
-                            @foreach ($bulan as $key => $month)
-                                {{ ($item->bulan == $key) ? $month : '' }}
+                            @foreach ($bulan as $key => $get_month)
+                                {{ ($item->bulan == $key) ? $get_month : '' }}
                             @endforeach  
                         </td>
                         <td class="px-2 border border-slate-700">{{ $item->tanggal }}</td>

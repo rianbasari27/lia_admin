@@ -149,17 +149,17 @@
                         <td class="p-3">
                             <div class="flex justify-end">
                                 <div class="mr-2">
-                                    <a href="{{ url('/transaksi_masuk/'.$item->kode_transaksi.'/edit') }}" class="block text-xs px-1.5 py-1.5 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-emerald-500 hover:border-emerald-500">
+                                    <a href="{{ url('/transaksi_keluar/'.$item->kode_transaksi.'/edit') }}" class="block text-xs px-1.5 py-1.5 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-emerald-500 hover:border-emerald-500">
                                         <span class=""><i class="fa-solid fa-pen-to-square"></i></span>
                                     </a>
                                 </div>
                                 <div class="mr-2">
-                                    <a href="{{ url('/transaksi_masuk/'.$item->kode_transaksi) }}" class="block text-xs px-2.5 py-1.5 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-amber-500 hover:border-amber-500">
+                                    <a href="{{ url('/transaksi_keluar/'.$item->kode_transaksi) }}" class="block text-xs px-2.5 py-1.5 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-amber-500 hover:border-amber-500">
                                         <span class=""><i class="fa-solid fa-info"></i></span>
                                     </a>
                                 </div>
                                 <div class="mr-2">
-                                    <form action="{{ '/transaksi_masuk/'.$item->kode_transaksi }}" method="post" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                    <form action="{{ '/transaksi_keluar/'.$item->kode_transaksi }}" method="post" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="px-2 text-xs py-1.5 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-red-500 hover:border-red-500">

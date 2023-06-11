@@ -25,7 +25,7 @@
             <li>
                 <div class="flex items-center">
                 <svg aria-hidden="true" class="w-6 h-6 text-slate-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                <a href="/customer" class="ml-1 text-sm font-medium text-slate-700 hover:text-red-700 md:ml-2 dark:text-slate-400 dark:hover:text-white">{{ $title }}</a>
+                <a href="/supplier" class="ml-1 text-sm font-medium text-slate-700 hover:text-red-700 md:ml-2 dark:text-slate-400 dark:hover:text-white">{{ $title }}</a>
                 </div>
             </li>
         </ol>
@@ -34,7 +34,7 @@
     <h1 class="text-3xl text-slate-600 font-semibold">{{ $title }}</h1>
 </div>
 
-<form action="/customer" method="get" class="mt-5">
+<form action="/supplier" method="get" class="mt-5">
     <div class="flex justify-between">
         <div class="flex">
             <div>
@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="my-auto">
-            <a href="/customer/create" class="px-3 py-2.5 bg-red-700 rounded-lg shadow-md text-white hover:bg-red-800 focus:ring focus:ring-red-200">
+            <a href="/supplier/create" class="px-3 py-2.5 bg-red-700 rounded-lg shadow-md text-white hover:bg-red-800 focus:ring focus:ring-red-200">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 inline">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
@@ -62,14 +62,14 @@
 
 <div class="bg-white mt-7 rounded-md border">
     <div class="bg-slate-200 px-5 py-3 rounded-t-md">
-        <span class="font-semibold text-slate-600">Data customer</span>
+        <span class="font-semibold text-slate-600">Data Supplier</span>
     </div>
     <div class="p-5">
         <table class="w-full rounded-lg">
             <thead class="text-left">
                 <tr class="bg-slate-200 text-slate-700 border">
                     <th class="p-3 text-center">No</th>
-                    <th>Nama Customer</th>
+                    <th>Nama Supplier</th>
                     <th>No. Telepon</th>
                     <th>Alamat</th>
                     <th class="p-5"></th>
@@ -82,13 +82,13 @@
                     @foreach ($data as $key => $item)
                     <tr class="border-b border-x border-slate-300 hover:bg-slate-100 text-slate-500">
                         <td class="text-center font-semibold">{{ $key + $data->firstItem() }}</td>
-                        <td>{{ $item->nama_customer }}</td>
+                        <td>{{ $item->nama_supplier }}</td>
                         <td>{{ $item->no_telepon }}</td>
                         <td>{{ $item->alamat }}</td>
                         <td class="p-3">
                             <div class="flex justify-end">
                                 <div class="mr-2">
-                                    <a href="{{ url('/customer/'.$item->id.'/edit') }}" class="block text-xs px-1.5 py-1.5 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-emerald-500 hover:border-emerald-500">
+                                    <a href="{{ url('/supplier/'.$item->id.'/edit') }}" class="block text-xs px-1.5 py-1.5 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-emerald-500 hover:border-emerald-500">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
                                             <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32l8.4-8.4z" />
                                             <path d="M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z" />
@@ -96,7 +96,7 @@
                                     </a>
                                 </div>
                                 <div class="mr-2">
-                                    <form action="{{ '/customer/'.$item->id }}" method="post" onsubmit="return confirm('Apakah Anda yakin ingin menghapus customer ini?')">
+                                    <form action="{{ '/supplier/'.$item->id }}" method="post" onsubmit="return confirm('Apakah Anda yakin ingin menghapus supplier ini?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="px-1.5 text-xs py-1.5 rounded-lg border border-slate-500 text-slate-500 hover:text-white hover:bg-red-500 hover:border-red-500">

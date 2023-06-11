@@ -21,7 +21,7 @@ class CustomerFactory extends Factory
         $faker = faker::create('id_ID');
         return [
             'nama_customer' => $faker->name(),
-            'no_telepon' => '+628' . $faker->numerify('##########'),
+            'no_telepon' => '+62 ' . $faker->numerify('###########'),
             'alamat' => $faker->address(),
             'created_at' => date('Y/m/d H:i:s'),
             'updated_at' => date('Y/m/d H:i:s')

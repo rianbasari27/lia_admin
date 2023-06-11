@@ -22,7 +22,7 @@ class SupplierFactory extends Factory
         return [
             'nama_supplier' => Arr::random(['Toko ', 'PT ']) . $faker->name(),
             'alamat' => $faker->address(),
-            'no_telepon' => $faker->phoneNumber(),
+            'no_telepon' => '+62 ' . $faker->numerify('###########'),
             'created_at' => date('Y/m/d H:i:s'),
             'updated_at' => date('Y/m/d H:i:s')
         ];

@@ -60,6 +60,18 @@ class TransaksiMasukController extends Controller
     {
         $title = "Transaksi Masuk";
         $transaksi = TransaksiMasuk::all();
+
+        $kode_tm = TransaksiMasuk::orderBy('kode_transaksi', 'desc')->first();
+        $kode_transaksi = "";
+        if ($kode_tm) {
+            $last_kode = $kode_tm->kode_transaksi;
+            $kode_transaksi = substr($last_kode, 2) + 1;
+            $kode_transaksi = 'TM' . str_pad($kode_transaksi, 6, '0', STR_PAD_LEFT);
+        } 
+        else {
+            $kode_transaksi = 'TM000001';
+        }
+
         $data = ReparasiHeader::select(
             'kode_reparasi',
             'nama_customer_id',
@@ -71,6 +83,7 @@ class TransaksiMasukController extends Controller
         return view('transaksi_masuk.create')->with([
             'title' => $title,
             'transaksi' => $transaksi,
+            'kode_transaksi' => $kode_transaksi,
             'data' => $data,
         ]);
     }
@@ -135,7 +148,6 @@ class TransaksiMasukController extends Controller
     {
         $title = "Transaksi Masuk";
         $data = TransaksiMasuk::where('kode_transaksi', $kode_transaksi)->first();
-        $tes = ReparasiHeader::all();
         $customer = ReparasiHeader::select(
             'kode_reparasi',
             'nama_customer_id',
@@ -146,7 +158,6 @@ class TransaksiMasukController extends Controller
         ->get();
         return view('transaksi_masuk.edit')->with([
             'data' => $data,
-            'tes' => $tes,
             'customer' => $customer,
             'title' => $title
         ]);

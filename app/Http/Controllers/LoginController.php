@@ -22,8 +22,16 @@ class LoginController extends Controller
             'password.required' => 'Masukkan password!',
         ]);
 
+        
         if (Auth::attempt($credentials)){
             $request->session()->regenerate();
+
+            $user = Auth::user();
+
+            if ($user->jabatan === 'Pimpinan') {
+                return redirect()->intended('/laporan_kas_masuk');
+            }
+
             return redirect()->intended('/dashboard');
         }
 

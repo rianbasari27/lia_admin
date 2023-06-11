@@ -21,7 +21,7 @@ class UserFactory extends Factory
         return [
             'nama' => fake()->name(),
             'jabatan' => Arr::random(['Pimpinan', 'Admin']),
-            'username' => 'admin',
+            'username' => Arr::random(['root', 'admin']),
             'password' => bcrypt('123'),
             'created_at' => date('Y/m/d H:i:s'),
             'updated_at' => date('Y/m/d H:i:s')

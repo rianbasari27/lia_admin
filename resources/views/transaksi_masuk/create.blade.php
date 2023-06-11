@@ -28,14 +28,7 @@
                                         <label for='kode_transaksi' class='text-slate-600'>Kode Transaksi</label>
                                     </div>
                                     <div>
-                                        @php
-                                            foreach ($transaksi as $item) {
-                                                $id = explode('-', $item->kode_transaksi);
-                                            }
-
-                                        @endphp
-                                        <input type='text' name='kode_transaksi' id='kode_transaksi' value="{{ $transaksi->isEmpty() ? 'TM-1' : 'TM-'.$id[1] + 1 }}" class="w-[300px] p-1 rounded-md border @error('kode_transaksi') border-red-400 @enderror focus:border-red-400 focus:ring-red-400">
-                                        {{-- <input type='text' name='kode_transaksi' id='kode_transaksi' value="{{ $transaksi->isEmpty() ? 'TM-1' : 'TM-'.$id[1] + 1 }}" class="w-[300px] p-1 rounded-md border @error('kode_transaksi') border-red-400 @enderror focus:border-red-400 focus:ring-red-400"> --}}
+                                        <input type='text' name='kode_transaksi' id='kode_transaksi' value="{{ $kode_transaksi }}" class="w-[300px] p-1 rounded-md border @error('kode_transaksi') border-red-400 @enderror focus:border-red-400 focus:ring-red-400">
                                         @error('kode_transaksi')
                                             <div class="text-red-700 text-start">
                                                 {{ $message }}

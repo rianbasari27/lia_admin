@@ -42,12 +42,7 @@
 
                             <div class="col-span-5">
                                 <label for='kode_pembelian' class='text-slate-600 mr-6'>Kode Pembelian</label>
-                                @php
-                                    foreach ($data as $item) {
-                                        $id = explode('-', $item->kode_pembelian);
-                                    }
-                                @endphp
-                                <input type='text' name='kode_pembelian' id='kode_pembelian' value="{{ $data->isEmpty() ? 'PB-1' : 'PB-'.$id[1] + 1 }}" class="@error('kode_pembelian') border-red-400 @enderror w-[250px] p-1 rounded-md border focus:border-red-400 focus:ring-red-400">
+                                <input type='text' name='kode_pembelian' id='kode_pembelian' value="{{ $kode_pembelian }}" class="@error('kode_pembelian') border-red-400 @enderror w-[250px] p-1 rounded-md border focus:border-red-400 focus:ring-red-400">
                                 @error('kode_pembelian')
                                     <div class="text-red-700 text-start">
                                         {{ $message }}
@@ -81,7 +76,7 @@
                                     @enderror
                                 </div>
                                 <div>    
-                                    <a href="{{ url('/pembelian/create/supplier') }}" id='add_supp' class='block bg-slate-200 border border-slate-400 font-semibold px-2.5 py-1.5 ml-2 rounded-md hover:bg-red-700 hover:text-white hover:border-red-700 text-slate-600 duration-150'><i class='fa-solid fa-plus'></i></a>
+                                    <a href="{{ url('/supplier') }}" id='add_supp' class='block bg-slate-200 border border-slate-400 font-semibold px-2.5 py-1.5 ml-2 rounded-md hover:bg-red-700 hover:text-white hover:border-red-700 text-slate-600 duration-150'><i class='fa-solid fa-plus'></i></a>
                                 </div>
                             </div>
                         </div>
@@ -166,12 +161,6 @@
                                     <span class='mr-2'>Rp</span><input type='number' name='total' id='total' class='w-52 p-1 rounded-md border border-slate-400 bg-slate-200 focus:ring-0 focus:border-slate-400' readonly>
                                 </div>
                             </div>
-                            @php
-                                foreach ($transaksi as $tr) {
-                                    $id = explode('-', $tr->kode_transaksi);
-                                }
-                            @endphp
-                            <input type='text' name='kode_transaksi' id='kode_transaksi' value="{{ $transaksi->isEmpty() ? 'TK-1' : 'TK-'.$id[1] + 1 }}" class="hidden">
 
                         </div>
                     </div>

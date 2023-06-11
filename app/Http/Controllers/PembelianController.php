@@ -50,7 +50,7 @@ class PembelianController extends Controller
         ,'pembelian_header.tanggal'
         ,'pembelian_header.total'
         ,'s.nama_supplier')
-        ->orderByDesc('pembelian_header.tanggal')
+        ->orderByDesc('pembelian_header.updated_at')
         ->paginate(10);
         return view('pembelian.index')->with([
             'title' => $title,
@@ -66,10 +66,23 @@ class PembelianController extends Controller
         $title = "Pembelian";
         $data = PembelianHeader::all();
         $transaksi = TransaksiKeluar::all();
+        
+        $kode_p = PembelianHeader::orderBy('kode_pembelian', 'desc')->first();
+        $kode_pembelian = "";
+        if ($kode_p) {
+            $last_kode = $kode_p->kode_pembelian;
+            $kode_pembelian = substr($last_kode, 2) + 1;
+            $kode_pembelian = 'PB' . str_pad($kode_pembelian, 6, '0', STR_PAD_LEFT);
+        } 
+        else {
+            $kode_pembelian = 'PB000001';
+        }
+
         $supplier = Supplier::all();
         return view('pembelian.create')->with([
             'title' => $title,
             'data' => $data,
+            'kode_pembelian' => $kode_pembelian,
             'transaksi' => $transaksi,
             'supplier' => $supplier,
         ]);
@@ -103,9 +116,8 @@ class PembelianController extends Controller
             'total' => $request->total,
         ];
 
-        
         PembelianHeader::create($header);
-        
+
         foreach ($request->nama_barang as $key => $item) {
             $detail = [
                 'kode_pembelian' => $request->kode_pembelian,
@@ -117,6 +129,28 @@ class PembelianController extends Controller
             
             // dd($detail);
             PembelianDetail::create($detail);
+            
+        $kode_tk = TransaksiKeluar::orderBy('kode_transaksi', 'desc')->first();
+        $kode_transaksi = "";
+        if ($kode_tk) {
+            $last_kode = $kode_tk->kode_transaksi;
+            $kode_transaksi = substr($last_kode, 2) + 1;
+            $kode_transaksi = 'TK' . str_pad($kode_transaksi, 6, '0', STR_PAD_LEFT);
+        } 
+        else {
+            $kode_transaksi = 'TK000001';
+        }
+        $biaya = [
+            'kode_transaksi' => $kode_transaksi,
+            'kode_pembelian' => null,
+            'tanggal' => $request->tanggal,
+            'tujuan_transaksi' => 'Pembayaran barang atau sparepart',
+            'nominal' => $request->total,
+            'keterangan' => null,
+        ];
+        
+        TransaksiKeluar::create($biaya);
+        
         }
         return redirect('pembelian')->with('success', 'Data berhasil ditambahkan.');
 
@@ -130,6 +164,7 @@ class PembelianController extends Controller
         $title = "Pembelian";
         $data = PembelianHeader::where('kode_pembelian', $kode_pembelian)->first();    
         $detail = PembelianDetail::where('kode_pembelian', $kode_pembelian)->get();    
+
         $supplier = Supplier::select(
             'nama_supplier',
             'no_telepon',

@@ -48,12 +48,7 @@
 
                             <div class="col-span-5">
                                 <label for='kode_reparasi' class='text-slate-600 mr-[28px]'>Kode Reparasi</label>
-                                @php
-                                    foreach ($data as $item) {
-                                        $id = explode('-', $item->kode_reparasi);
-                                    }
-                                @endphp
-                                <input type='text' name='kode_reparasi' id='kode_reparasi' value="{{ $data->isEmpty() ? 'LIA-1' : 'LIA-'.$id[1] + 1 }}" class="@error('kode_reparasi') border-red-400 @enderror w-[250px] p-1 rounded-md border focus:border-red-400 focus:ring-red-400">
+                                <input type='text' name='kode_reparasi' id='kode_reparasi' value="{{ $kode_reparasi }}" class="@error('kode_reparasi') border-red-400 @enderror w-[250px] p-1 rounded-md border focus:border-red-400 focus:ring-red-400">
                                 @error('kode_reparasi')
                                     <div class="text-red-700 text-start">
                                         {{ $message }}
@@ -82,7 +77,7 @@
                                     </select>
                                 </div>
                                 <div>    
-                                    <a href="{{ url('/reparasi/create/customer') }}" id='add_cust' class='block bg-slate-200 border border-slate-400 font-semibold px-2.5 py-1.5 ml-2 rounded-md hover:bg-red-700 hover:text-white hover:border-red-700 text-slate-600 duration-150'><i class='fa-solid fa-plus'></i></a>
+                                    <a href="{{ url('/customer') }}" id='add_cust' class='block bg-slate-200 border border-slate-400 font-semibold px-2.5 py-1.5 ml-2 rounded-md hover:bg-red-700 hover:text-white hover:border-red-700 text-slate-600 duration-150'><i class='fa-solid fa-plus'></i></a>
                                 </div>
                                     @error('nama_customer_id')
                                     <div class="text-red-700 text-start">
@@ -187,7 +182,7 @@
                                     $id = explode('-', $item->kode_transaksi);
                                 }
                             @endphp
-                            <input type='text' name='kode_transaksi' id='kode_transaksi' value="{{ $transaksi->isEmpty() ? 'TM-1' : 'TM-'.$id[1] + 1 }}" class="hidden">
+                            {{-- <input type='text' name='kode_transaksi' id='kode_transaksi' value="{{ $transaksi->isEmpty() ? 'TM-1' : 'TM-'.$id[1] + 1 }}" class="hidden"> --}}
 
                         </div>
                     </div>

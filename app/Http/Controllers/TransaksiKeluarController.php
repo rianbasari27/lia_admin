@@ -59,6 +59,18 @@ class TransaksiKeluarController extends Controller
     {
         $title = "Transaksi Keluar";
         $transaksi = TransaksiKeluar::all();
+
+        $kode_tk = TransaksiKeluar::orderBy('kode_transaksi', 'desc')->first();
+        $kode_transaksi = "";
+        if ($kode_tk) {
+            $last_kode = $kode_tk->kode_transaksi;
+            $kode_transaksi = substr($last_kode, 2) + 1;
+            $kode_transaksi = 'TK' . str_pad($kode_transaksi, 6, '0', STR_PAD_LEFT);
+        } 
+        else {
+            $kode_transaksi = 'TK000001';
+        }
+
         $data = PembelianHeader::select(
             'kode_pembelian',
             'nama_supplier_id',
@@ -70,6 +82,7 @@ class TransaksiKeluarController extends Controller
         return view('transaksi_keluar.create')->with([
             'title' => $title,
             'data' => $data,
+            'kode_transaksi' => $kode_transaksi,
             'transaksi' => $transaksi,
         ]);
     }
@@ -120,7 +133,7 @@ class TransaksiKeluarController extends Controller
     public function show(string $kode_transaksi)
     {
         $title = "Transaksi Keluar";
-        $data = TransaksiKeluar::join('pembelian_header', 'transaksi_masuk.kode_pembelian', '=', 'pembelian_header.kode_pembelian')
+        $data = TransaksiKeluar::join('pembelian_header', 'transaksi_keluar.kode_pembelian', '=', 'pembelian_header.kode_pembelian')
         ->join('supplier', 'pembelian_header.nama_supplier_id', '=', 'supplier.id')
         ->where('kode_transaksi', $kode_transaksi)
         ->first();
