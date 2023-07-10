@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('tujuan_transaksi');
             $table->string('nominal');
             $table->string('keterangan')->nullable();
+            $table->unsignedBigInteger('created_by');
             $table->timestamps();
 
             // $table->foreign('nama_supplier_id')->references('id')->on('supplier')->onDelete('cascade');

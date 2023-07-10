@@ -28,11 +28,11 @@ class LoginController extends Controller
 
             $user = Auth::user();
 
-            if ($user->jabatan === 'Pimpinan') {
-                return redirect()->intended('/laporan_kas_masuk');
-            }
+            // if ($user->jabatan === 'Pimpinan') {
+            //     return redirect()->intended('/laporan_kas_masuk');
+            // }
 
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/home');
         }
 
         return back()->with('loginError', 'Login gagal! Username atau Password salah!');

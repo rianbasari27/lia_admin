@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sparepart;
 use Illuminate\Http\Request;
 use App\Models\PembelianDetail;
 use App\Models\PembelianHeader;
@@ -64,14 +63,14 @@ class PembelianController extends Controller
     public function create()
     {
         $title = "Pembelian";
+        $subtitle = "Tambah data";
         $data = PembelianHeader::all();
         $transaksi = TransaksiKeluar::all();
         
         $kode_p = PembelianHeader::orderBy('kode_pembelian', 'desc')->first();
         $kode_pembelian = "";
         if ($kode_p) {
-            $last_kode = $kode_p->kode_pembelian;
-            $kode_pembelian = substr($last_kode, 2) + 1;
+            $kode_pembelian = substr($kode_p->kode_pembelian, 2) + 1;
             $kode_pembelian = 'PB' . str_pad($kode_pembelian, 6, '0', STR_PAD_LEFT);
         } 
         else {
@@ -81,6 +80,7 @@ class PembelianController extends Controller
         $supplier = Supplier::all();
         return view('pembelian.create')->with([
             'title' => $title,
+            'subtitle' => $subtitle,
             'data' => $data,
             'kode_pembelian' => $kode_pembelian,
             'transaksi' => $transaksi,
@@ -94,6 +94,7 @@ class PembelianController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'kode_pembelian' => 'required',
             'tanggal' => 'required',
             'nama_supplier_id' => ['not_in:-'],
             'nama_barang.*' => 'required',
@@ -101,6 +102,7 @@ class PembelianController extends Controller
             'satuan.*' => 'required',
             'biaya.*' => 'required',
         ],[
+            'kode_pembelian.required' => 'Masukkan kode pembelian!',
             'tanggal.required' => 'Isi tanggal pembelian!',
             'nama_supplier_id.not_in' => 'Pilih nama tempat pembelian atau supplier!',
             'nama_barang.*.required' => 'Masukkan nama barang!',
@@ -129,29 +131,38 @@ class PembelianController extends Controller
             
             // dd($detail);
             PembelianDetail::create($detail);
+        }
             
         $kode_tk = TransaksiKeluar::orderBy('kode_transaksi', 'desc')->first();
         $kode_transaksi = "";
         if ($kode_tk) {
-            $last_kode = $kode_tk->kode_transaksi;
-            $kode_transaksi = substr($last_kode, 2) + 1;
+            $kode_transaksi = substr($kode_tk->kode_transaksi, 2) + 1;
             $kode_transaksi = 'TK' . str_pad($kode_transaksi, 6, '0', STR_PAD_LEFT);
         } 
         else {
             $kode_transaksi = 'TK000001';
         }
+
+        $tujuan_transaksi = 'Pembayaran ';
+        foreach ($request->nama_barang as $key => $item) {
+            $tujuan_transaksi .= $request->nama_barang[$key] . ', ';
+        }
+        $tujuan_transaksi = rtrim($tujuan_transaksi, ', ');
+
         $biaya = [
             'kode_transaksi' => $kode_transaksi,
-            'kode_pembelian' => null,
+            'kode_pembelian' => $request->kode_pembelian,
             'tanggal' => $request->tanggal,
-            'tujuan_transaksi' => 'Pembayaran barang atau sparepart',
+            'tujuan_transaksi' => $tujuan_transaksi,
             'nominal' => $request->total,
             'keterangan' => null,
+            'created_by' => auth()->user()->id,
         ];
+
+        // dd($biaya);
         
         TransaksiKeluar::create($biaya);
         
-        }
         return redirect('pembelian')->with('success', 'Data berhasil ditambahkan.');
 
     }
@@ -162,6 +173,7 @@ class PembelianController extends Controller
     public function show(string $kode_pembelian)
     {
         $title = "Pembelian";
+        $subtitle = "Detail data";
         $data = PembelianHeader::where('kode_pembelian', $kode_pembelian)->first();    
         $detail = PembelianDetail::where('kode_pembelian', $kode_pembelian)->get();    
 
@@ -178,6 +190,7 @@ class PembelianController extends Controller
             'supplier' => $supplier,
             'detail' => $detail,
             'title' => $title,
+            'subtitle' => $subtitle,
         ]);
     }
 

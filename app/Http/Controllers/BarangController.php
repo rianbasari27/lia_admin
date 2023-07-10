@@ -7,6 +7,18 @@ use Illuminate\Http\Request;
 
 class BarangController extends Controller
 {
+    public $title;
+    public $data;
+
+    public function index() {
+        $this->title = "Jenis Barang";
+        $this->data = JenisBarang::latest();
+        return view('jenis_barang.index')->with([
+            'title' => $this->title,
+            'data' => $this->data,
+        ]);
+    }
+
     public function create() {
         $title = "Reparasi";
         $subtitle = "Tambah Jenis Barang";

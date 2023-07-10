@@ -18,7 +18,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'nama',
+        'jabatan',
         'username',
         'password',
     ];
@@ -41,4 +42,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    
+    public function transaksi_masuk() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function transaksi_keluar() {
+        return $this->belongsTo(User::class);
+    }
 }

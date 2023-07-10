@@ -17,10 +17,16 @@ class TransaksiKeluar extends Model
         'tujuan_transaksi',
         'nominal',
         'keterangan',
+        'created_by',
     ];
 
     public function pembelian_header() {
         return $this->belongsTo(PembelianHeader::class, 'kode_pembelian');
+    }
+
+    
+    public function users() {
+        return $this->hasMany(TransaksiKeluar::class, 'created_by');
     }
 
 }

@@ -16,8 +16,6 @@ class ReparasiHeader extends Model
         'total',
         'status_pembayaran',
     ];
-    protected $primaryKey = 'kode_reparasi';
-    protected $keyType = 'string';
     
     public function customer() {
         return $this->belongsTo(Customer::class, 'nama_customer_id');

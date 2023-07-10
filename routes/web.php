@@ -1,15 +1,13 @@
 <?php
 
-use App\Models\Supplier;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\BarangController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ReparasiController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\JenisBarangController;
 use App\Http\Controllers\PembelianController;
-use App\Http\Controllers\SparepartController;
 use App\Http\Controllers\LaporanMasukController;
 use App\Http\Controllers\LaporanKeluarController;
 use App\Http\Controllers\TransaksiMasukController;
@@ -34,15 +32,10 @@ Route::get('/', [LoginController::class, 'index'])->name('login')->middleware('g
 Route::post('/', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
-
-Route::get('/reparasi/create/barang', [BarangController::class, 'create'])->middleware('auth');
-Route::post('/reparasi/create/barang', [BarangController::class, 'store'])->middleware('auth');
-
-Route::get('/pembelian/create/supplier', [PembelianController::class, 'create'])->middleware('auth');
-Route::post('/pembelian/create/supplier', [PembelianController::class, 'store'])->middleware('auth');
+Route::get('/home', [DashboardController::class, 'index'])->middleware('auth');
 
 Route::resource('/reparasi', ReparasiController::class)->middleware('auth');
+Route::resource('/jenis_barang', JenisBarangController::class)->middleware('auth');
 Route::resource('/customer', CustomerController::class)->middleware('auth');
 Route::resource('/pembelian', PembelianController::class)->middleware('auth');
 Route::resource('/supplier', SupplierController::class)->middleware('auth');

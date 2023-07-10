@@ -10,6 +10,7 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function index(Request $request)
     {
         $title = "Customer";
@@ -56,10 +57,9 @@ class CustomerController extends Controller
             'no_telepon.numeric' => 'Nomor telepon harus berupa angka',
             'alamat.required' => 'Masukkan alamat customer!',
         ]);
-        $format_telp = "+62 ";
         $data = [
             'nama_customer' => $request->input('nama_customer'),
-            'no_telepon' => $format_telp . $request->input('no_telepon'),
+            'no_telepon' => "+62 " . $request->input('no_telepon'),
             'alamat' => $request->input('alamat')
         ];
         Customer::create($data);
@@ -97,10 +97,9 @@ class CustomerController extends Controller
             'alamat.required' => 'Masukkan alamat customer!',
         ]);
 
-        $format_telp = "+62 ";
         $data = [
             'nama_customer' => $request->nama_customer,
-            'no_telepon' => $format_telp . $request->no_telepon,
+            'no_telepon' => "+62 " . $request->no_telepon,
             'alamat' => $request->alamat,
         ];
 

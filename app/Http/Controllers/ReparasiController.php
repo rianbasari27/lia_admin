@@ -15,9 +15,6 @@ class ReparasiController extends Controller
     /**
      * Display a listing of the resource.
      */
-
-    public $data;
-    public $subtitle;
     
     public function index(Request $request)
     {
@@ -58,7 +55,7 @@ class ReparasiController extends Controller
             $query->whereIn('nama_barang_id', $request->nama_barang);
         }
 
-        $this->data = $query->groupBy('reparasi_header.kode_reparasi'
+        $data = $query->groupBy('reparasi_header.kode_reparasi'
         ,'reparasi_header.tanggal'
         ,'reparasi_header.total'
         ,'reparasi_header.status_pembayaran'
@@ -70,7 +67,7 @@ class ReparasiController extends Controller
             'title' => $title,
             'jenis_barang' => $jenis_barang,
             // 'barang' => $barang,
-            'data' => $this->data,
+            'data' => $data,
             // 'jenis_barang' => $jenis_barang,
         ]);
     }
@@ -87,8 +84,7 @@ class ReparasiController extends Controller
         $kode_r = ReparasiHeader::orderBy('kode_reparasi', 'desc')->first();
         $kode_reparasi = "";
         if ($kode_r) {
-            $last_kode = $kode_r->kode_reparasi;
-            $kode_reparasi = substr($last_kode, 3) + 1;
+            $kode_reparasi = substr($kode_r->kode_reparasi, 3) + 1;
             $kode_reparasi = 'LIA' . str_pad($kode_reparasi, 6, '0', STR_PAD_LEFT);
         } 
         else {
@@ -168,8 +164,7 @@ class ReparasiController extends Controller
         $kode_tm = TransaksiMasuk::orderBy('kode_transaksi', 'desc')->first();
         $kode_transaksi = "";
         if ($kode_tm) {
-            $last_kode = $kode_tm->kode_transaksi;
-            $kode_transaksi = substr($last_kode, 2) + 1;
+            $kode_transaksi = substr($kode_tm->kode_transaksi, 2) + 1;
             $kode_transaksi = 'TM' . str_pad($kode_transaksi, 6, '0', STR_PAD_LEFT);
         } 
         else {
@@ -181,6 +176,7 @@ class ReparasiController extends Controller
             'tanggal' => $request->input('tanggal'),
             'tujuan_pembayaran' => $tujuan,
             'nominal' => $request->input('uang_muka'),
+            'created_by' => auth()->user()->id,
         ];
 
         if ($request->input('uang_muka') !== null) {
@@ -196,6 +192,7 @@ class ReparasiController extends Controller
     public function show(string $kode_reparasi)
     {
         $title = "Reparasi";
+        $subtitle = "Detail data";
         $data = ReparasiHeader::where('kode_reparasi', $kode_reparasi)->first();
         $detail = ReparasiDetail::where('kode_reparasi', $kode_reparasi)->get();
         $uang_muka = TransaksiMasuk::select('kode_reparasi', 'nominal')
@@ -206,6 +203,7 @@ class ReparasiController extends Controller
             'uang_muka' => $uang_muka,
             'detail' => $detail,
             'title' => $title,
+            'subtitle' => $subtitle,
         ]);
     }
 
@@ -246,9 +244,9 @@ class ReparasiController extends Controller
             'biaya.*' => 'required',
         ],[
             'kode_reparasi.required' => 'Masukkan kode reparasi!',
-            'nama_customer_id.not_in' => 'Pilih customer atau tambah baru customer!',
+            'nama_customer_id.not_in' => 'Pilih customer!',
             'tanggal.required' => 'Masukkan tanggal reparasi!',
-            'nama_barang_id.*.not_in' => 'Pilih barang atau tambah baru barang!',
+            'nama_barang_id.*.not_in' => 'Pilih jenis barang!',
             'jumlah.*.required' => 'Masukkan jumlah barang!',
             'kerusakan.*.required' => 'Tuliskan kerusakan barang!',
             'biaya.*.required' => 'Masukkan biaya reparasi!',

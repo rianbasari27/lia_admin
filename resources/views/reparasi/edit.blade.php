@@ -4,38 +4,45 @@
     <div>
 
         <nav class="flex" aria-label="Breadcrumb">
-            <ol class="inline-flex items-center my-4 space-x-1 md:space-x-3">
+            <ol class="inline-flex items-center lg:my-4 my-2 space-x-1 md:space-x-3">
                 <li class="inline-flex items-center">
-                    <a href="/" class="inline-flex items-center text-sm font-medium text-slate-700 hover:text-red-700 dark:text-slate-400 dark:hover:text-white">
-                        <i class="fa-solid fa-house mr-2"></i>
+                    <a href="/" class="inline-flex items-center text-sm font-medium text-slate-700 hover:text-red-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
+                            <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
+                            <path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
+                        </svg>
+                        
                     Home
                     </a>
                 </li>
                 <li>
                     <div class="flex items-center">
                     <svg aria-hidden="true" class="w-6 h-6 text-slate-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                    <a href="/reparasi" class="ml-1 text-sm font-medium text-slate-700 hover:text-red-700 md:ml-2 dark:text-slate-400 dark:hover:text-white">{{ $title }}</a>
+                    <a href="/reparasi" class="ml-1 text-sm font-medium text-slate-700 hover:text-red-700 md:ml-2">{{ $title }}</a>
                     </div>
                 </li>
                 <li>
                     <div class="flex items-center">
                     <svg aria-hidden="true" class="w-6 h-6 text-slate-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                    <a href="{{ url('/reparasi/'.$data->kode_reparasi.'/edit') }}" class="ml-1 text-sm font-medium text-slate-700 hover:text-red-700 md:ml-2 dark:text-slate-400 dark:hover:text-white">{{ $subtitle }}</a>
+                    <a href="{{ url('/reparasi/'.$data->kode_reparasi.'/edit') }}" class="ml-1 text-sm font-medium text-slate-700 hover:text-red-700 md:ml-2">{{ $subtitle }}</a>
                     </div>
                 </li>
             </ol>
         </nav>
 
         <div class='flex justify-between'>
-            <h1 class='text-3xl text-slate-600 font-semibold'>{{ $title }}</h1>
-            <a href='/reparasi' class='px-3 py-2 bg-slate-500 rounded-lg shadow-md text-white hover:bg-slate-600 focus:ring focus:ring-slate-300'>
-                <i class='fa-solid fa-angle-left mr-2'></i>Kembali
+            <h1 class='lg:text-3xl text-2xl text-slate-600 font-semibold'>{{ $title }}</h1>
+            <a href='/reparasi' class='px-3 py-2 flex bg-slate-500 rounded-lg shadow-md text-white hover:bg-slate-600 focus:ring focus:ring-slate-300'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-1">
+                    <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clip-rule="evenodd" />
+                </svg>
+                Kembali
             </a>
         </div>
     </div>
 
-    <div class='bg-white rounded-lg shadow-md mt-5'>
-        <div class='bg-slate-300 px-5 py-3 rounded-t-md'>
+    <div class='bg-white rounded-lg shadow-md mt-5 text-sm'>
+        <div class='bg-slate-200 px-5 py-3 rounded-t-md'>
             <span class='font-semibold text-slate-600'>Edit data</span>
         </div>
 
@@ -44,89 +51,64 @@
                 <form action='{{ '/reparasi/'.$data->kode_reparasi }}' method='post'>
                     @csrf
                     @method('PUT')
-                    <div class='border border-slate-400 p-7 rounded-lg mb-5'>
-                        <div class="grid grid-cols-12 gap-4 mb-4">
-                            <div class="col-span-2 my-auto">
-                                <label for='kode_reparasi' class='text-slate-600'>Kode Reparasi</label>
-                            </div>
-                            <div class="col-span-3">
-                                <input type='text' value="{{ $data->kode_reparasi }}" name='kode_reparasi' id='kode_reparasi' class='w-full p-1 rounded-md border border-slate-400 bg-slate-200 focus:border-red-400 focus:ring-red-400' readonly>
-                            </div>
-                            <div></div>
-                            <div class="col-span-2 my-auto">
-                                <label for='tanggal' class='text-slate-600'>Tanggal Reparasi</label>
-                            </div>
-                            <div class="col-span-3">
-                                <input type='date' value="{{ $data->tanggal }}" name='tanggal' id='tanggal' class='w-full p-1 rounded-md border @error('tanggal') border-red-400 @enderror border-slate-400 focus:border-red-400 focus:ring-red-400'>
-                                @error('tanggal')
-                                    <div class="text-red-700 text-start">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-12 gap-4 mb-1">
-                            <div class="col-span-2 my-auto">
-                                <label for='nama_customer_id' class='text-slate-600'>Nama Customer</label>
-                            </div>
-                            <div class="col-span-3">
-                                <select name='nama_customer_id' id='nama_customer_id' class='w-full p-1 rounded-md border @error('nama_customer_id') border-red-400 @enderror border-slate-400 focus:border-red-400 focus:ring-red-400'>
-                                    <option selected>-</option>
-                                    @foreach ($customer as $item)
-                                        <option value='{{ $item->id }}' {{ $data->nama_customer_id == $item->id ? 'selected' : '' }}>{{ $item->nama_customer }}</option>
-                                    @endforeach
-                                </select>
-                                @error('nama_customer_id')
-                                    <div class="text-red-700 text-start">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
+                    <div class='border border-slate-400 lg:p-7 p-4 rounded-lg mb-5'>
+                        <div class="grid grid-cols-12 gap-1 mb-3">
 
-                        {{-- <div class='w-1/2'>
-                            <div class='flex'>
-                                <div class='flex mb-3'>
-                                    <div class='w-[140px] my-auto'>
-                                        <label for='kode_reparasi' class='text-slate-600'>Kode Reparasi</label>
-                                    </div>
-                                    <div>
-                                        <input type='text' value="{{ $data->kode_reparasi }}" name='kode_reparasi' id='kode_reparasi' class='w-[400px] p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400'>
-                                    </div>
-                                </div>
-                                <div class='flex mb-3 ml-10'>
-                                    <div class='w-[140px] my-auto'>
-                                        <label for='tanggal' class='text-slate-600'>Tanggal Reparasi</label>
-                                    </div>
-                                    <div>
-                                        <input type='date' value="{{ $data->tanggal }}" name='tanggal' id='tanggal' class='w-[400px] p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400'>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class='flex mb-3'>
-                                <div class='w-[140px] my-auto'>
-                                    <label for='nama_customer_id' class='text-slate-600'>Nama Customer</label>
-                                </div>
+                            <div class="lg:col-span-5 col-span-12 lg:mb-0 mb-2">
                                 <div>
-                                    <select name='nama_customer_id' id='nama_customer_id' class='w-[400px] p-1 rounded-md border border-slate-400 focus:border-red-400 focus:ring-red-400'>
+                                    <label for='kode_reparasi' class='text-slate-600 lg:mr-[28px]'>Kode Reparasi</label>
+                                    <input type='text' name='kode_reparasi' id='kode_reparasi' value="{{ $data->kode_reparasi }}" class="@error('kode_reparasi') border-red-400 @enderror lg:w-[250px] w-full p-1 rounded-md border focus:border-red-400 focus:ring-red-400">
+                                </div>
+                                @error('kode_reparasi')
+                                    <div class="text-red-700 text-start lg:ml-[125px]">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div class="lg:col-span-5 col-span-12 lg:mb-0 mb-2">
+                                <div>
+                                    <label for='tanggal' class='text-slate-600 lg:mr-7 my-auto'>Tanggal Reparasi</label>
+                                    <input type='date' name='tanggal' id='tanggal' value="{{ $data->tanggal }}" class="lg:w-[200px] w-full p-1 rounded-md border @error('tanggal') border-red-400 @enderror focus:border-red-400 focus:ring-red-400">
+                                </div>
+                                @error('tanggal')
+                                    <div class="text-red-700 text-start lg:ml-[140px]">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="lg:col-span-5 col-span-12">
+                                <div>
+                                    <label for='nama_customer_id' class='text-slate-600 lg:mr-[16px]'>Nama Customer</label>
+                                    <select name='nama_customer_id' id='nama_customer_id' class="lg:w-[250px] w-full p-1.5 rounded-md border @error('nama_customer_id') border-red-400 @enderror focus:border-red-400 focus:ring-red-400">
                                         <option selected>-</option>
                                         @foreach ($customer as $item)
-                                            <option value='{{ $item->id }}' {{ $data->nama_customer_id == $item->id ? 'selected' : '' }}>{{ $item->nama_customer }}</option>
+                                        <option value='{{ $item->id }}' {{ $data->nama_customer_id == $item->id ? 'selected' : '' }}>{{ $item->nama_customer }}</option>
                                         @endforeach
                                     </select>
                                 </div>
+                                @error('nama_customer_id')
+                                    <div class="text-red-700 text-start lg:ml-[125px]">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
-                        </div> --}}
+                        </div>
                     </div>
 
-                    <div class='flex border border-slate-400 p-7 rounded-lg mb-5'>
+                    <div class='flex border border-slate-400 lg:p-7 p-4 rounded-lg mb-5'>
                         <div class='w-full'>
 
-                            <div class="m-3">
-                                <button type="button" id='add' class='add-row bg-slate-200 font-semibold p-2 rounded-md hover:bg-red-700 hover:text-white text-slate-600 duration-150'><i class='fa-solid fa-plus mr-2'></i>Tambah</button>
+                            <div class="m-3 lg:text-sm text-xs">
+                                <button type="button" id='add' class='add-row flex bg-slate-200 font-semibold p-2 rounded-md hover:bg-red-700 hover:text-white text-slate-600 duration-150'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 my-auto mr-1">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    Tambah
+                                </button>
                             </div>
 
-                            <div class="grid grid-cols-12 gap-4 mb-1">
+                            <div class="lg:grid hidden grid-cols-12 gap-2">
                                 <div></div>
                                 <div class="col-span-2">Jenis Barang</div>
                                 <div class="col-span-2">Jumlah</div>
@@ -134,16 +116,21 @@
                                 <div class="col-span-3">Biaya</div>
                             </div>
 
-                            <div class="multiple-records">
+                            <div class="multiple-records rounded">
                                 @foreach ($detail as $item)
-                                    <div class="duplicate-row grid grid-cols-12 gap-4 mb-2">
-                                        <div class="text-end">
-                                            <button type='button' id='remove' class='remove-row px-3 py-2 rounded text-slate-600 bg-slate-200 hover:bg-red-700 hover:text-white duration-150'><i class='fa-solid fa-trash-can'></i></button>
+                                    <div class="grid grid-cols-12 gap-3 mb-3 duplicate-row lg:border-0 border border-slate-400 lg:bg-white bg-slate-50 lg:shadow-none shadow-lg lg:p-0 p-4 rounded-md">
+                                        <div>
+                                            <button type='button' id='remove' class='remove-row px-3 py-2 rounded text-slate-600 bg-slate-200 hover:bg-red-700 hover:text-white duration-150'>
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                                    <path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z" clip-rule="evenodd" />
+                                                </svg>
+                                            </button>
                                         </div>
 
                                         <input type="text" name="id" id="id" value="{{ $item->id }}" class="hidden">
 
-                                        <div class="col-span-2">
+                                        <div class="lg:col-span-2 col-span-12">
+                                            <div class="lg:hidden">Jenis Barang</div>
                                             <select name='nama_barang_id[]' id='nama_barang_id' class='w-full p-1.5 rounded-md border @error('nama_barang_id.*') border-red-400 @enderror focus:border-red-400 focus:ring-red-400'>
                                                 <option selected>-</option>
                                                 @foreach ($jenis_barang as $barang)
@@ -157,20 +144,26 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-span-2 flex">
-                                            <div class='mr-2 my-auto'>x</div>
-                                            <div>
-                                                <input type='number' value="{{ $item->jumlah }}" name='jumlah[]' id='jumlah' class='w-full p-1 rounded-md border @error('jumlah.*') border-red-400 @enderror border-slate-400 focus:border-red-400 focus:ring-red-400'>
-                                                @error('jumlah.*')
-                                                    <div class="text-red-700 text-start">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
+                                        <div class="lg:col-span-2 col-span-12">
+                                            <div class="lg:hidden">Jumlah</div>
+                                            <div class="flex">
+                                                <div class='mr-2 my-auto'>
+                                                    x
+                                                </div>
+                                                <div>
+                                                    <input type='number' name='jumlah[]' id='jumlah' value="{{ $item->jumlah }}" class="lg:w-full w-1/3 p-1 rounded-md border @error('jumlah.*') border-red-400 @enderror focus:border-red-400 focus:ring-red-400">
+                                                </div>
                                             </div>
+                                            @error('jumlah.*')
+                                            <div class="text-red-700 text-start">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
                                         </div>
 
-                                        <div class="col-span-4">
-                                            <input type='text' value="{{ $item->kerusakan }}" name='kerusakan[]' id='kerusakan' class='w-full p-1 rounded-md border @error('kerusakan.*') border-red-400 @enderror border-slate-400 focus:border-red-400 focus:ring-red-400'>
+                                        <div class="lg:col-span-4 col-span-12">
+                                            <div class="lg:hidden">Kerusakan</div>
+                                            <input type='text' value="{{ $item->kerusakan }}" name='kerusakan[]' id='kerusakan' class='w-full p-1 rounded-md border @error('kerusakan.*') border-red-400 @enderror focus:border-red-400 focus:ring-red-400'>
                                             @error('kerusakan.*')
                                                 <div class="text-red-700 text-start">
                                                     {{ $message }}
@@ -178,45 +171,63 @@
                                             @enderror
                                         </div>
 
-
-                                        <div class="flex col-span-3">
-                                            <div class='mr-2 my-auto'>Rp</div>
-                                            <div>
-                                                <input type='number' value="{{ $item->biaya }}" name='biaya[]' id='biaya' class='biaya w-full p-1 rounded-md border @error('biaya.*') border-red-400 @enderror border-slate-400 focus:border-red-400 focus:ring-red-400'>
-                                                @error('biaya.*')
-                                                    <div class="text-red-700 text-start">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
+                                        <div class="lg:col-span-3 col-span-12">
+                                            <div class="lg:hidden">Biaya</div>
+                                            <div class="flex">
+                                                <div class='py-1.5 px-1.5 border-y border-l rounded-y-md rounded-l-md bg-slate-200 border-slate-500'>Rp</div>
+                                                <input type='number' value="{{ $item->biaya }}" name='biaya[]' id='biaya' class='biaya w-full p-1 rounded-r-md rounded-y-md border @error('biaya.*') border-red-400 @enderror focus:border-red-400 focus:ring-red-400'>
                                             </div>
+                                            @error('biaya.*')
+                                                <div class="text-red-700 text-start">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
 
-
                                     </div>
-                                @endforeach
-
-                                
+                                @endforeach                                
                             </div>
 
-                            <div class="grid grid-cols-12 gap-4 mb-1 mt-4">
+                            <div class="lg:hidden border-t border-slate-500 mt-7"></div>
+
+                            <div class="grid grid-cols-12 lg:gap-4 gap-1 mt-5 mb-2">
                                 <div></div>
-                                <div class="col-span-3"></div>
-                                <div></div>
-                                <div class="col-span-4 text-end">Total Biaya</div>
-                                <div class="col-span-3 flex">
-                                    <div class='mr-2'>Rp</div>
-                                    <div>
-                                        <input type='number' value="{{ $data->total }}" name='total' id='total' class='w-full p-1 rounded-md border border-slate-400 bg-slate-200 focus:ring-0 focus:border-slate-400' readonly>
+                                <div class="col-span-2"></div>
+                                <div class="col-span-2"></div>
+                                <div class="lg:col-span-4 col-span-12 lg:text-end my-auto">Total biaya</div>
+                                <div class="lg:col-span-3 col-span-12">
+                                    <div class="flex">
+                                        <div class='py-1.5 px-1.5 border-y border-l rounded-y-md rounded-l-md bg-slate-200 border-slate-500'>Rp</div>
+                                        <input type='number' value="{{ $data->total }}" name='total' id='total' class='total w-full p-1 rounded-r-md rounded-y-md border border-slate-500 bg-slate-100 focus:ring-0 focus:border-slate-400' readonly>
                                     </div>
                                 </div>
                             </div>
+
+                            {{-- <div class="grid grid-cols-12 gap-4 mt-5 mb-2">
+                                <div class="lg:col-span-1 col-span-12">
+                                    <div class="lg:hidden">Total biaya</div>
+                                    <div class="flex lg:hidden">
+                                        <div class='py-1.5 px-1.5 border-y border-l rounded-y-md rounded-l-md bg-slate-200 border-slate-500'>Rp</div>
+                                        <input type='number' value="{{ $data->total }}" name='total' id='total' class='total w-full p-1 rounded-r-md rounded-y-md border border-slate-500 bg-slate-100 focus:ring-0 focus:border-slate-400' readonly>
+                                    </div>
+                                </div>
+                                <div class="lg:col-span-3 col-span-12"></div>
+                                <div class=""></div>
+                                <div class="col-span-4 text-end my-auto hidden lg:inline">Total biaya</div>
+                                <div class="col-span-3">
+                                    <div class="lg:flex hidden">
+                                        <div class='py-1.5 px-1.5 border-y border-l rounded-y-md rounded-l-md bg-slate-200 border-slate-500'>Rp</div>
+                                        <input type='number' value="{{ $data->total }}" name='total' id='total' class='total w-full p-1 rounded-r-md rounded-y-md border border-slate-500 bg-slate-100 focus:ring-0 focus:border-slate-400' readonly>
+                                    </div>
+                                </div>
+                            </div> --}}
 
                         </div>
                     </div>
 
                     <div>
                         <button type='submit' name='simpan' class='px-3 py-2 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 focus:ring focus:ring-emerald-200'></i>Simpan</button>
-                        <a href='{{ url('/reparasi/'.$item->kode_reparasi) }}' name='back' class='px-3 py-2 rounded-lg bg-slate-500 text-white hover:bg-slate-700 focus:ring focus:ring-slate-300'></i>Kembali</a>
+                        <a href='{{ url('/reparasi') }}' name='back' class='px-3 py-2 rounded-lg bg-slate-500 text-white hover:bg-slate-700 focus:ring focus:ring-slate-300'></i>Kembali</a>
                     </div>
                 </form>
             </div>
@@ -232,8 +243,6 @@
             .appendTo('.multiple-records')
             .find("input").val("").end()
             totalIt()
-
-            // $("option:selected").prop("selected", false)
         });
 
         $(document).on('click','#remove',function(){
@@ -249,8 +258,8 @@
         });
 
         // $(".biaya").on("change", function() {
-            //     totalIt()
-            // });
+        //         totalIt()
+        //     });
     });
         
     function totalIt() {
@@ -262,7 +271,6 @@
             total += val == "" || isNaN(val) ? 0 : parseInt(val);
         });
         $("#total").val(total);
-        // console.log(total);
         $(function() {
             $(".biaya").on("keyup",function() {
                 totalIt();

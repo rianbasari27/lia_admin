@@ -16,9 +16,12 @@ class LaporanKeluarController extends Controller
         $bulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember",];
         array_unshift($bulan,"");
         unset($bulan[0]);
-        $tahun = date("Y");
-        $get_month = $request->bulan;
-        $get_year = $request->tahun;
+
+        $get_month = $request->bulan ?? date('n');
+        $get_year = $request->tahun ?? date('Y');
+
+        $yearRange = range(date('Y'), 2000);
+        $tahun = array_combine($yearRange, $yearRange);
 
         // $total_keluar = PembelianHeader::query();
         // $total_keluar->selectRaw('SUM(tk.nominal) as total')
@@ -87,7 +90,7 @@ class LaporanKeluarController extends Controller
     }
 
     public function cetak(Request $request) {
-        $month_now = $request->bulan??date('m');
+        $month_now = $request->bulan??date('n');
         $year_now = $request->tahun??date('Y');
         $title = "Laporan Kas Keluar";
         $bulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember",];
@@ -126,6 +129,8 @@ class LaporanKeluarController extends Controller
             'title' => $title, 
             'data' => $data, 
             'bulan' => $bulan, 
+            'month_now' => $month_now, 
+            'year_now' => $year_now, 
         ]);
     }
 

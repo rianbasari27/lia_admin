@@ -25,7 +25,6 @@ class TransaksiMasukController extends Controller
             'transaksi_masuk.tanggal',
             'tujuan_pembayaran',
             'nominal',)
-        // )->join('customer', 'transaksi_masuk.nama_customer_id', '=', 'customer.id')
         ->join('reparasi_header', 'transaksi_masuk.kode_reparasi', '=', 'reparasi_header.kode_reparasi')
         ->join('customer', 'reparasi_header.nama_customer_id', '=', 'customer.id');
 
@@ -59,13 +58,13 @@ class TransaksiMasukController extends Controller
     public function create()
     {
         $title = "Transaksi Masuk";
+        $subtitle = "Tambah data";
         $transaksi = TransaksiMasuk::all();
 
         $kode_tm = TransaksiMasuk::orderBy('kode_transaksi', 'desc')->first();
         $kode_transaksi = "";
         if ($kode_tm) {
-            $last_kode = $kode_tm->kode_transaksi;
-            $kode_transaksi = substr($last_kode, 2) + 1;
+            $kode_transaksi = substr($kode_tm->kode_transaksi, 2) + 1;
             $kode_transaksi = 'TM' . str_pad($kode_transaksi, 6, '0', STR_PAD_LEFT);
         } 
         else {
@@ -82,6 +81,7 @@ class TransaksiMasukController extends Controller
         ->get();
         return view('transaksi_masuk.create')->with([
             'title' => $title,
+            'subtitle' => $subtitle,
             'transaksi' => $transaksi,
             'kode_transaksi' => $kode_transaksi,
             'data' => $data,
@@ -93,15 +93,19 @@ class TransaksiMasukController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'kode_reparasi' => 'required',
-        //     'nama_customer_id' => 'required',
-        //     'tanggal' => 'required',
-        // ],[
-        //     'kode_reparasi.required' => 'Masukkan kode reparasi!',
-        //     'nama_customer_id.required' => 'Pilih customer atau tambah baru customer!',
-        //     'tanggal.required' => 'Masukkan tanggal reparasi!',
-        // ]);
+        $request->validate([
+            'kode_transaksi' => 'required',
+            'kode_reparasi' => ['not_in:-'],
+            'tanggal' => 'required',
+            'tujuan_pembayaran' => ['not_in:-'],
+            'nominal' => 'required',
+        ],[
+            'kode_transaksi.required' => 'Masukkan kode transaksi!',
+            'kode_reparasi.not_in' => 'Pilih customer atau tambah baru customer!',
+            'tanggal.required' => 'Masukkan tanggal reparasi!',
+            'tujuan_pembayaran.not_in' => 'Pilih tujuan pembayaran!',
+            'nominal.required' => 'Masukkan nominal transaksi!',
+        ]);
 
         $kode_reparasi = explode(' ', $request->input('kode_reparasi'));
         $data = [
@@ -112,6 +116,7 @@ class TransaksiMasukController extends Controller
             'tujuan_pembayaran' => $request->input('tujuan_pembayaran'),
             'nominal' => $request->input('nominal'),
             'keterangan' => $request->input('keterangan'),
+            'created_by' => auth()->user()->id,
         ];
         TransaksiMasuk::create($data);
 
@@ -130,7 +135,9 @@ class TransaksiMasukController extends Controller
     public function show(string $kode_transaksi)
     {
         $title = "Transaksi Masuk";
-        $data = TransaksiMasuk::join('reparasi_header', 'transaksi_masuk.kode_reparasi', '=', 'reparasi_header.kode_reparasi')
+        $subtitle = "Detail data";
+        $data = TransaksiMasuk::join('users', 'created_by', '=', 'users.id')
+        ->join('reparasi_header', 'transaksi_masuk.kode_reparasi', '=', 'reparasi_header.kode_reparasi')
         ->join('customer', 'reparasi_header.nama_customer_id', '=', 'customer.id')
         ->where('kode_transaksi', $kode_transaksi)
         ->first();
@@ -138,6 +145,7 @@ class TransaksiMasukController extends Controller
         return view('transaksi_masuk.detail')->with([
             'data' => $data,
             'title' => $title,
+            'subtitle' => $subtitle,
         ]);
     }
 
@@ -147,6 +155,7 @@ class TransaksiMasukController extends Controller
     public function edit(string $kode_transaksi)
     {
         $title = "Transaksi Masuk";
+        $subtitle = "Edit data";
         $data = TransaksiMasuk::where('kode_transaksi', $kode_transaksi)->first();
         $customer = ReparasiHeader::select(
             'kode_reparasi',
@@ -159,7 +168,8 @@ class TransaksiMasukController extends Controller
         return view('transaksi_masuk.edit')->with([
             'data' => $data,
             'customer' => $customer,
-            'title' => $title
+            'title' => $title,
+            'subtitle' => $subtitle,
         ]);
     }
 
@@ -168,6 +178,20 @@ class TransaksiMasukController extends Controller
      */
     public function update(Request $request, string $kode_transaksi)
     {
+        $request->validate([
+            'kode_transaksi' => 'required',
+            'kode_reparasi' => ['not_in:-'],
+            'tanggal' => 'required',
+            'tujuan_pembayaran' => ['not_in:-'],
+            'nominal' => 'required',
+        ],[
+            'kode_transaksi.required' => 'Masukkan kode transaksi!',
+            'kode_reparasi.not_in' => 'Pilih customer!',
+            'tanggal.required' => 'Masukkan tanggal reparasi!',
+            'tujuan_pembayaran.not_in' => 'Pilih tujuan pembayaran!',
+            'nominal.required' => 'Masukkan nominal transaksi!',
+        ]);
+
         $kode_reparasi = explode(' ', $request->input('kode_reparasi'));
         $data = [
             'kode_reparasi' => $kode_reparasi[0],

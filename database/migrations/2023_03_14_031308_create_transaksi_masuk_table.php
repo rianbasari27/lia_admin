@@ -18,9 +18,11 @@ return new class extends Migration
             $table->string('tujuan_pembayaran');
             $table->integer('nominal');
             $table->string('keterangan')->nullable();
+            $table->unsignedBigInteger('created_by');
             $table->timestamps();
             
             $table->foreign('kode_reparasi')->references('kode_reparasi')->on('reparasi_header')->onDelete('cascade');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

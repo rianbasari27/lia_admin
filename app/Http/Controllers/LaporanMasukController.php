@@ -19,18 +19,21 @@ class LaporanMasukController extends Controller
         $bulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember",];
         array_unshift($bulan,"");
         unset($bulan[0]);
-        $tahun = date("Y");
-        $get_month = $request->bulan;
-        $get_year = $request->tahun;
+        
+        $get_month = $request->bulan ?? date('n');
+        $get_year = $request->tahun ?? date('Y');
+        $yearRange = range(date('Y'), 2000);
+        $tahun = array_combine($yearRange, $yearRange);
+        
 
         $total_masuk = ReparasiHeader::query();
         $total_masuk->selectRaw('SUM(tm.nominal) as total')
             ->join('transaksi_masuk as tm', 'reparasi_header.kode_reparasi', '=', 'tm.kode_reparasi');
         if ($request->bulan && $request->tahun) {
-            $total_masuk->whereMonth('reparasi_header.tanggal', $request->bulan)
-                ->whereYear('reparasi_header.tanggal', $request->tahun);
+            $total_masuk->whereMonth('reparasi_header.tanggal', $get_month)
+                ->whereYear('reparasi_header.tanggal', $get_year);
         } else {
-            $total_masuk->whereMonth('reparasi_header.tanggal', date('m'))
+            $total_masuk->whereMonth('reparasi_header.tanggal', date('n'))
                 ->whereYear('reparasi_header.tanggal', date('Y'));
         }
         $total = $total_masuk->groupBy(DB::raw('MONTH(reparasi_header.tanggal)'))->get();
@@ -41,7 +44,7 @@ class LaporanMasukController extends Controller
             'tanggal',
             )->selectSub(function ($query) {
                 $query->from('reparasi_header as rh')
-                    ->selectRaw('COUNT(rh.nama_customer_id)')
+                    ->selectRaw('COUNT(rh.kode_reparasi)')
                     ->whereRaw('rh.tanggal = reparasi_header.tanggal');
             }, 'jumlah_customer')
             ->selectSub(function ($query) {
@@ -87,8 +90,7 @@ class LaporanMasukController extends Controller
     }
 
     public function cetak(Request $request) {
-        // dd($request->all());
-        $month_now = $request->bulan??date('m');
+        $month_now = $request->bulan??date('n');
         $year_now = $request->tahun??date('Y');
         $title = "Laporan Kas Masuk";
         $bulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember",];
@@ -127,6 +129,8 @@ class LaporanMasukController extends Controller
             'title' => $title, 
             'data' => $data, 
             'bulan' => $bulan, 
+            'month_now' => $month_now, 
+            'year_now' => $year_now, 
         ]);
     }
 

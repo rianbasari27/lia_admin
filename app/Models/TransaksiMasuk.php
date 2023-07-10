@@ -17,9 +17,14 @@ class TransaksiMasuk extends Model
         'tujuan_pembayaran',
         'nominal',
         'keterangan',
+        'created_by',
     ];
 
     public function reparasi_header() {
         return $this->belongsTo(ReparasiHeader::class, 'kode_reparasi');
+    }
+    
+    public function users() {
+        return $this->hasMany(TransaksiMasuk::class, 'created_by');
     }
 }

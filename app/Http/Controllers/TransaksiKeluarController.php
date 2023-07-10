@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PembelianHeader;
+use App\Models\ReparasiHeader;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Models\TransaksiKeluar;
@@ -44,7 +45,7 @@ class TransaksiKeluarController extends Controller
             $query->where('pembayaran_lain', 'like', '%' . $request->pembayaran_lain . '%');
         }
 
-        $data = $query->orderBy('transaksi_keluar.tanggal', 'desc')
+        $data = $query->orderBy('transaksi_keluar.updated_at', 'desc')
         ->paginate(10);
         return view('transaksi_keluar.index')->with([
             'data' => $data,
@@ -58,13 +59,13 @@ class TransaksiKeluarController extends Controller
     public function create()
     {
         $title = "Transaksi Keluar";
+        $subtitle = "Tambah data";
         $transaksi = TransaksiKeluar::all();
 
         $kode_tk = TransaksiKeluar::orderBy('kode_transaksi', 'desc')->first();
         $kode_transaksi = "";
         if ($kode_tk) {
-            $last_kode = $kode_tk->kode_transaksi;
-            $kode_transaksi = substr($last_kode, 2) + 1;
+            $kode_transaksi = substr($kode_tk->kode_transaksi, 2) + 1;
             $kode_transaksi = 'TK' . str_pad($kode_transaksi, 6, '0', STR_PAD_LEFT);
         } 
         else {
@@ -81,6 +82,7 @@ class TransaksiKeluarController extends Controller
         ->get();
         return view('transaksi_keluar.create')->with([
             'title' => $title,
+            'subtitle' => $subtitle,
             'data' => $data,
             'kode_transaksi' => $kode_transaksi,
             'transaksi' => $transaksi,
@@ -92,17 +94,22 @@ class TransaksiKeluarController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'kode_transaksi' => 'required',
-        //     'nama_supplier_id' => 'required',
-        //     'tanggal' => 'required',
-        // ],[
-        //     'kode_transaksi.required' => 'Masukkan kode transaksi!',
-        //     'nama_supplier_id.required' => 'Masukkan transaksi tujuan!',
-        //     'tanggal.required' => 'Masukkan tanggal reparasi!',
-        // ]);
-
-        // dd($request->all());
+        $request->validate([
+            'kode_transaksi' => 'required',
+            'kode_pembelian' => ['required_if:check,false','not_in:-'],
+            'tanggal' => 'required',
+            'pembayaran_lain' => 'required_if:check,true',
+            'nominal' => 'required',
+            'tujuan_transaksi' => 'required',
+        ],[
+            'kode_transaksi.required' => 'Masukkan kode transaksi!',
+            'kode_pembelian.required_if' => 'Pilih supplier!',
+            'kode_pembelian.not_in' => 'Pilih supplier!',
+            'tanggal.required' => 'Masukkan tanggal reparasi!',
+            'pembayaran_lain.required_if' => 'Masukkan pembayaran!',
+            'nominal.required' => 'Masukkan nominal transaksi!',
+            'tujuan_transaksi.required' => 'Pilih tujuan transaksi!',
+        ]);
 
         $kode_pembelian = explode(' ', $request->input('kode_pembelian'));
 
@@ -119,6 +126,7 @@ class TransaksiKeluarController extends Controller
             'tujuan_transaksi' => $request->input('tujuan_transaksi'),
             'nominal' => $request->input('nominal'),
             'keterangan' => $request->input('keterangan'),
+            'created_by' => auth()->user()->id,
         ];
 
         TransaksiKeluar::create($data);
@@ -133,13 +141,33 @@ class TransaksiKeluarController extends Controller
     public function show(string $kode_transaksi)
     {
         $title = "Transaksi Keluar";
-        $data = TransaksiKeluar::join('pembelian_header', 'transaksi_keluar.kode_pembelian', '=', 'pembelian_header.kode_pembelian')
-        ->join('supplier', 'pembelian_header.nama_supplier_id', '=', 'supplier.id')
+        $subtitle = "Detail data";
+        $data = TransaksiKeluar::select(
+            'kode_transaksi',
+            'transaksi_keluar.tanggal',
+            'transaksi_keluar.kode_pembelian',
+            's.nama_supplier',
+            'pembayaran_lain',
+            'tujuan_transaksi',
+            'nominal',
+            'nama',
+        )->leftJoin('pembelian_header as ph', 'transaksi_keluar.kode_pembelian', '=', 'ph.kode_pembelian')
+        ->leftJoin('supplier as s', 'ph.nama_supplier_id', '=', 's.id')
+        ->leftJoin('users', 'created_by', '=', 'users.id')
         ->where('kode_transaksi', $kode_transaksi)
         ->first();
+
+        // dd($data);
+
+        // $data = TransaksiKeluar::leftJoin('pembelian_header', 'transaksi_keluar.kode_pembelian', '=', 'pembelian_header.kode_pembelian')
+        // ->leftJoin('supplier', 'pembelian_header.nama_supplier_id', '=', 'supplier.id')
+        // ->where('kode_transaksi', $kode_transaksi)
+        // ->first();
+        
         return view('transaksi_keluar.detail')->with([
             'data' => $data,
             'title' => $title,
+            'subtitle' => $subtitle,
         ]);
     }
 
@@ -149,6 +177,7 @@ class TransaksiKeluarController extends Controller
     public function edit(string $kode_transaksi)
     {
         $title = "Transaksi Keluar";
+        $subtitle = "Edit data";
         $data = TransaksiKeluar::where('kode_transaksi', $kode_transaksi)->first();
         $supplier = PembelianHeader::select(
             'kode_pembelian',
@@ -160,6 +189,7 @@ class TransaksiKeluarController extends Controller
         ->get();
         return view('transaksi_keluar.edit')->with([
             'title' => $title,
+            'subtitle' => $subtitle,
             'supplier' => $supplier,
             'data' => $data,
         ]);

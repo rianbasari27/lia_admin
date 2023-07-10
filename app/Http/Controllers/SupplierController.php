@@ -56,10 +56,9 @@ class SupplierController extends Controller
             'no_telepon.numeric' => 'Nomor telepon harus berupa angka',
             'alamat.required' => 'Masukkan alamat supplier!',
         ]);
-        $format_telp = "+62 ";
         $data = [
             'nama_supplier' => $request->input('nama_supplier'),
-            'no_telepon' => $format_telp . $request->input('no_telepon'),
+            'no_telepon' => "+62 " . $request->input('no_telepon'),
             'alamat' => $request->input('alamat')
         ];
         Supplier::create($data);
@@ -97,10 +96,9 @@ class SupplierController extends Controller
             'alamat.required' => 'Masukkan alamat supplier!',
         ]);
 
-        $format_telp = "+62 ";
         $data = [
             'nama_supplier' => $request->nama_supplier,
-            'no_telepon' => $format_telp . $request->no_telepon,
+            'no_telepon' => "+62 " . $request->no_telepon,
             'alamat' => $request->alamat,
         ];
 

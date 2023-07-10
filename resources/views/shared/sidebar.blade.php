@@ -2,23 +2,32 @@
     <div class="px-3 py-3 lg:px-5 lg:pl-3">
         <div class="flex items-center justify-between">
             <div class="flex items-center justify-start">
-            <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" class="inline-flex items-center p-2 text-sm text-slate-500 rounded-lg sm:hidden hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-200">
+
+            <button data-drawer-target="logo-sidebar" data-drawer-backdrop="false" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" class="inline-flex items-center p-2 text-sm text-slate-500 rounded-lg sm:hidden hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-200">
                 <span class="sr-only">Open sidebar</span>
                 <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
                 </svg>
             </button>
+            
             <a href="#" class="ml-2 md:mr-24">
-                <img src="/img/lia_logo_svg.svg" alt="Logo LIA Reparasi" class="w-40">
+                <img src="/img/lia_logo_svg.svg" alt="Logo LIA Reparasi" class="lg:w-40 w-28">
             </a>
             </div>
             <div class="flex my-auto">
                 <div>
-                    <i class="fa-solid fa-circle-user text-3xl text-slate-800"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="lg:w-8 lg:h-8 w-6 h-6 text-slate-800">
+                        <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clip-rule="evenodd" />
+                    </svg>
                 </div>
                 
                 <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-slate-800">
-                    <div class="my-auto ml-3 font-semibold text-slate-800 text-start">{{ auth()->user()->nama }} <i class="fas fa-sort-down mb-2 ml-2"></i></div>
+                    <div class="my-auto ml-3 font-semibold text-slate-800 text-start flex">
+                        {{ auth()->user()->nama }}
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mb-2 ml-2 pt-2">
+                            <path fill-rule="evenodd" d="M12.53 16.28a.75.75 0 01-1.06 0l-7.5-7.5a.75.75 0 011.06-1.06L12 14.69l6.97-6.97a.75.75 0 111.06 1.06l-7.5 7.5z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
                     <div class="text-start text-xs -mt-1 ml-3">{{ auth()->user()->jabatan }}</div>
                 </button>
                 <div id="dropdown" class="z-10 hidden bg-slate-50 divide-y divide-slate-100 rounded-lg shadow-md w-44 ">
@@ -26,14 +35,13 @@
                         <li>
                             <form action="/logout" method="post">
                                 @csrf
-                                <button type="submit" class="block px-4 py-2 w-full text-start hover:bg-slate-200"><i class="fas fa-sign-out mr-2"></i>
+                                <button type="submit" class="block lg:px-4 px-3 lg:py-2 py-1 w-full text-start hover:bg-slate-200"><i class="fas fa-sign-out mr-2"></i>
                                     Logout
                                 </button>
                             </form>
                         </li>
                     </ul>
                 </div>
-    
             </div>
         </div>
         </div>
@@ -43,7 +51,7 @@
         <div class="h-full px-3 pb-4 overflow-y-auto bg-white">
             <ul class="font-medium mx-2">
                 <li>
-                    <a href="/dashboard" class="flex {{ auth()->user()->jabatan == 'Pimpinan' ? 'hidden' : '' }} {{ $title == 'Dashboard' ? 'text-red-600 font-bold border-l-2 border-red-600' : 'text-slate-500 hover:text-red-600' }} items-center px-4 my-4">
+                    <a href="/home" class="flex {{ $title == 'Dashboard' ? 'text-red-600 font-bold border-l-2 border-red-600' : 'text-slate-500 hover:text-red-600' }} items-center px-4 my-4">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
                         </svg>
@@ -64,6 +72,14 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
                         </svg>
                         <span class="flex-1 ml-3 whitespace-nowrap">Customer</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/jenis_barang" class="flex {{ auth()->user()->jabatan == 'Pimpinan' ? 'hidden' : '' }} {{ $title == 'Jenis Barang' ? 'text-red-600 font-bold border-l-2 border-red-600' : 'text-slate-500 hover:text-red-600' }} items-center px-4 my-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z" />
+                        </svg>
+                        <span class="flex-1 ml-3 whitespace-nowrap">Jenis Barang</span>
                     </a>
                 </li>
                 <li>
